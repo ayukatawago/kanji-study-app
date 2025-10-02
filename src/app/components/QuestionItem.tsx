@@ -8,7 +8,7 @@ interface QuestionItemProps {
 
 export default function QuestionItem({ questionNumber, questionText, answer, onAnswerChange, formatQuestion }: QuestionItemProps) {
   return (
-    <div className="flex flex-col items-center gap-1 flex-1 h-full min-h-0 print:gap-1 print:flex-1 print:h-full">
+    <div className="flex flex-col items-center gap-1 h-full min-h-0 print:gap-1 print:flex-1 print:h-full">
       {/* Question number */}
       <div className="text-xs font-bold text-gray-800 bg-gray-100 rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 print:w-5 print:h-5 print:text-xs print:mb-1 print:flex-shrink-0">
         {questionNumber}

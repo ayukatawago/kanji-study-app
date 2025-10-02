@@ -68,7 +68,7 @@ export default function KanjiTest() {
       
       <div className="bg-white rounded-lg shadow-lg p-2 flex-1 flex flex-col min-h-0 print:shadow-none print:p-1 print:h-screen print:flex print:flex-col print:box-border">
         {/* Top row - questions 1-5 (right to left) */}
-        <div className="flex flex-row-reverse justify-between mb-2 flex-1 min-h-0 print:justify-between print:gap-2 print:mb-0 print:h-[48%]">
+        <div className="flex flex-row-reverse justify-center gap-4 mb-2 flex-1 min-h-0 print:justify-between print:gap-2 print:mb-0 print:h-[48%]">
           {questions.slice(0, 5).map((question, index) => (
             <QuestionItem
               key={index}
@@ -82,7 +82,7 @@ export default function KanjiTest() {
         </div>
 
         {/* Bottom row - questions 6-10 (right to left) */}
-        <div className="flex flex-row-reverse justify-between flex-1 min-h-0 print:justify-between print:gap-2 print:h-[48%]">
+        <div className="flex flex-row-reverse justify-center gap-4 flex-1 min-h-0 print:justify-between print:gap-2 print:h-[48%]">
           {questions.slice(5, 10).map((question, index) => (
             <QuestionItem
               key={index + 5}
