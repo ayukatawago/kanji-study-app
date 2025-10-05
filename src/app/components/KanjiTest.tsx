@@ -70,7 +70,7 @@ export default function KanjiTest() {
             id="test-select"
             value={selectedTestId}
             onChange={(e) => setSelectedTestId(Number(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-xs"
+            className="border-2 border-blue-400 rounded-md px-3 py-1 text-sm font-semibold bg-blue-50 text-blue-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 shadow-sm"
           >
             {testData?.tests.map((test) => (
               <option key={test.id} value={test.id}>
