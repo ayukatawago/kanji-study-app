@@ -46,8 +46,8 @@ export default function KanjiTest() {
   };
 
   const formatQuestion = (text: string) => {
-    // Replace <text> with bold formatting
-    return text.replace(/<([^>]+)>/g, "<strong>$1</strong>");
+    // Replace <text> with emphasized formatting
+    return text.replace(/<([^>]+)>/g, '<span style="font-weight: bold; color: #dc2626; text-decoration: underline;">$1</span>');
   };
 
   if (!testData) {
