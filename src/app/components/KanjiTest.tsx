@@ -62,7 +62,7 @@ export default function KanjiTest() {
   const questions = selectedTest?.question || [];
 
   return (
-    <div className="h-screen flex flex-col max-w-6xl mx-auto px-2 py-1 print:w-full print:max-w-none print:p-0 print:h-screen print:flex print:flex-col print:box-border">
+    <div className="h-screen flex flex-col max-w-6xl mx-auto px-2 py-1 print:w-full print:max-w-none print:p-0 print:box-border">
       <div className="flex justify-between items-center mb-2 print:hidden flex-shrink-0">
         <div className="flex items-center gap-2">
           <label htmlFor="test-select" className="text-sm font-medium text-gray-700">テスト:</label>
