@@ -12,7 +12,7 @@ interface HeaderProps {
 
 export default function Header({ testData, selectedTestId, onTestChange, onPrint }: HeaderProps) {
   return (
-    <div className="flex justify-between items-center mb-2 print:hidden flex-shrink-0">
+    <div className="flex justify-between items-center my-4 flex-shrink-0">
       <div className="flex items-center gap-2">
         <label htmlFor="test-select" className="text-sm font-medium text-gray-700">テスト:</label>
         <select

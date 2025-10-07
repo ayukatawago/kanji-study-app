@@ -63,15 +63,17 @@ export default function KanjiTest() {
   const questions = selectedTest?.question || [];
 
   return (
-    <div className="h-screen flex flex-col max-w-6xl mx-auto px-2 py-1 print:w-full print:max-w-none print:p-0 print:box-border">
-      <Header
-        testData={testData}
-        selectedTestId={selectedTestId}
-        onTestChange={setSelectedTestId}
-        onPrint={() => window.print()}
-      />
+    <div className="h-screen flex flex-col max-w-6xl mx-auto px-2 print:w-full print:max-w-full print:box-border">
+      <div className="flex-0 print:hidden">
+        <Header
+          testData={testData}
+          selectedTestId={selectedTestId}
+          onTestChange={setSelectedTestId}
+          onPrint={() => window.print()}
+        />
+      </div>
       
-      <div className="bg-white rounded-lg shadow-lg p-2 flex-1 flex flex-col min-h-0 print:shadow-none print:p-1 print:h-screen print:flex print:flex-col print:box-border">
+      <div className="flex-1 bg-white rounded-lg shadow-lg mb-4 py-4 flex flex-col gap-4 min-h-0 print:shadow-none print:p-1 print:h-screen print:box-border">
         <TestGrid
           questions={questions}
           answers={answers}
