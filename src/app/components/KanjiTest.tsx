@@ -17,7 +17,7 @@ export default function KanjiTest() {
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
 
   useEffect(() => {
-    fetch("/kanji.json")
+    fetch("/kanji_grade3.json")
       .then((res) => res.json())
       .then((data: TestData) => {
         setTestData(data);
