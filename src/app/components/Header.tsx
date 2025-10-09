@@ -1,10 +1,11 @@
-interface Test {
+interface Question {
   id: number;
-  question: string[];
+  question: string;
+  answer: string;
 }
 
 interface HeaderProps {
-  testData: { tests: Test[] } | null;
+  testData: { questions: Question[] } | null;
   selectedTestId: number;
   onTestChange: (testId: number) => void;
   onPrint: () => void;
@@ -21,9 +22,9 @@ export default function Header({ testData, selectedTestId, onTestChange, onPrint
           onChange={(e) => onTestChange(Number(e.target.value))}
           className="border-2 border-blue-400 rounded-md px-3 py-1 text-sm font-semibold bg-blue-50 text-blue-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 shadow-sm"
         >
-          {testData?.tests.map((test) => (
-            <option key={test.id} value={test.id}>
-              テスト {test.id}
+          {testData && Array.from({ length: Math.ceil(testData.questions.length / 10) }, (_, i) => (
+            <option key={i + 1} value={i + 1}>
+              テスト {i + 1}
             </option>
           ))}
         </select>

@@ -4,11 +4,14 @@ import { useState, useEffect } from "react";
 import TestGrid from "./TestGrid";
 import Header from "./Header";
 
+interface Question {
+  id: number;
+  question: string;
+  answer: string;
+}
+
 interface TestData {
-  tests: {
-    id: number;
-    question: string[];
-  }[];
+  questions: Question[];
 }
 
 export default function KanjiTest() {
@@ -28,14 +31,12 @@ export default function KanjiTest() {
   // Initialize answers when test data or selected test changes
   useEffect(() => {
     if (testData) {
-      const selectedTest = testData.tests.find(test => test.id === selectedTestId);
-      if (selectedTest) {
-        const initialAnswers: { [key: number]: string } = {};
-        selectedTest.question.forEach((_, index) => {
-          initialAnswers[index] = "";
-        });
-        setAnswers(initialAnswers);
+      const initialAnswers: { [key: number]: string } = {};
+      // Initialize 10 answers for each test (questions 0-9)
+      for (let i = 0; i < 10; i++) {
+        initialAnswers[i] = "";
       }
+      setAnswers(initialAnswers);
     }
   }, [testData, selectedTestId]);
 
@@ -59,8 +60,13 @@ export default function KanjiTest() {
     );
   }
 
-  const selectedTest = testData?.tests.find(test => test.id === selectedTestId);
-  const questions = selectedTest?.question || [];
+  // Calculate total number of tests (20 questions / 10 per test = 2 tests)
+  const totalTests = testData ? Math.ceil(testData.questions.length / 10) : 0;
+  
+  // Get questions for the selected test (10 questions per test)
+  const startIndex = (selectedTestId - 1) * 10;
+  const endIndex = startIndex + 10;
+  const questions = testData ? testData.questions.slice(startIndex, endIndex).map(q => q.question) : [];
 
   return (
     <div className="h-screen flex flex-col max-w-6xl mx-auto px-2 print:w-full print:max-w-full print:box-border">
