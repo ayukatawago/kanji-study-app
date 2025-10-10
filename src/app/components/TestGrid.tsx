@@ -5,9 +5,10 @@ interface TestGridProps {
   answers: { [key: number]: string };
   onAnswerChange: (questionIndex: number, value: string) => void;
   formatQuestion: (text: string) => string;
+  onQuestionClick: (questionIndex: number) => void;
 }
 
-export default function TestGrid({ questions, answers, onAnswerChange, formatQuestion }: TestGridProps) {
+export default function TestGrid({ questions, answers, onAnswerChange, formatQuestion, onQuestionClick }: TestGridProps) {
   return (
     <>
       {/* Top row - questions 1-5 (right to left) */}
@@ -20,6 +21,7 @@ export default function TestGrid({ questions, answers, onAnswerChange, formatQue
               answer={answers[index] || ""}
               onAnswerChange={(value) => onAnswerChange(index, value)}
               formatQuestion={formatQuestion}
+              onQuestionClick={() => onQuestionClick(index)}
             />
           </div>
         ))}
@@ -35,6 +37,7 @@ export default function TestGrid({ questions, answers, onAnswerChange, formatQue
               answer={answers[index + 5] || ""}
               onAnswerChange={(value) => onAnswerChange(index + 5, value)}
               formatQuestion={formatQuestion}
+              onQuestionClick={() => onQuestionClick(index + 5)}
             />
           </div>
         ))}

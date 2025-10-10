@@ -7,9 +7,10 @@ interface QuestionItemProps {
   answer: string;
   onAnswerChange: (value: string) => void;
   formatQuestion: (text: string) => string;
+  onQuestionClick?: () => void;
 }
 
-export default function QuestionItem({ questionNumber, questionText, answer, onAnswerChange, formatQuestion }: QuestionItemProps) {
+export default function QuestionItem({ questionNumber, questionText, answer, onAnswerChange, formatQuestion, onQuestionClick }: QuestionItemProps) {
   return (
     <div className="flex flex-col items-center gap-2 h-full min-h-0">
       {/* Question number */}
@@ -19,7 +20,7 @@ export default function QuestionItem({ questionNumber, questionText, answer, onA
       
       <div className="flex items-start gap-4 flex-1 h-full min-h-0">
         <AnswerBox answer={answer} onAnswerChange={onAnswerChange} />
-        <Question questionText={questionText} formatQuestion={formatQuestion} />
+        <Question questionText={questionText} formatQuestion={formatQuestion} onQuestionClick={onQuestionClick} />
       </div>
     </div>
   );

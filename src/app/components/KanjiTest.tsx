@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import TestGrid from "./TestGrid";
 import Header from "./Header";
+import AnswerPopup from "./AnswerPopup";
 
 interface Question {
   id: number;
@@ -18,6 +19,7 @@ export default function KanjiTest() {
   const [testData, setTestData] = useState<TestData | null>(null);
   const [selectedTestId, setSelectedTestId] = useState<number>(1);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+  const [showAnswer, setShowAnswer] = useState<{ questionIndex: number; answer: string } | null>(null);
 
   useEffect(() => {
     fetch("/kanji_grade3.json")
@@ -50,6 +52,18 @@ export default function KanjiTest() {
   const formatQuestion = (text: string) => {
     // Replace <text> with emphasized formatting
     return text.replace(/<([^>]+)>/g, '<span style="font-weight: bold; color: #dc2626; text-decoration: underline;">$1</span>');
+  };
+
+  const handleQuestionClick = (questionIndex: number) => {
+    // Get the answer for the clicked question
+    const startIndex = (selectedTestId - 1) * 10;
+    const questionData = testData?.questions[startIndex + questionIndex];
+    if (questionData) {
+      setShowAnswer({
+        questionIndex,
+        answer: questionData.answer
+      });
+    }
   };
 
   if (!testData) {
@@ -85,8 +99,18 @@ export default function KanjiTest() {
           answers={answers}
           onAnswerChange={handleAnswerChange}
           formatQuestion={formatQuestion}
+          onQuestionClick={handleQuestionClick}
         />
       </div>
+
+      {/* Answer Popup */}
+      {showAnswer && (
+        <AnswerPopup
+          questionIndex={showAnswer.questionIndex}
+          answer={showAnswer.answer}
+          onClose={() => setShowAnswer(null)}
+        />
+      )}
     </div>
   );
 }
