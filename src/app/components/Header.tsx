@@ -9,9 +9,10 @@ interface HeaderProps {
   selectedTestId: number;
   onTestChange: (testId: number) => void;
   onPrint: () => void;
+  onSettingsClick: () => void;
 }
 
-export default function Header({ testData, selectedTestId, onTestChange, onPrint }: HeaderProps) {
+export default function Header({ testData, selectedTestId, onTestChange, onPrint, onSettingsClick }: HeaderProps) {
   return (
     <div className="flex justify-between items-center my-4 flex-shrink-0">
       <div className="flex items-center gap-2">
@@ -32,12 +33,20 @@ export default function Header({ testData, selectedTestId, onTestChange, onPrint
       <h1 className="text-xl font-bold text-center text-gray-900">
         漢字テスト
       </h1>
-      <button
-        onClick={onPrint}
-        className="bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-3 rounded text-xs transition-colors"
-      >
-        印刷
-      </button>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={onSettingsClick}
+          className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded text-xs transition-colors"
+        >
+          設定
+        </button>
+        <button
+          onClick={onPrint}
+          className="bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-3 rounded text-xs transition-colors"
+        >
+          印刷
+        </button>
+      </div>
     </div>
   );
 }
