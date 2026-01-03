@@ -1,6 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import ReviewStats from "./ReviewStats";
+import { getRecommendedQuestions } from "@/lib/fsrsScheduler";
 
 interface Question {
   id: number;
@@ -19,6 +21,8 @@ interface QuestionSelectorProps {
   onGradeChange: (grade: number) => void;
 }
 
+type SelectionMode = 'manual' | 'fsrs';
+
 export default function QuestionSelector({
   questions,
   selectedQuestions,
@@ -29,6 +33,61 @@ export default function QuestionSelector({
   currentGrade,
   onGradeChange,
 }: QuestionSelectorProps) {
+  const [mode, setMode] = useState<SelectionMode>('manual');
+
+  // Load mode preference from localStorage
+  useEffect(() => {
+    const savedMode = localStorage.getItem('selectionMode') as SelectionMode;
+    if (savedMode === 'fsrs' || savedMode === 'manual') {
+      setMode(savedMode);
+    }
+  }, []);
+
+  // Handle mode change
+  const handleModeChange = (newMode: SelectionMode) => {
+    setMode(newMode);
+    localStorage.setItem('selectionMode', newMode);
+
+    if (newMode === 'fsrs') {
+      // Auto-select FSRS recommended questions
+      const allQuestionIds = questions.map(q => q.id);
+      const recommended = getRecommendedQuestions(allQuestionIds, currentGrade, {
+        maxReviews: 20,
+        maxNew: 10,
+        totalLimit: 30
+      });
+
+      // Clear current selection
+      onDeselectAll();
+
+      // Select recommended questions
+      recommended.forEach(qId => {
+        if (!selectedQuestions.has(qId)) {
+          onToggleQuestion(qId);
+        }
+      });
+    }
+  };
+
+  // Re-select FSRS questions when grade changes in FSRS mode
+  useEffect(() => {
+    if (mode === 'fsrs') {
+      const allQuestionIds = questions.map(q => q.id);
+      const recommended = getRecommendedQuestions(allQuestionIds, currentGrade, {
+        maxReviews: 20,
+        maxNew: 10,
+        totalLimit: 30
+      });
+
+      // Clear and re-select
+      onDeselectAll();
+      recommended.forEach(qId => {
+        if (!selectedQuestions.has(qId)) {
+          onToggleQuestion(qId);
+        }
+      });
+    }
+  }, [currentGrade, mode]);
   // Group questions by test (10 questions per test)
   const testsCount = Math.ceil(questions.length / 10);
   const tests = Array.from({ length: testsCount }, (_, i) => i + 1);
@@ -71,33 +130,76 @@ export default function QuestionSelector({
               テストする問題を選択してください（{selectedQuestions.size}問選択中）
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <label htmlFor="grade-select" className="text-sm font-medium text-gray-700">
-              学年:
-            </label>
-            <select
-              id="grade-select"
-              value={currentGrade}
-              onChange={(e) => onGradeChange(Number(e.target.value))}
-              className="border-2 border-blue-400 rounded-md px-3 py-2 text-sm font-semibold bg-blue-50 text-blue-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 shadow-sm"
-            >
-              <option value={3}>3年生</option>
-              <option value={6}>6年生</option>
-            </select>
+          <div className="flex items-center gap-4">
+            {/* Mode Toggle */}
+            <div className="flex items-center gap-2">
+              <label className="text-sm font-medium text-gray-700">
+                選択モード:
+              </label>
+              <div className="flex bg-gray-100 rounded-lg p-1">
+                <button
+                  onClick={() => handleModeChange('manual')}
+                  className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                    mode === 'manual'
+                      ? 'bg-white text-blue-600 shadow-sm'
+                      : 'text-gray-600 hover:text-gray-800'
+                  }`}
+                >
+                  手動選択
+                </button>
+                <button
+                  onClick={() => handleModeChange('fsrs')}
+                  className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                    mode === 'fsrs'
+                      ? 'bg-white text-purple-600 shadow-sm'
+                      : 'text-gray-600 hover:text-gray-800'
+                  }`}
+                >
+                  FSRS自動
+                </button>
+              </div>
+            </div>
+
+            {/* Grade Select */}
+            <div className="flex items-center gap-2">
+              <label htmlFor="grade-select" className="text-sm font-medium text-gray-700">
+                学年:
+              </label>
+              <select
+                id="grade-select"
+                value={currentGrade}
+                onChange={(e) => onGradeChange(Number(e.target.value))}
+                className="border-2 border-blue-400 rounded-md px-3 py-2 text-sm font-semibold bg-blue-50 text-blue-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 shadow-sm"
+              >
+                <option value={3}>3年生</option>
+                <option value={6}>6年生</option>
+              </select>
+            </div>
           </div>
         </div>
+
+        {/* Mode Description */}
+        {mode === 'fsrs' && (
+          <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+            <p className="text-sm text-purple-800">
+              <span className="font-semibold">FSRSモード:</span> 復習が必要な問題と新規問題を自動的に選択します。問題は学習状況に基づいて最適化されています。
+            </p>
+          </div>
+        )}
 
         {/* Control buttons */}
         <div className="flex gap-3 mb-6 flex-wrap justify-center">
           <button
             onClick={onSelectAll}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+            disabled={mode === 'fsrs'}
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
           >
             すべて選択
           </button>
           <button
             onClick={onDeselectAll}
-            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
+            disabled={mode === 'fsrs'}
+            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
           >
             すべて解除
           </button>
@@ -125,8 +227,11 @@ export default function QuestionSelector({
                   </h2>
                   <button
                     onClick={() => toggleTest(testNumber)}
+                    disabled={mode === 'fsrs'}
                     className={`px-3 py-1 rounded-md text-sm transition-colors ${
-                      isTestFullySelected(testNumber)
+                      mode === 'fsrs'
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : isTestFullySelected(testNumber)
                         ? "bg-red-500 text-white hover:bg-red-600"
                         : "bg-blue-500 text-white hover:bg-blue-600"
                     }`}
@@ -139,9 +244,14 @@ export default function QuestionSelector({
                   {testQuestions.map((q) => (
                     <button
                       key={q.id}
-                      onClick={() => onToggleQuestion(q.id)}
+                      onClick={() => mode === 'manual' && onToggleQuestion(q.id)}
+                      disabled={mode === 'fsrs'}
                       className={`p-3 rounded-md text-left transition-colors border-2 ${
-                        selectedQuestions.has(q.id)
+                        mode === 'fsrs'
+                          ? selectedQuestions.has(q.id)
+                            ? "bg-purple-50 border-purple-400 cursor-not-allowed"
+                            : "bg-gray-50 border-gray-200 cursor-not-allowed opacity-50"
+                          : selectedQuestions.has(q.id)
                           ? "bg-blue-50 border-blue-500 hover:bg-blue-100"
                           : "bg-gray-50 border-gray-200 hover:bg-gray-100"
                       }`}
