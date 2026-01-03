@@ -26,9 +26,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((data: TestData) => {
         setTestData(data);
-        // Select all questions by default
-        const allQuestionIds = new Set(data.questions.map(q => q.id));
-        setSelectedQuestions(allQuestionIds);
+        // Don't auto-select questions - let FSRS mode handle selection
       })
       .catch((error) => console.error("Error loading test data:", error));
   }, [currentGrade]);
@@ -54,6 +52,10 @@ export default function Home() {
 
   const handleDeselectAll = () => {
     setSelectedQuestions(new Set());
+  };
+
+  const handleSetQuestions = (questionIds: number[]) => {
+    setSelectedQuestions(new Set(questionIds));
   };
 
   const handleStartTest = () => {
@@ -85,6 +87,7 @@ export default function Home() {
           onToggleQuestion={handleToggleQuestion}
           onSelectAll={handleSelectAll}
           onDeselectAll={handleDeselectAll}
+          onSetQuestions={handleSetQuestions}
           onStartTest={handleStartTest}
           currentGrade={currentGrade}
           onGradeChange={handleGradeChange}

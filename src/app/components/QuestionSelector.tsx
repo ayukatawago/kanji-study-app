@@ -16,6 +16,7 @@ interface QuestionSelectorProps {
   onToggleQuestion: (questionId: number) => void;
   onSelectAll: () => void;
   onDeselectAll: () => void;
+  onSetQuestions: (questionIds: number[]) => void;
   onStartTest: () => void;
   currentGrade: number;
   onGradeChange: (grade: number) => void;
@@ -29,17 +30,21 @@ export default function QuestionSelector({
   onToggleQuestion,
   onSelectAll,
   onDeselectAll,
+  onSetQuestions,
   onStartTest,
   currentGrade,
   onGradeChange,
 }: QuestionSelectorProps) {
-  const [mode, setMode] = useState<SelectionMode>('manual');
+  const [mode, setMode] = useState<SelectionMode>('fsrs');
 
   // Load mode preference from localStorage
   useEffect(() => {
     const savedMode = localStorage.getItem('selectionMode') as SelectionMode;
     if (savedMode === 'fsrs' || savedMode === 'manual') {
       setMode(savedMode);
+    } else {
+      // If no saved mode, set default to FSRS
+      localStorage.setItem('selectionMode', 'fsrs');
     }
   }, []);
 
@@ -57,21 +62,14 @@ export default function QuestionSelector({
         totalLimit: 30
       });
 
-      // Clear current selection
-      onDeselectAll();
-
-      // Select recommended questions
-      recommended.forEach(qId => {
-        if (!selectedQuestions.has(qId)) {
-          onToggleQuestion(qId);
-        }
-      });
+      // Directly set the recommended questions
+      onSetQuestions(recommended);
     }
   };
 
-  // Re-select FSRS questions when grade changes in FSRS mode
+  // Re-select FSRS questions when grade changes in FSRS mode or when questions load
   useEffect(() => {
-    if (mode === 'fsrs') {
+    if (mode === 'fsrs' && questions.length > 0) {
       const allQuestionIds = questions.map(q => q.id);
       const recommended = getRecommendedQuestions(allQuestionIds, currentGrade, {
         maxReviews: 20,
@@ -79,15 +77,19 @@ export default function QuestionSelector({
         totalLimit: 30
       });
 
-      // Clear and re-select
-      onDeselectAll();
-      recommended.forEach(qId => {
-        if (!selectedQuestions.has(qId)) {
-          onToggleQuestion(qId);
-        }
-      });
+      // Only update selection if it's different from current
+      const currentSelection = Array.from(selectedQuestions).sort((a, b) => a - b);
+      const newSelection = [...recommended].sort((a, b) => a - b);
+
+      const isDifferent = currentSelection.length !== newSelection.length ||
+        currentSelection.some((id, idx) => id !== newSelection[idx]);
+
+      if (isDifferent) {
+        // Directly set the recommended questions
+        onSetQuestions(recommended);
+      }
     }
-  }, [currentGrade, mode]);
+  }, [currentGrade, mode, questions]);
   // Group questions by test (10 questions per test)
   const testsCount = Math.ceil(questions.length / 10);
   const tests = Array.from({ length: testsCount }, (_, i) => i + 1);

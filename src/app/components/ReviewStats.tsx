@@ -29,13 +29,18 @@ export default function ReviewStats({ currentGrade }: ReviewStatsProps) {
     return () => clearInterval(interval);
   }, [currentGrade]);
 
+  // Show loading state while stats are being fetched
   if (!stats || !studyStats) {
-    return null;
-  }
-
-  // Don't show if no data yet
-  if (stats.totalReviews === 0 && studyStats.total === 0) {
-    return null;
+    return (
+      <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          学習状況
+        </h2>
+        <div className="text-gray-500 text-center py-8">
+          読み込み中...
+        </div>
+      </div>
+    );
   }
 
   return (
