@@ -24,6 +24,7 @@ pnpm add -D <package>     # Add dev dependency
 pnpm run dev              # Start development server
 pnpm run build            # Build for production
 pnpm run start            # Start production server
+pnpm run clean            # Remove build artifacts and caches
 ```
 
 ### Code Quality
