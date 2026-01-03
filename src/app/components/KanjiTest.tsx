@@ -1,9 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Rating } from "ts-fsrs";
 import TestGrid from "./TestGrid";
 import Header from "./Header";
 import AnswerPopup from "./AnswerPopup";
+import { recordReview, mapCorrectnessToRating } from "@/lib/fsrsScheduler";
+import { initializeStorage } from "@/lib/fsrsStorage";
 
 interface Question {
   id: number;
@@ -26,6 +29,12 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
   const [selectedTestId, setSelectedTestId] = useState<number>(1);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [showAnswer, setShowAnswer] = useState<{ questionIndex: number; answer: string } | null>(null);
+  const [correctness, setCorrectness] = useState<{ [key: number]: boolean | null }>({});
+
+  // Initialize FSRS storage on mount
+  useEffect(() => {
+    initializeStorage();
+  }, []);
 
   useEffect(() => {
     const dataSource = `kanji_grade${currentGrade}.json`;
@@ -44,15 +53,18 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
       .catch((error) => console.error("Error loading test data:", error));
   }, [currentGrade, selectedQuestionIds]);
 
-  // Initialize answers when test data or selected test changes
+  // Initialize answers and correctness when test data or selected test changes
   useEffect(() => {
     if (testData) {
       const initialAnswers: { [key: number]: string } = {};
+      const initialCorrectness: { [key: number]: boolean | null } = {};
       // Initialize 10 answers for each test (questions 0-9)
       for (let i = 0; i < 10; i++) {
         initialAnswers[i] = "";
+        initialCorrectness[i] = null;
       }
       setAnswers(initialAnswers);
+      setCorrectness(initialCorrectness);
     }
   }, [testData, selectedTestId]);
 
@@ -78,6 +90,52 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
         answer: questionData.answer
       });
     }
+  };
+
+  const handleMarkCorrect = (questionIndex: number) => {
+    const startIndex = (selectedTestId - 1) * 10;
+    const questionData = testData?.questions[startIndex + questionIndex];
+
+    if (!questionData) return;
+
+    // Update local state
+    setCorrectness((prev) => ({
+      ...prev,
+      [questionIndex]: true,
+    }));
+
+    // Record review in FSRS
+    const rating = Rating.Good; // Correct answer = Good rating
+    recordReview(
+      questionData.id,
+      currentGrade,
+      rating,
+      true, // isCorrect
+      answers[questionIndex] // user's answer
+    );
+  };
+
+  const handleMarkIncorrect = (questionIndex: number) => {
+    const startIndex = (selectedTestId - 1) * 10;
+    const questionData = testData?.questions[startIndex + questionIndex];
+
+    if (!questionData) return;
+
+    // Update local state
+    setCorrectness((prev) => ({
+      ...prev,
+      [questionIndex]: false,
+    }));
+
+    // Record review in FSRS
+    const rating = Rating.Again; // Incorrect answer = Again rating
+    recordReview(
+      questionData.id,
+      currentGrade,
+      rating,
+      false, // isCorrect
+      answers[questionIndex] // user's answer
+    );
   };
 
 
@@ -116,6 +174,9 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
           onAnswerChange={handleAnswerChange}
           formatQuestion={formatQuestion}
           onQuestionClick={handleQuestionClick}
+          correctness={correctness}
+          onMarkCorrect={handleMarkCorrect}
+          onMarkIncorrect={handleMarkIncorrect}
         />
       </div>
 

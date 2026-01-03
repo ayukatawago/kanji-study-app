@@ -6,9 +6,21 @@ interface TestGridProps {
   onAnswerChange: (questionIndex: number, value: string) => void;
   formatQuestion: (text: string) => string;
   onQuestionClick: (questionIndex: number) => void;
+  correctness?: { [key: number]: boolean | null };
+  onMarkCorrect?: (questionIndex: number) => void;
+  onMarkIncorrect?: (questionIndex: number) => void;
 }
 
-export default function TestGrid({ questions, answers, onAnswerChange, formatQuestion, onQuestionClick }: TestGridProps) {
+export default function TestGrid({
+  questions,
+  answers,
+  onAnswerChange,
+  formatQuestion,
+  onQuestionClick,
+  correctness,
+  onMarkCorrect,
+  onMarkIncorrect
+}: TestGridProps) {
   return (
     <>
       {/* Top row - questions 1-5 (right to left) */}
@@ -22,6 +34,9 @@ export default function TestGrid({ questions, answers, onAnswerChange, formatQue
               onAnswerChange={(value) => onAnswerChange(index, value)}
               formatQuestion={formatQuestion}
               onQuestionClick={() => onQuestionClick(index)}
+              isCorrect={correctness?.[index] ?? null}
+              onMarkCorrect={onMarkCorrect ? () => onMarkCorrect(index) : undefined}
+              onMarkIncorrect={onMarkIncorrect ? () => onMarkIncorrect(index) : undefined}
             />
           </div>
         ))}
@@ -38,6 +53,9 @@ export default function TestGrid({ questions, answers, onAnswerChange, formatQue
               onAnswerChange={(value) => onAnswerChange(index + 5, value)}
               formatQuestion={formatQuestion}
               onQuestionClick={() => onQuestionClick(index + 5)}
+              isCorrect={correctness?.[index + 5] ?? null}
+              onMarkCorrect={onMarkCorrect ? () => onMarkCorrect(index + 5) : undefined}
+              onMarkIncorrect={onMarkIncorrect ? () => onMarkIncorrect(index + 5) : undefined}
             />
           </div>
         ))}
