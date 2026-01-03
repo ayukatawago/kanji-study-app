@@ -1,5 +1,7 @@
 "use client";
 
+import ReviewStats from "./ReviewStats";
+
 interface Question {
   id: number;
   question: string;
@@ -56,6 +58,9 @@ export default function QuestionSelector({
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      {/* Review Statistics */}
+      <ReviewStats currentGrade={currentGrade} />
+
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="flex justify-between items-start mb-4">
           <div className="flex-1">
