@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import TestGrid from "./TestGrid";
 import Header from "./Header";
 import AnswerPopup from "./AnswerPopup";
-import SettingsModal from "./SettingsModal";
 
 interface Question {
   id: number;
@@ -16,23 +15,34 @@ interface TestData {
   questions: Question[];
 }
 
-export default function KanjiTest() {
+interface KanjiTestProps {
+  selectedQuestionIds?: Set<number>;
+  onBackToSelector?: () => void;
+  currentGrade?: number;
+}
+
+export default function KanjiTest({ selectedQuestionIds, onBackToSelector, currentGrade = 3 }: KanjiTestProps = {}) {
   const [testData, setTestData] = useState<TestData | null>(null);
   const [selectedTestId, setSelectedTestId] = useState<number>(1);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [showAnswer, setShowAnswer] = useState<{ questionIndex: number; answer: string } | null>(null);
-  const [currentDataSource, setCurrentDataSource] = useState<string>("kanji_grade3.json");
-  const [showSettings, setShowSettings] = useState<boolean>(false);
 
   useEffect(() => {
-    fetch(`/${currentDataSource}`)
+    const dataSource = `kanji_grade${currentGrade}.json`;
+    fetch(`/${dataSource}`)
       .then((res) => res.json())
       .then((data: TestData) => {
-        setTestData(data);
+        // Filter questions based on selectedQuestionIds if provided
+        if (selectedQuestionIds && selectedQuestionIds.size > 0) {
+          const filteredQuestions = data.questions.filter(q => selectedQuestionIds.has(q.id));
+          setTestData({ questions: filteredQuestions });
+        } else {
+          setTestData(data);
+        }
         setSelectedTestId(1); // Reset to first test when changing data source
       })
       .catch((error) => console.error("Error loading test data:", error));
-  }, [currentDataSource]);
+  }, [currentGrade, selectedQuestionIds]);
 
   // Initialize answers when test data or selected test changes
   useEffect(() => {
@@ -70,17 +80,6 @@ export default function KanjiTest() {
     }
   };
 
-  const handleDataSourceChange = (dataSource: string) => {
-    setCurrentDataSource(dataSource);
-  };
-
-  const handleSettingsClick = () => {
-    setShowSettings(true);
-  };
-
-  const handleSettingsClose = () => {
-    setShowSettings(false);
-  };
 
   if (!testData) {
     return (
@@ -106,7 +105,7 @@ export default function KanjiTest() {
           selectedTestId={selectedTestId}
           onTestChange={setSelectedTestId}
           onPrint={() => window.print()}
-          onSettingsClick={handleSettingsClick}
+          onBackToSelector={onBackToSelector}
         />
       </div>
       
@@ -126,15 +125,6 @@ export default function KanjiTest() {
           questionIndex={showAnswer.questionIndex}
           answer={showAnswer.answer}
           onClose={() => setShowAnswer(null)}
-        />
-      )}
-
-      {/* Settings Modal */}
-      {showSettings && (
-        <SettingsModal
-          currentDataSource={currentDataSource}
-          onDataSourceChange={handleDataSourceChange}
-          onClose={handleSettingsClose}
         />
       )}
     </div>
