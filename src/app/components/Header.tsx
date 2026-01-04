@@ -10,9 +10,11 @@ interface HeaderProps {
   onTestChange: (testId: number) => void;
   onPrint: () => void;
   onBackToSelector?: () => void;
+  showAnswers?: boolean;
+  onToggleAnswers?: () => void;
 }
 
-export default function Header({ testData, selectedTestId, onTestChange, onPrint, onBackToSelector }: HeaderProps) {
+export default function Header({ testData, selectedTestId, onTestChange, onPrint, onBackToSelector, showAnswers, onToggleAnswers }: HeaderProps) {
   return (
     <div className="flex justify-between items-center my-4 flex-shrink-0">
       <div className="flex items-center gap-2">
@@ -43,6 +45,19 @@ export default function Header({ testData, selectedTestId, onTestChange, onPrint
         漢字テスト
       </h1>
       <div className="flex items-center gap-2">
+        {onToggleAnswers && (
+          <button
+            onClick={onToggleAnswers}
+            className={`font-bold py-2 px-3 rounded transition-colors text-sm ${
+              showAnswers
+                ? 'bg-orange-600 hover:bg-orange-700 text-white'
+                : 'bg-blue-600 hover:bg-blue-700 text-white'
+            }`}
+            title={showAnswers ? "答えを隠す" : "答えを表示"}
+          >
+            {showAnswers ? "答えを隠す" : "答えを表示"}
+          </button>
+        )}
         <button
           onClick={onPrint}
           className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-2 rounded transition-colors"

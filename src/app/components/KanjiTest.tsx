@@ -30,6 +30,7 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [showAnswer, setShowAnswer] = useState<{ questionIndex: number; answer: string } | null>(null);
   const [correctness, setCorrectness] = useState<{ [key: number]: boolean | null }>({});
+  const [showAnswers, setShowAnswers] = useState<boolean>(false);
 
   // Initialize FSRS storage on mount
   useEffect(() => {
@@ -155,6 +156,19 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
   const endIndex = startIndex + 10;
   const questions = testData ? testData.questions.slice(startIndex, endIndex).map(q => q.question) : [];
 
+  // Get displayed answers (either user's answers or correct answers if showAnswers is true)
+  const displayedAnswers: { [key: number]: string } = {};
+  if (testData) {
+    for (let i = 0; i < 10; i++) {
+      const questionData = testData.questions[startIndex + i];
+      if (questionData && showAnswers) {
+        displayedAnswers[i] = questionData.answer;
+      } else {
+        displayedAnswers[i] = answers[i] || "";
+      }
+    }
+  }
+
   return (
     <div className="h-screen flex flex-col max-w-6xl mx-auto px-2 print:w-full print:max-w-full print:box-border">
       <div className="flex-0 print:hidden">
@@ -164,13 +178,15 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
           onTestChange={setSelectedTestId}
           onPrint={() => window.print()}
           onBackToSelector={onBackToSelector}
+          showAnswers={showAnswers}
+          onToggleAnswers={() => setShowAnswers(!showAnswers)}
         />
       </div>
       
       <div className="flex-1 bg-white rounded-lg shadow-lg mb-4 py-4 flex flex-col gap-4 min-h-0 print:shadow-none print:p-1 print:h-screen print:box-border">
         <TestGrid
           questions={questions}
-          answers={answers}
+          answers={displayedAnswers}
           onAnswerChange={handleAnswerChange}
           formatQuestion={formatQuestion}
           onQuestionClick={handleQuestionClick}
