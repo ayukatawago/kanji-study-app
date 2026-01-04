@@ -22,7 +22,7 @@ export default function QuestionItem({
   onQuestionClick,
   isCorrect,
   onMarkCorrect,
-  onMarkIncorrect
+  onMarkIncorrect,
 }: QuestionItemProps) {
   return (
     <div className="flex flex-col items-center gap-2 h-full min-h-0">
@@ -33,7 +33,11 @@ export default function QuestionItem({
 
       <div className="flex items-start gap-4 flex-1 h-full min-h-0">
         <AnswerBox answer={answer} onAnswerChange={onAnswerChange} />
-        <Question questionText={questionText} formatQuestion={formatQuestion} onQuestionClick={onQuestionClick} />
+        <Question
+          questionText={questionText}
+          formatQuestion={formatQuestion}
+          onQuestionClick={onQuestionClick}
+        />
       </div>
 
       {/* Correctness marking buttons */}
@@ -43,8 +47,8 @@ export default function QuestionItem({
             onClick={onMarkCorrect}
             className={`w-8 h-8 rounded-md font-bold text-lg transition-colors ${
               isCorrect === true
-                ? 'bg-green-500 text-white'
-                : 'bg-gray-100 text-gray-400 hover:bg-green-100 hover:text-green-600'
+                ? "bg-green-500 text-white"
+                : "bg-gray-100 text-gray-400 hover:bg-green-100 hover:text-green-600"
             }`}
             title="正解"
           >
@@ -54,8 +58,8 @@ export default function QuestionItem({
             onClick={onMarkIncorrect}
             className={`w-8 h-8 rounded-md font-bold text-lg transition-colors ${
               isCorrect === false
-                ? 'bg-red-500 text-white'
-                : 'bg-gray-100 text-gray-400 hover:bg-red-100 hover:text-red-600'
+                ? "bg-red-500 text-white"
+                : "bg-gray-100 text-gray-400 hover:bg-red-100 hover:text-red-600"
             }`}
             title="不正解"
           >

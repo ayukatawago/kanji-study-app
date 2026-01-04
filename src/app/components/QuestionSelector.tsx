@@ -22,7 +22,7 @@ interface QuestionSelectorProps {
   onGradeChange: (grade: number) => void;
 }
 
-type SelectionMode = 'manual' | 'fsrs';
+type SelectionMode = "manual" | "fsrs";
 
 export default function QuestionSelector({
   questions,
@@ -35,32 +35,36 @@ export default function QuestionSelector({
   currentGrade,
   onGradeChange,
 }: QuestionSelectorProps) {
-  const [mode, setMode] = useState<SelectionMode>('fsrs');
+  const [mode, setMode] = useState<SelectionMode>("fsrs");
 
   // Load mode preference from localStorage
   useEffect(() => {
-    const savedMode = localStorage.getItem('selectionMode') as SelectionMode;
-    if (savedMode === 'fsrs' || savedMode === 'manual') {
+    const savedMode = localStorage.getItem("selectionMode") as SelectionMode;
+    if (savedMode === "fsrs" || savedMode === "manual") {
       setMode(savedMode);
     } else {
       // If no saved mode, set default to FSRS
-      localStorage.setItem('selectionMode', 'fsrs');
+      localStorage.setItem("selectionMode", "fsrs");
     }
   }, []);
 
   // Handle mode change
   const handleModeChange = (newMode: SelectionMode) => {
     setMode(newMode);
-    localStorage.setItem('selectionMode', newMode);
+    localStorage.setItem("selectionMode", newMode);
 
-    if (newMode === 'fsrs') {
+    if (newMode === "fsrs") {
       // Auto-select FSRS recommended questions
-      const allQuestionIds = questions.map(q => q.id);
-      const recommended = getRecommendedQuestions(allQuestionIds, currentGrade, {
-        maxReviews: 20,
-        maxNew: 10,
-        totalLimit: 30
-      });
+      const allQuestionIds = questions.map((q) => q.id);
+      const recommended = getRecommendedQuestions(
+        allQuestionIds,
+        currentGrade,
+        {
+          maxReviews: 20,
+          maxNew: 10,
+          totalLimit: 30,
+        }
+      );
 
       // Directly set the recommended questions
       onSetQuestions(recommended);
@@ -69,19 +73,26 @@ export default function QuestionSelector({
 
   // Re-select FSRS questions when grade changes in FSRS mode or when questions load
   useEffect(() => {
-    if (mode === 'fsrs' && questions.length > 0) {
-      const allQuestionIds = questions.map(q => q.id);
-      const recommended = getRecommendedQuestions(allQuestionIds, currentGrade, {
-        maxReviews: 20,
-        maxNew: 10,
-        totalLimit: 30
-      });
+    if (mode === "fsrs" && questions.length > 0) {
+      const allQuestionIds = questions.map((q) => q.id);
+      const recommended = getRecommendedQuestions(
+        allQuestionIds,
+        currentGrade,
+        {
+          maxReviews: 20,
+          maxNew: 10,
+          totalLimit: 30,
+        }
+      );
 
       // Only update selection if it's different from current
-      const currentSelection = Array.from(selectedQuestions).sort((a, b) => a - b);
+      const currentSelection = Array.from(selectedQuestions).sort(
+        (a, b) => a - b
+      );
       const newSelection = [...recommended].sort((a, b) => a - b);
 
-      const isDifferent = currentSelection.length !== newSelection.length ||
+      const isDifferent =
+        currentSelection.length !== newSelection.length ||
         currentSelection.some((id, idx) => id !== newSelection[idx]);
 
       if (isDifferent) {
@@ -129,7 +140,8 @@ export default function QuestionSelector({
               漢字テスト - 問題選択
             </h1>
             <p className="text-gray-600 mt-2">
-              テストする問題を選択してください（{selectedQuestions.size}問選択中）
+              テストする問題を選択してください（{selectedQuestions.size}
+              問選択中）
             </p>
           </div>
           <div className="flex items-center gap-4">
@@ -140,21 +152,21 @@ export default function QuestionSelector({
               </label>
               <div className="flex bg-gray-100 rounded-lg p-1">
                 <button
-                  onClick={() => handleModeChange('manual')}
+                  onClick={() => handleModeChange("manual")}
                   className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                    mode === 'manual'
-                      ? 'bg-white text-blue-600 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-800'
+                    mode === "manual"
+                      ? "bg-white text-blue-600 shadow-sm"
+                      : "text-gray-600 hover:text-gray-800"
                   }`}
                 >
                   手動選択
                 </button>
                 <button
-                  onClick={() => handleModeChange('fsrs')}
+                  onClick={() => handleModeChange("fsrs")}
                   className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                    mode === 'fsrs'
-                      ? 'bg-white text-purple-600 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-800'
+                    mode === "fsrs"
+                      ? "bg-white text-purple-600 shadow-sm"
+                      : "text-gray-600 hover:text-gray-800"
                   }`}
                 >
                   FSRS自動
@@ -164,7 +176,10 @@ export default function QuestionSelector({
 
             {/* Grade Select */}
             <div className="flex items-center gap-2">
-              <label htmlFor="grade-select" className="text-sm font-medium text-gray-700">
+              <label
+                htmlFor="grade-select"
+                className="text-sm font-medium text-gray-700"
+              >
                 学年:
               </label>
               <select
@@ -181,10 +196,11 @@ export default function QuestionSelector({
         </div>
 
         {/* Mode Description */}
-        {mode === 'fsrs' && (
+        {mode === "fsrs" && (
           <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded-lg">
             <p className="text-sm text-purple-800">
-              <span className="font-semibold">FSRSモード:</span> 復習が必要な問題と新規問題を自動的に選択します。問題は学習状況に基づいて最適化されています。
+              <span className="font-semibold">FSRSモード:</span>{" "}
+              復習が必要な問題と新規問題を自動的に選択します。問題は学習状況に基づいて最適化されています。
             </p>
           </div>
         )}
@@ -193,14 +209,14 @@ export default function QuestionSelector({
         <div className="flex gap-3 mb-6 flex-wrap justify-center">
           <button
             onClick={onSelectAll}
-            disabled={mode === 'fsrs'}
+            disabled={mode === "fsrs"}
             className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
           >
             すべて選択
           </button>
           <button
             onClick={onDeselectAll}
-            disabled={mode === 'fsrs'}
+            disabled={mode === "fsrs"}
             className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
           >
             すべて解除
@@ -222,20 +238,23 @@ export default function QuestionSelector({
             const testQuestions = questions.slice(startIdx, endIdx);
 
             return (
-              <div key={testNumber} className="border border-gray-200 rounded-lg p-4">
+              <div
+                key={testNumber}
+                className="border border-gray-200 rounded-lg p-4"
+              >
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="text-xl font-semibold text-gray-700">
                     テスト {testNumber} （問題 {startIdx + 1}～{endIdx}）
                   </h2>
                   <button
                     onClick={() => toggleTest(testNumber)}
-                    disabled={mode === 'fsrs'}
+                    disabled={mode === "fsrs"}
                     className={`px-3 py-1 rounded-md text-sm transition-colors ${
-                      mode === 'fsrs'
+                      mode === "fsrs"
                         ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                         : isTestFullySelected(testNumber)
-                        ? "bg-red-500 text-white hover:bg-red-600"
-                        : "bg-blue-500 text-white hover:bg-blue-600"
+                          ? "bg-red-500 text-white hover:bg-red-600"
+                          : "bg-blue-500 text-white hover:bg-blue-600"
                     }`}
                   >
                     {isTestFullySelected(testNumber) ? "解除" : "選択"}
@@ -246,22 +265,28 @@ export default function QuestionSelector({
                   {testQuestions.map((q) => (
                     <button
                       key={q.id}
-                      onClick={() => mode === 'manual' && onToggleQuestion(q.id)}
-                      disabled={mode === 'fsrs'}
+                      onClick={() =>
+                        mode === "manual" && onToggleQuestion(q.id)
+                      }
+                      disabled={mode === "fsrs"}
                       className={`p-3 rounded-md text-left transition-colors border-2 ${
-                        mode === 'fsrs'
+                        mode === "fsrs"
                           ? selectedQuestions.has(q.id)
                             ? "bg-purple-50 border-purple-400 cursor-not-allowed"
                             : "bg-gray-50 border-gray-200 cursor-not-allowed opacity-50"
                           : selectedQuestions.has(q.id)
-                          ? "bg-blue-50 border-blue-500 hover:bg-blue-100"
-                          : "bg-gray-50 border-gray-200 hover:bg-gray-100"
+                            ? "bg-blue-50 border-blue-500 hover:bg-blue-100"
+                            : "bg-gray-50 border-gray-200 hover:bg-gray-100"
                       }`}
                     >
                       <div className="flex items-start gap-2">
-                        <span className={`text-sm font-bold min-w-[2rem] ${
-                          selectedQuestions.has(q.id) ? "text-blue-600" : "text-gray-500"
-                        }`}>
+                        <span
+                          className={`text-sm font-bold min-w-[2rem] ${
+                            selectedQuestions.has(q.id)
+                              ? "text-blue-600"
+                              : "text-gray-500"
+                          }`}
+                        >
                           {q.id}.
                         </span>
                         <div className="flex-1">

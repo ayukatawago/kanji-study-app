@@ -16,7 +16,9 @@ interface TestData {
 
 export default function Home() {
   const [showSelector, setShowSelector] = useState(true);
-  const [selectedQuestions, setSelectedQuestions] = useState<Set<number>>(new Set());
+  const [selectedQuestions, setSelectedQuestions] = useState<Set<number>>(
+    new Set()
+  );
   const [testData, setTestData] = useState<TestData | null>(null);
   const [currentGrade, setCurrentGrade] = useState<number>(6);
 
@@ -32,7 +34,7 @@ export default function Home() {
   }, [currentGrade]);
 
   const handleToggleQuestion = (questionId: number) => {
-    setSelectedQuestions(prev => {
+    setSelectedQuestions((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(questionId)) {
         newSet.delete(questionId);
@@ -45,7 +47,7 @@ export default function Home() {
 
   const handleSelectAll = () => {
     if (testData) {
-      const allQuestionIds = new Set(testData.questions.map(q => q.id));
+      const allQuestionIds = new Set(testData.questions.map((q) => q.id));
       setSelectedQuestions(allQuestionIds);
     }
   };

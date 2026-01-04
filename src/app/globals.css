@@ -22,12 +22,12 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-  
+
   .writing-vertical {
     writing-mode: vertical-rl;
     text-orientation: upright;
   }
-  
+
   .vertical-text {
     writing-mode: vertical-rl;
     text-orientation: upright;
@@ -41,20 +41,21 @@ body {
     size: A4 landscape;
     margin: 6mm;
   }
-  
+
   body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
     margin: 0 !important;
     padding: 0 !important;
   }
-  
+
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-  
-  html, body {
+
+  html,
+  body {
     height: 100% !important;
     overflow: hidden !important;
   }

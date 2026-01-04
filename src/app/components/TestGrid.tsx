@@ -19,7 +19,7 @@ export default function TestGrid({
   onQuestionClick,
   correctness,
   onMarkCorrect,
-  onMarkIncorrect
+  onMarkIncorrect,
 }: TestGridProps) {
   return (
     <>
@@ -35,8 +35,12 @@ export default function TestGrid({
               formatQuestion={formatQuestion}
               onQuestionClick={() => onQuestionClick(index)}
               isCorrect={correctness?.[index] ?? null}
-              onMarkCorrect={onMarkCorrect ? () => onMarkCorrect(index) : undefined}
-              onMarkIncorrect={onMarkIncorrect ? () => onMarkIncorrect(index) : undefined}
+              onMarkCorrect={
+                onMarkCorrect ? () => onMarkCorrect(index) : undefined
+              }
+              onMarkIncorrect={
+                onMarkIncorrect ? () => onMarkIncorrect(index) : undefined
+              }
             />
           </div>
         ))}
@@ -54,8 +58,12 @@ export default function TestGrid({
               formatQuestion={formatQuestion}
               onQuestionClick={() => onQuestionClick(index + 5)}
               isCorrect={correctness?.[index + 5] ?? null}
-              onMarkCorrect={onMarkCorrect ? () => onMarkCorrect(index + 5) : undefined}
-              onMarkIncorrect={onMarkIncorrect ? () => onMarkIncorrect(index + 5) : undefined}
+              onMarkCorrect={
+                onMarkCorrect ? () => onMarkCorrect(index + 5) : undefined
+              }
+              onMarkIncorrect={
+                onMarkIncorrect ? () => onMarkIncorrect(index + 5) : undefined
+              }
             />
           </div>
         ))}

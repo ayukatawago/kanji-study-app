@@ -4,13 +4,17 @@ interface AnswerPopupProps {
   onClose: () => void;
 }
 
-export default function AnswerPopup({ questionIndex, answer, onClose }: AnswerPopupProps) {
+export default function AnswerPopup({
+  questionIndex,
+  answer,
+  onClose,
+}: AnswerPopupProps) {
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
       onClick={onClose}
     >
-      <div 
+      <div
         className="bg-white rounded-lg p-6 max-w-md w-max shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >

@@ -3,7 +3,7 @@
  * Handles scheduling logic using the FSRS algorithm
  */
 
-import { FSRS, Grade, Rating, State } from 'ts-fsrs';
+import { FSRS, Grade, Rating, State } from "ts-fsrs";
 import {
   KanjiCard,
   ReviewLog,
@@ -11,7 +11,7 @@ import {
   saveCard,
   addReviewLog,
   getAllCards,
-} from './fsrsStorage';
+} from "./fsrsStorage";
 
 // Initialize FSRS with default parameters
 const fsrs = new FSRS({});
@@ -87,7 +87,7 @@ export function getDueQuestions(
   const now = new Date();
 
   const dueCards = Object.values(cards)
-    .filter(card => {
+    .filter((card) => {
       // Filter by grade if specified
       if (grade && card.grade !== grade) return false;
 
@@ -95,7 +95,7 @@ export function getDueQuestions(
       const dueDate = new Date(card.card.due);
       return dueDate <= now;
     })
-    .map(card => {
+    .map((card) => {
       const dueDate = new Date(card.card.due);
       const daysOverdue = Math.floor(
         (now.getTime() - dueDate.getTime()) / (1000 * 60 * 60 * 24)
@@ -127,7 +127,7 @@ export function getNewQuestions(
 ): number[] {
   const cards = getAllCards();
 
-  const newQuestions = allQuestionIds.filter(qId => {
+  const newQuestions = allQuestionIds.filter((qId) => {
     const key = `${grade}-${qId}`;
     return !cards[key] || cards[key].card.state === State.New;
   });
@@ -152,11 +152,7 @@ export function getRecommendedQuestions(
     totalLimit?: number;
   } = {}
 ): number[] {
-  const {
-    maxReviews = 20,
-    maxNew = 10,
-    totalLimit = 20,
-  } = options;
+  const { maxReviews = 20, maxNew = 10, totalLimit = 20 } = options;
 
   // Get due questions
   const dueQuestions = getDueQuestions(grade, maxReviews);
@@ -166,7 +162,7 @@ export function getRecommendedQuestions(
 
   // Combine and limit
   const recommended = [
-    ...dueQuestions.map(q => q.questionId),
+    ...dueQuestions.map((q) => q.questionId),
     ...newQuestions,
   ].slice(0, totalLimit);
 
@@ -203,7 +199,7 @@ export function getCardInfo(questionId: number, grade: number) {
  */
 export function mapCorrectnessToRating(
   isCorrect: boolean,
-  confidence: 'low' | 'medium' | 'high' = 'medium'
+  confidence: "low" | "medium" | "high" = "medium"
 ): Rating {
   if (!isCorrect) {
     return Rating.Again; // Wrong answer
@@ -211,11 +207,11 @@ export function mapCorrectnessToRating(
 
   // Correct answer - map confidence to rating
   switch (confidence) {
-    case 'low':
+    case "low":
       return Rating.Hard; // Correct but struggled
-    case 'medium':
+    case "medium":
       return Rating.Good; // Correct with normal effort
-    case 'high':
+    case "high":
       return Rating.Easy; // Correct and very confident
     default:
       return Rating.Good;
@@ -228,18 +224,24 @@ export function mapCorrectnessToRating(
 export function getStudyStats(grade?: number) {
   const cards = getAllCards();
   const filteredCards = grade
-    ? Object.values(cards).filter(c => c.grade === grade)
+    ? Object.values(cards).filter((c) => c.grade === grade)
     : Object.values(cards);
 
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-  const dueToday = filteredCards.filter(c => new Date(c.card.due) <= today).length;
-  const newCards = filteredCards.filter(c => c.card.state === State.New).length;
-  const learning = filteredCards.filter(
-    c => c.card.state === State.Learning || c.card.state === State.Relearning
+  const dueToday = filteredCards.filter(
+    (c) => new Date(c.card.due) <= today
   ).length;
-  const review = filteredCards.filter(c => c.card.state === State.Review).length;
+  const newCards = filteredCards.filter(
+    (c) => c.card.state === State.New
+  ).length;
+  const learning = filteredCards.filter(
+    (c) => c.card.state === State.Learning || c.card.state === State.Relearning
+  ).length;
+  const review = filteredCards.filter(
+    (c) => c.card.state === State.Review
+  ).length;
 
   return {
     dueToday,

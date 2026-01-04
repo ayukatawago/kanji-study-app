@@ -3,16 +3,16 @@
  * Manages user learning data in localStorage using FSRS algorithm
  */
 
-import { Card, createEmptyCard, Rating, State } from 'ts-fsrs';
+import { Card, createEmptyCard, Rating, State } from "ts-fsrs";
 
 // Storage keys
 const STORAGE_KEYS = {
-  CARDS: 'kanji_fsrs_cards',
-  REVIEWS: 'kanji_reviews',
-  VERSION: 'kanji_data_version',
+  CARDS: "kanji_fsrs_cards",
+  REVIEWS: "kanji_reviews",
+  VERSION: "kanji_data_version",
 } as const;
 
-const CURRENT_VERSION = '1.0';
+const CURRENT_VERSION = "1.0";
 
 /**
  * Card data structure for a single kanji question
@@ -80,7 +80,7 @@ export interface ReviewStatistics {
  * Initialize storage with default data
  */
 export function initializeStorage(): void {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   const version = localStorage.getItem(STORAGE_KEYS.VERSION);
 
@@ -102,7 +102,7 @@ export function initializeStorage(): void {
  * Get or create a card for a question
  */
 export function getOrCreateCard(questionId: number, grade: number): KanjiCard {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return createNewCard(questionId, grade);
   }
 
@@ -132,7 +132,7 @@ function createNewCard(questionId: number, grade: number): KanjiCard {
  * Get all cards from storage
  */
 export function getAllCards(): Record<string, KanjiCard> {
-  if (typeof window === 'undefined') return {};
+  if (typeof window === "undefined") return {};
 
   const data = localStorage.getItem(STORAGE_KEYS.CARDS);
   if (!data) return {};
@@ -140,14 +140,14 @@ export function getAllCards(): Record<string, KanjiCard> {
   try {
     const parsed = JSON.parse(data);
     // Convert stored card data back to Card objects
-    Object.keys(parsed).forEach(key => {
+    Object.keys(parsed).forEach((key) => {
       if (parsed[key].card) {
         parsed[key].card = { ...parsed[key].card };
       }
     });
     return parsed;
   } catch (error) {
-    console.error('Error parsing cards from localStorage:', error);
+    console.error("Error parsing cards from localStorage:", error);
     return {};
   }
 }
@@ -156,7 +156,7 @@ export function getAllCards(): Record<string, KanjiCard> {
  * Save a card to storage
  */
 export function saveCard(card: KanjiCard): void {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   const cards = getAllCards();
   const key = `${card.grade}-${card.questionId}`;
@@ -169,11 +169,11 @@ export function saveCard(card: KanjiCard): void {
  * Save multiple cards at once
  */
 export function saveCards(cardsToSave: KanjiCard[]): void {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   const cards = getAllCards();
 
-  cardsToSave.forEach(card => {
+  cardsToSave.forEach((card) => {
     const key = `${card.grade}-${card.questionId}`;
     cards[key] = card;
   });
@@ -185,7 +185,7 @@ export function saveCards(cardsToSave: KanjiCard[]): void {
  * Get all review logs
  */
 export function getAllReviews(): ReviewLog[] {
-  if (typeof window === 'undefined') return [];
+  if (typeof window === "undefined") return [];
 
   const data = localStorage.getItem(STORAGE_KEYS.REVIEWS);
   if (!data) return [];
@@ -193,7 +193,7 @@ export function getAllReviews(): ReviewLog[] {
   try {
     return JSON.parse(data);
   } catch (error) {
-    console.error('Error parsing reviews from localStorage:', error);
+    console.error("Error parsing reviews from localStorage:", error);
     return [];
   }
 }
@@ -202,7 +202,7 @@ export function getAllReviews(): ReviewLog[] {
  * Add a new review log
  */
 export function addReviewLog(log: ReviewLog): void {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   const reviews = getAllReviews();
   reviews.push(log);
@@ -213,9 +213,12 @@ export function addReviewLog(log: ReviewLog): void {
 /**
  * Get review logs for a specific question
  */
-export function getQuestionReviews(questionId: number, grade: number): ReviewLog[] {
+export function getQuestionReviews(
+  questionId: number,
+  grade: number
+): ReviewLog[] {
   return getAllReviews().filter(
-    review => review.questionId === questionId && review.grade === grade
+    (review) => review.questionId === questionId && review.grade === grade
   );
 }
 
@@ -228,23 +231,30 @@ export function getReviewStatistics(grade?: number): ReviewStatistics {
 
   // Filter by grade if specified
   const filteredCards = grade
-    ? Object.values(cards).filter(c => c.grade === grade)
+    ? Object.values(cards).filter((c) => c.grade === grade)
     : Object.values(cards);
 
   const filteredReviews = grade
-    ? reviews.filter(r => r.grade === grade)
+    ? reviews.filter((r) => r.grade === grade)
     : reviews;
 
   // Count cards by state
-  const newCards = filteredCards.filter(c => c.card.state === State.New).length;
-  const learningCards = filteredCards.filter(c => c.card.state === State.Learning || c.card.state === State.Relearning).length;
-  const reviewCards = filteredCards.filter(c => c.card.state === State.Review).length;
+  const newCards = filteredCards.filter(
+    (c) => c.card.state === State.New
+  ).length;
+  const learningCards = filteredCards.filter(
+    (c) => c.card.state === State.Learning || c.card.state === State.Relearning
+  ).length;
+  const reviewCards = filteredCards.filter(
+    (c) => c.card.state === State.Review
+  ).length;
 
   // Calculate success rate
-  const correctReviews = filteredReviews.filter(r => r.isCorrect).length;
-  const successRate = filteredReviews.length > 0
-    ? (correctReviews / filteredReviews.length) * 100
-    : 0;
+  const correctReviews = filteredReviews.filter((r) => r.isCorrect).length;
+  const successRate =
+    filteredReviews.length > 0
+      ? (correctReviews / filteredReviews.length) * 100
+      : 0;
 
   // Count due cards
   const now = new Date();
@@ -252,21 +262,22 @@ export function getReviewStatistics(grade?: number): ReviewStatistics {
   const weekFromNow = new Date(today);
   weekFromNow.setDate(weekFromNow.getDate() + 7);
 
-  const dueToday = filteredCards.filter(c => {
+  const dueToday = filteredCards.filter((c) => {
     const dueDate = new Date(c.card.due);
     return dueDate <= today;
   }).length;
 
-  const dueThisWeek = filteredCards.filter(c => {
+  const dueThisWeek = filteredCards.filter((c) => {
     const dueDate = new Date(c.card.due);
     return dueDate <= weekFromNow;
   }).length;
 
   // Calculate streak
   const streakDays = calculateStreakDays(filteredReviews);
-  const lastReview = filteredReviews.length > 0
-    ? filteredReviews[filteredReviews.length - 1].timestamp
-    : undefined;
+  const lastReview =
+    filteredReviews.length > 0
+      ? filteredReviews[filteredReviews.length - 1].timestamp
+      : undefined;
 
   return {
     totalCards: filteredCards.length,
@@ -290,8 +301,8 @@ function calculateStreakDays(reviews: ReviewLog[]): number {
   if (reviews.length === 0) return 0;
 
   // Sort reviews by timestamp (newest first)
-  const sortedReviews = [...reviews].sort((a, b) =>
-    new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+  const sortedReviews = [...reviews].sort(
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
   );
 
   const today = new Date();
@@ -320,7 +331,7 @@ function calculateStreakDays(reviews: ReviewLog[]): number {
  * Clear all data (for testing/reset)
  */
 export function clearAllData(): void {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   localStorage.removeItem(STORAGE_KEYS.CARDS);
   localStorage.removeItem(STORAGE_KEYS.REVIEWS);
@@ -334,25 +345,29 @@ export function exportData(): string {
   const cards = getAllCards();
   const reviews = getAllReviews();
 
-  return JSON.stringify({
-    version: CURRENT_VERSION,
-    exportDate: new Date().toISOString(),
-    cards,
-    reviews,
-  }, null, 2);
+  return JSON.stringify(
+    {
+      version: CURRENT_VERSION,
+      exportDate: new Date().toISOString(),
+      cards,
+      reviews,
+    },
+    null,
+    2
+  );
 }
 
 /**
  * Import data from backup
  */
 export function importData(jsonData: string): boolean {
-  if (typeof window === 'undefined') return false;
+  if (typeof window === "undefined") return false;
 
   try {
     const data = JSON.parse(jsonData);
 
     if (!data.cards || !data.reviews) {
-      throw new Error('Invalid data format');
+      throw new Error("Invalid data format");
     }
 
     localStorage.setItem(STORAGE_KEYS.CARDS, JSON.stringify(data.cards));
@@ -361,7 +376,7 @@ export function importData(jsonData: string): boolean {
 
     return true;
   } catch (error) {
-    console.error('Error importing data:', error);
+    console.error("Error importing data:", error);
     return false;
   }
 }

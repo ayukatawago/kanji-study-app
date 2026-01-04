@@ -24,12 +24,21 @@ interface KanjiTestProps {
   currentGrade?: number;
 }
 
-export default function KanjiTest({ selectedQuestionIds, onBackToSelector, currentGrade = 3 }: KanjiTestProps = {}) {
+export default function KanjiTest({
+  selectedQuestionIds,
+  onBackToSelector,
+  currentGrade = 3,
+}: KanjiTestProps = {}) {
   const [testData, setTestData] = useState<TestData | null>(null);
   const [selectedTestId, setSelectedTestId] = useState<number>(1);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
-  const [showAnswer, setShowAnswer] = useState<{ questionIndex: number; answer: string } | null>(null);
-  const [correctness, setCorrectness] = useState<{ [key: number]: boolean | null }>({});
+  const [showAnswer, setShowAnswer] = useState<{
+    questionIndex: number;
+    answer: string;
+  } | null>(null);
+  const [correctness, setCorrectness] = useState<{
+    [key: number]: boolean | null;
+  }>({});
   const [showAnswers, setShowAnswers] = useState<boolean>(false);
 
   // Initialize FSRS storage on mount
@@ -44,7 +53,9 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
       .then((data: TestData) => {
         // Filter questions based on selectedQuestionIds if provided
         if (selectedQuestionIds && selectedQuestionIds.size > 0) {
-          const filteredQuestions = data.questions.filter(q => selectedQuestionIds.has(q.id));
+          const filteredQuestions = data.questions.filter((q) =>
+            selectedQuestionIds.has(q.id)
+          );
           setTestData({ questions: filteredQuestions });
         } else {
           setTestData(data);
@@ -78,7 +89,10 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
 
   const formatQuestion = (text: string) => {
     // Replace <text> with emphasized formatting
-    return text.replace(/<([^>]+)>/g, '<span style="font-weight: bold; color: #dc2626; text-decoration: underline;">$1</span>');
+    return text.replace(
+      /<([^>]+)>/g,
+      '<span style="font-weight: bold; color: #dc2626; text-decoration: underline;">$1</span>'
+    );
   };
 
   const handleQuestionClick = (questionIndex: number) => {
@@ -88,7 +102,7 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
     if (questionData) {
       setShowAnswer({
         questionIndex,
-        answer: questionData.answer
+        answer: questionData.answer,
       });
     }
   };
@@ -139,7 +153,6 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
     );
   };
 
-
   if (!testData) {
     return (
       <div className="flex justify-center items-center min-h-64">
@@ -150,11 +163,13 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
 
   // Calculate total number of tests (20 questions / 10 per test = 2 tests)
   const totalTests = testData ? Math.ceil(testData.questions.length / 10) : 0;
-  
+
   // Get questions for the selected test (10 questions per test)
   const startIndex = (selectedTestId - 1) * 10;
   const endIndex = startIndex + 10;
-  const questions = testData ? testData.questions.slice(startIndex, endIndex).map(q => q.question) : [];
+  const questions = testData
+    ? testData.questions.slice(startIndex, endIndex).map((q) => q.question)
+    : [];
 
   // Get displayed answers (either user's answers or correct answers if showAnswers is true)
   const displayedAnswers: { [key: number]: string } = {};
@@ -182,7 +197,7 @@ export default function KanjiTest({ selectedQuestionIds, onBackToSelector, curre
           onToggleAnswers={() => setShowAnswers(!showAnswers)}
         />
       </div>
-      
+
       <div className="flex-1 bg-white rounded-lg shadow-lg mb-4 py-4 flex flex-col gap-4 min-h-0 print:shadow-none print:p-1 print:h-screen print:box-border">
         <TestGrid
           questions={questions}
