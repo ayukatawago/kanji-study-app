@@ -73,8 +73,8 @@ export default function QuestionSelector({
         allQuestionIds,
         currentGrade,
         {
-          maxReviews: 20,
-          maxNew: 10,
+          maxReviews: 15,
+          maxNew: 30,
           totalLimit: 30,
         }
       );
@@ -104,8 +104,8 @@ export default function QuestionSelector({
         allQuestionIds,
         currentGrade,
         {
-          maxReviews: 20,
-          maxNew: 10,
+          maxReviews: 15,
+          maxNew: 30,
           totalLimit: 30,
         }
       );
@@ -116,35 +116,69 @@ export default function QuestionSelector({
   // Re-select FSRS questions when grade changes in FSRS mode or when questions load
   useEffect(() => {
     if (mode === "fsrs" && questions.length > 0) {
+      // Read excluded questions directly from localStorage to avoid state timing issues
+      const currentExcluded = getExcludedQuestions(currentGrade);
+
       const allQuestionIds = questions
-        .filter((q) => !excludedQuestions.has(q.id))
+        .filter((q) => !currentExcluded.has(q.id))
         .map((q) => q.id);
+
+      console.log(
+        "useEffect: Filtering out",
+        currentExcluded.size,
+        "excluded questions"
+      );
+      console.log("useEffect: Available questions:", allQuestionIds.length);
+
       const recommended = getRecommendedQuestions(
         allQuestionIds,
         currentGrade,
         {
-          maxReviews: 20,
-          maxNew: 10,
+          maxReviews: 15,
+          maxNew: 30,
           totalLimit: 30,
         }
       );
 
-      // Only update selection if it's different from current
-      const currentSelection = Array.from(selectedQuestions).sort(
-        (a, b) => a - b
+      console.log("useEffect: Got", recommended.length, "recommendations");
+
+      // Verify none of the recommended questions are excluded
+      const problematicQuestions = recommended.filter((id) =>
+        currentExcluded.has(id)
       );
-      const newSelection = [...recommended].sort((a, b) => a - b);
-
-      const isDifferent =
-        currentSelection.length !== newSelection.length ||
-        currentSelection.some((id, idx) => id !== newSelection[idx]);
-
-      if (isDifferent) {
-        // Directly set the recommended questions
-        onSetQuestions(recommended);
+      if (problematicQuestions.length > 0) {
+        console.error(
+          "BUG: Recommended questions contain excluded items:",
+          problematicQuestions
+        );
       }
+
+      // Always update (removed comparison logic that might cause stale data)
+      onSetQuestions(recommended);
     }
   }, [currentGrade, mode, questions, excludedQuestions]);
+
+  // Calculate actual selected count (excluding excluded questions)
+  const selectedArray = Array.from(selectedQuestions);
+  const filteredSelected = selectedArray.filter(
+    (id) => !excludedQuestions.has(id)
+  );
+
+  // Debug: Check if any excluded questions are in selection
+  const excludedInSelection = selectedArray.filter((id) =>
+    excludedQuestions.has(id)
+  );
+  if (excludedInSelection.length > 0) {
+    console.log(
+      "WARNING: Excluded questions in selection:",
+      excludedInSelection
+    );
+    console.log("Total selected:", selectedArray.length);
+    console.log("After filtering excluded:", filteredSelected.length);
+  }
+
+  const actualSelectedCount = filteredSelected.length;
+
   // Group questions by test (10 questions per test)
   const testsCount = Math.ceil(questions.length / 10);
   const tests = Array.from({ length: testsCount }, (_, i) => i + 1);
@@ -184,7 +218,7 @@ export default function QuestionSelector({
               漢字テスト - 問題選択
             </h1>
             <p className="text-gray-600 mt-2">
-              テストする問題を選択してください（{selectedQuestions.size}
+              テストする問題を選択してください（{actualSelectedCount}
               問選択中）
             </p>
           </div>
@@ -267,10 +301,10 @@ export default function QuestionSelector({
           </button>
           <button
             onClick={onStartTest}
-            disabled={selectedQuestions.size === 0}
+            disabled={actualSelectedCount === 0}
             className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-semibold"
           >
-            テスト開始 ({selectedQuestions.size}問)
+            テスト開始 ({actualSelectedCount}問)
           </button>
         </div>
 

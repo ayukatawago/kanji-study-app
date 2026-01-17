@@ -154,17 +154,44 @@ export function getRecommendedQuestions(
 ): number[] {
   const { maxReviews = 20, maxNew = 10, totalLimit = 20 } = options;
 
-  // Get due questions
-  const dueQuestions = getDueQuestions(grade, maxReviews);
+  // Get due questions (up to maxReviews)
+  const allDueQuestions = getDueQuestions(grade);
 
-  // Get new questions
-  const newQuestions = getNewQuestions(allQuestionIds, grade, maxNew);
+  // IMPORTANT: Filter due questions to only include those in allQuestionIds
+  // (this excludes any questions that have been marked as excluded)
+  const allowedQuestionIds = new Set(allQuestionIds);
+  const dueQuestionIds = allDueQuestions
+    .map((q) => q.questionId)
+    .filter((id) => allowedQuestionIds.has(id))
+    .slice(0, maxReviews); // Apply limit after filtering
 
-  // Combine and limit
-  const recommended = [
-    ...dueQuestions.map((q) => q.questionId),
-    ...newQuestions,
-  ].slice(0, totalLimit);
+  // Calculate how many new questions we need to reach totalLimit
+  const remainingSlots = Math.max(0, totalLimit - dueQuestionIds.length);
+  const newQuestionsLimit = Math.min(maxNew, remainingSlots);
+
+  // Get new questions to fill remaining slots
+  const newQuestions = getNewQuestions(
+    allQuestionIds,
+    grade,
+    newQuestionsLimit
+  );
+
+  // Combine what we have so far
+  const recommended = [...dueQuestionIds, ...newQuestions];
+
+  // If we still don't have enough questions to reach totalLimit,
+  // add any remaining available questions (even if not due)
+  if (recommended.length < totalLimit) {
+    const remainingNeeded = totalLimit - recommended.length;
+    const alreadySelected = new Set(recommended);
+
+    // Get questions that haven't been selected yet
+    const additionalQuestions = allQuestionIds
+      .filter((qId) => !alreadySelected.has(qId))
+      .slice(0, remainingNeeded);
+
+    recommended.push(...additionalQuestions);
+  }
 
   return recommended;
 }
