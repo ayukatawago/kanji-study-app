@@ -10,6 +10,7 @@ const STORAGE_KEYS = {
   CARDS: "kanji_fsrs_cards",
   REVIEWS: "kanji_reviews",
   VERSION: "kanji_data_version",
+  EXCLUDED_QUESTIONS: "kanji_excluded_questions",
 } as const;
 
 const CURRENT_VERSION = "1.0";
@@ -379,4 +380,87 @@ export function importData(jsonData: string): boolean {
     console.error("Error importing data:", error);
     return false;
   }
+}
+
+/**
+ * Get excluded questions for a grade
+ */
+export function getExcludedQuestions(grade: number): Set<number> {
+  if (typeof window === "undefined") return new Set();
+
+  const data = localStorage.getItem(STORAGE_KEYS.EXCLUDED_QUESTIONS);
+  if (!data) return new Set();
+
+  try {
+    const parsed = JSON.parse(data);
+    const excludedForGrade = parsed[grade] || [];
+    return new Set(excludedForGrade);
+  } catch (error) {
+    console.error("Error parsing excluded questions:", error);
+    return new Set();
+  }
+}
+
+/**
+ * Toggle excluded status for a question
+ */
+export function toggleExcludedQuestion(
+  questionId: number,
+  grade: number
+): void {
+  if (typeof window === "undefined") return;
+
+  const data = localStorage.getItem(STORAGE_KEYS.EXCLUDED_QUESTIONS);
+  let excluded: Record<number, number[]> = {};
+
+  if (data) {
+    try {
+      excluded = JSON.parse(data);
+    } catch (error) {
+      console.error("Error parsing excluded questions:", error);
+    }
+  }
+
+  if (!excluded[grade]) {
+    excluded[grade] = [];
+  }
+
+  const index = excluded[grade].indexOf(questionId);
+  if (index > -1) {
+    excluded[grade].splice(index, 1);
+  } else {
+    excluded[grade].push(questionId);
+  }
+
+  localStorage.setItem(
+    STORAGE_KEYS.EXCLUDED_QUESTIONS,
+    JSON.stringify(excluded)
+  );
+}
+
+/**
+ * Set multiple excluded questions at once
+ */
+export function setExcludedQuestions(
+  questionIds: number[],
+  grade: number
+): void {
+  if (typeof window === "undefined") return;
+
+  const data = localStorage.getItem(STORAGE_KEYS.EXCLUDED_QUESTIONS);
+  let excluded: Record<number, number[]> = {};
+
+  if (data) {
+    try {
+      excluded = JSON.parse(data);
+    } catch (error) {
+      console.error("Error parsing excluded questions:", error);
+    }
+  }
+
+  excluded[grade] = questionIds;
+  localStorage.setItem(
+    STORAGE_KEYS.EXCLUDED_QUESTIONS,
+    JSON.stringify(excluded)
+  );
 }

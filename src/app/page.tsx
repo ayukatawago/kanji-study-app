@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import KanjiTest from "./components/KanjiTest";
 import QuestionSelector from "./components/QuestionSelector";
+import { getExcludedQuestions } from "@/lib/fsrsStorage";
 
 interface Question {
   id: number;
@@ -47,7 +48,12 @@ export default function Home() {
 
   const handleSelectAll = () => {
     if (testData) {
-      const allQuestionIds = new Set(testData.questions.map((q) => q.id));
+      const excludedQuestions = getExcludedQuestions(currentGrade);
+      const allQuestionIds = new Set(
+        testData.questions
+          .filter((q) => !excludedQuestions.has(q.id))
+          .map((q) => q.id)
+      );
       setSelectedQuestions(allQuestionIds);
     }
   };

@@ -3,6 +3,10 @@
 import { useState, useEffect } from "react";
 import ReviewStats from "./ReviewStats";
 import { getRecommendedQuestions } from "@/lib/fsrsScheduler";
+import {
+  getExcludedQuestions,
+  toggleExcludedQuestion,
+} from "@/lib/fsrsStorage";
 
 interface Question {
   id: number;
@@ -36,8 +40,11 @@ export default function QuestionSelector({
   onGradeChange,
 }: QuestionSelectorProps) {
   const [mode, setMode] = useState<SelectionMode>("fsrs");
+  const [excludedQuestions, setExcludedQuestions] = useState<Set<number>>(
+    new Set()
+  );
 
-  // Load mode preference from localStorage
+  // Load mode preference and excluded questions from localStorage
   useEffect(() => {
     const savedMode = localStorage.getItem("selectionMode") as SelectionMode;
     if (savedMode === "fsrs" || savedMode === "manual") {
@@ -46,7 +53,11 @@ export default function QuestionSelector({
       // If no saved mode, set default to FSRS
       localStorage.setItem("selectionMode", "fsrs");
     }
-  }, []);
+
+    // Load excluded questions for current grade
+    const excluded = getExcludedQuestions(currentGrade);
+    setExcludedQuestions(excluded);
+  }, [currentGrade]);
 
   // Handle mode change
   const handleModeChange = (newMode: SelectionMode) => {
@@ -54,8 +65,10 @@ export default function QuestionSelector({
     localStorage.setItem("selectionMode", newMode);
 
     if (newMode === "fsrs") {
-      // Auto-select FSRS recommended questions
-      const allQuestionIds = questions.map((q) => q.id);
+      // Auto-select FSRS recommended questions (excluding excluded ones)
+      const allQuestionIds = questions
+        .filter((q) => !excludedQuestions.has(q.id))
+        .map((q) => q.id);
       const recommended = getRecommendedQuestions(
         allQuestionIds,
         currentGrade,
@@ -71,10 +84,41 @@ export default function QuestionSelector({
     }
   };
 
+  // Handle exclude toggle
+  const handleToggleExclude = (questionId: number) => {
+    toggleExcludedQuestion(questionId, currentGrade);
+    const excluded = getExcludedQuestions(currentGrade);
+    setExcludedQuestions(excluded);
+
+    // If question is now excluded, remove it from selection
+    if (excluded.has(questionId) && selectedQuestions.has(questionId)) {
+      onToggleQuestion(questionId);
+    }
+
+    // If in FSRS mode, recalculate recommendations
+    if (mode === "fsrs") {
+      const allQuestionIds = questions
+        .filter((q) => !excluded.has(q.id))
+        .map((q) => q.id);
+      const recommended = getRecommendedQuestions(
+        allQuestionIds,
+        currentGrade,
+        {
+          maxReviews: 20,
+          maxNew: 10,
+          totalLimit: 30,
+        }
+      );
+      onSetQuestions(recommended);
+    }
+  };
+
   // Re-select FSRS questions when grade changes in FSRS mode or when questions load
   useEffect(() => {
     if (mode === "fsrs" && questions.length > 0) {
-      const allQuestionIds = questions.map((q) => q.id);
+      const allQuestionIds = questions
+        .filter((q) => !excludedQuestions.has(q.id))
+        .map((q) => q.id);
       const recommended = getRecommendedQuestions(
         allQuestionIds,
         currentGrade,
@@ -100,7 +144,7 @@ export default function QuestionSelector({
         onSetQuestions(recommended);
       }
     }
-  }, [currentGrade, mode, questions]);
+  }, [currentGrade, mode, questions, excludedQuestions]);
   // Group questions by test (10 questions per test)
   const testsCount = Math.ceil(questions.length / 10);
   const tests = Array.from({ length: testsCount }, (_, i) => i + 1);
@@ -262,44 +306,62 @@ export default function QuestionSelector({
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {testQuestions.map((q) => (
-                    <button
-                      key={q.id}
-                      onClick={() =>
-                        mode === "manual" && onToggleQuestion(q.id)
-                      }
-                      disabled={mode === "fsrs"}
-                      className={`p-3 rounded-md text-left transition-colors border-2 ${
-                        mode === "fsrs"
-                          ? selectedQuestions.has(q.id)
-                            ? "bg-purple-50 border-purple-400 cursor-not-allowed"
-                            : "bg-gray-50 border-gray-200 cursor-not-allowed opacity-50"
-                          : selectedQuestions.has(q.id)
-                            ? "bg-blue-50 border-blue-500 hover:bg-blue-100"
-                            : "bg-gray-50 border-gray-200 hover:bg-gray-100"
-                      }`}
-                    >
-                      <div className="flex items-start gap-2">
-                        <span
-                          className={`text-sm font-bold min-w-[2rem] ${
-                            selectedQuestions.has(q.id)
-                              ? "text-blue-600"
-                              : "text-gray-500"
-                          }`}
-                        >
-                          {q.id}.
-                        </span>
-                        <div className="flex-1">
-                          <div className="text-lg font-bold text-gray-800 mb-1">
-                            {q.answer}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            {q.question}
-                          </div>
+                  {testQuestions.map((q) => {
+                    const isExcluded = excludedQuestions.has(q.id);
+                    return (
+                      <div
+                        key={q.id}
+                        className={`p-3 rounded-md border-2 ${
+                          isExcluded
+                            ? "bg-red-50 border-red-300 opacity-60"
+                            : mode === "fsrs"
+                              ? selectedQuestions.has(q.id)
+                                ? "bg-purple-50 border-purple-400"
+                                : "bg-gray-50 border-gray-200 opacity-50"
+                              : selectedQuestions.has(q.id)
+                                ? "bg-blue-50 border-blue-500"
+                                : "bg-gray-50 border-gray-200"
+                        }`}
+                      >
+                        <div className="flex items-start gap-2">
+                          <span
+                            className={`text-sm font-bold min-w-[2rem] ${
+                              selectedQuestions.has(q.id) && !isExcluded
+                                ? "text-blue-600"
+                                : "text-gray-500"
+                            }`}
+                          >
+                            {q.id}.
+                          </span>
+                          <button
+                            onClick={() =>
+                              mode === "manual" &&
+                              !isExcluded &&
+                              onToggleQuestion(q.id)
+                            }
+                            disabled={mode === "fsrs" || isExcluded}
+                            className="flex-1 text-left"
+                          >
+                            <div className="text-lg font-bold text-gray-800 mb-1">
+                              {q.answer}
+                            </div>
+                            <div className="text-sm text-gray-600">
+                              {q.question}
+                            </div>
+                          </button>
+                          <label className="flex items-center gap-1 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={isExcluded}
+                              onChange={() => handleToggleExclude(q.id)}
+                              className="w-4 h-4 text-red-600 rounded focus:ring-2 focus:ring-red-500"
+                            />
+                            <span className="text-xs text-gray-600">除外</span>
+                          </label>
                         </div>
                       </div>
-                    </button>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             );
