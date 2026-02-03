@@ -1334,6 +1334,306 @@
       "id": 267,
       "question": "旅行に行く日を一日<ノバス>",
       "answer": "延ばす"
+    },
+    {
+      "id": 268,
+      "question": "両国の<シンゼン>につとめる",
+      "answer": "親善"
+    },
+    {
+      "id": 269,
+      "question": "<セイコン>を使い果たす",
+      "answer": "精根"
+    },
+    {
+      "id": 270,
+      "question": "父の<イシ>を継ぐ",
+      "answer": "遺志"
+    },
+    {
+      "id": 271,
+      "question": "<グンブ>の開発が進む",
+      "answer": "郡部"
+    },
+    {
+      "id": 272,
+      "question": "<トウシンダイ>の絵を描く",
+      "answer": "等身大"
+    },
+    {
+      "id": 273,
+      "question": "<サンプク>で一休みする",
+      "answer": "山腹"
+    },
+    {
+      "id": 274,
+      "question": "会社の<センゾク>の弁護士",
+      "answer": "専属"
+    },
+    {
+      "id": 275,
+      "question": "雪で車が立ち<オウジョウ>した",
+      "answer": "往生"
+    },
+    {
+      "id": 276,
+      "question": "お守りのご<リヤク>を信じる",
+      "answer": "利益"
+    },
+    {
+      "id": 277,
+      "question": "訪問客を<カンタイ>する",
+      "answer": "歓待"
+    },
+    {
+      "id": 278,
+      "question": "<アラテ>の商売",
+      "answer": "新手"
+    },
+    {
+      "id": 279,
+      "question": "<ホウヨウリョク>のある人間",
+      "answer": "包容力"
+    },
+    {
+      "id": 280,
+      "question": "彼は<イクジ>のない人間だ",
+      "answer": "意気地"
+    },
+    {
+      "id": 281,
+      "question": "<ショキビドウケイゾクジカン>",
+      "answer": "初期微動継続時間"
+    },
+    {
+      "id": 282,
+      "question": "<マンノウ>池",
+      "answer": "満濃"
+    },
+    {
+      "id": 283,
+      "question": "その提案には<ショウフク>しかねる",
+      "answer": "承服"
+    },
+    {
+      "id": 284,
+      "question": "合格の<ロウホウ>を待つ",
+      "answer": "朗報"
+    },
+    {
+      "id": 285,
+      "question": "<音頭>",
+      "answer": "おんど"
+    },
+    {
+      "id": 286,
+      "question": "<合戦>",
+      "answer": "かっせん"
+    },
+    {
+      "id": 287,
+      "question": "<口調>",
+      "answer": "くちょう"
+    },
+    {
+      "id": 288,
+      "question": "<解毒>",
+      "answer": "げどく"
+    },
+    {
+      "id": 289,
+      "question": "<使役>",
+      "answer": "しえき"
+    },
+    {
+      "id": 290,
+      "question": "<世間体>",
+      "answer": "せけんてい"
+    },
+    {
+      "id": 291,
+      "question": "<反物>",
+      "answer": "たんもの"
+    },
+    {
+      "id": 292,
+      "question": "<読点>",
+      "answer": "とうてん"
+    },
+    {
+      "id": 293,
+      "question": "<非業>",
+      "answer": "ひごう"
+    },
+    {
+      "id": 294,
+      "question": "<漁火>",
+      "answer": "いさりび"
+    },
+    {
+      "id": 295,
+      "question": "<風体>",
+      "answer": "ふうてい"
+    },
+    {
+      "id": 296,
+      "question": "<因縁>",
+      "answer": "いんねん"
+    },
+    {
+      "id": 297,
+      "question": "<呵責>",
+      "answer": "かしゃく"
+    },
+    {
+      "id": 298,
+      "question": "<久遠>",
+      "answer": "くおん"
+    },
+    {
+      "id": 299,
+      "question": "<功徳>",
+      "answer": "くどく"
+    },
+    {
+      "id": 300,
+      "question": "<供物>",
+      "answer": "くもつ"
+    },
+    {
+      "id": 301,
+      "question": "<好事家>",
+      "answer": "こうずか"
+    },
+    {
+      "id": 302,
+      "question": "<独楽>",
+      "answer": "こま"
+    },
+    {
+      "id": 303,
+      "question": "<潮騒>",
+      "answer": "しおさい"
+    },
+    {
+      "id": 304,
+      "question": "<赤銅色>",
+      "answer": "しゃくどういろ"
+    },
+    {
+      "id": 305,
+      "question": "<祝儀>",
+      "answer": "しゅうぎ"
+    },
+    {
+      "id": 306,
+      "question": "<通夜>",
+      "answer": "つや"
+    },
+    {
+      "id": 307,
+      "question": "<氷柱>",
+      "answer": "つらら"
+    },
+    {
+      "id": 308,
+      "question": "<吹聴>",
+      "answer": "ふいちょう"
+    },
+    {
+      "id": 309,
+      "question": "<福音>",
+      "answer": "ふくいん"
+    },
+    {
+      "id": 310,
+      "question": "<亡者>",
+      "answer": "もうじゃ"
+    },
+    {
+      "id": 311,
+      "question": "<山羊>",
+      "answer": "やぎ"
+    },
+    {
+      "id": 312,
+      "question": "<海女>",
+      "answer": "あま"
+    },
+    {
+      "id": 313,
+      "question": "<海原>",
+      "answer": "うなばら"
+    },
+    {
+      "id": 314,
+      "question": "<乳母>",
+      "answer": "うば"
+    },
+    {
+      "id": 315,
+      "question": "<神楽>",
+      "answer": "かぐら"
+    },
+    {
+      "id": 316,
+      "question": "<清水>",
+      "answer": "しみず"
+    },
+    {
+      "id": 317,
+      "question": "<山車>",
+      "answer": "だし"
+    },
+    {
+      "id": 318,
+      "question": "<梅雨>",
+      "answer": "つゆ"
+    },
+    {
+      "id": 319,
+      "question": "<投網>",
+      "answer": "とあみ"
+    },
+    {
+      "id": 320,
+      "question": "<読経>",
+      "answer": "どきょう"
+    },
+    {
+      "id": 321,
+      "question": "<仲人>",
+      "answer": "なこうど"
+    },
+    {
+      "id": 322,
+      "question": "<博士>",
+      "answer": "はかせ"
+    },
+    {
+      "id": 323,
+      "question": "<波止場>",
+      "answer": "はとば"
+    },
+    {
+      "id": 324,
+      "question": "<猛者>",
+      "answer": "もさ"
+    },
+    {
+      "id": 325,
+      "question": "<紅葉>",
+      "answer": "もみじ"
+    },
+    {
+      "id": 326,
+      "question": "<寄席>",
+      "answer": "よせ"
+    },
+    {
+      "id": 327,
+      "question": "<若人>",
+      "answer": "わこうど"
     }
   ]
 }
