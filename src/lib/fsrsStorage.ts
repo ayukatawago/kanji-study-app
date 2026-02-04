@@ -310,7 +310,7 @@ function calculateStreakDays(reviews: ReviewLog[]): number {
   today.setHours(0, 0, 0, 0);
 
   let streak = 0;
-  let currentDate = new Date(today);
+  const currentDate = new Date(today);
 
   for (let i = 0; i < sortedReviews.length; i++) {
     const reviewDate = new Date(sortedReviews[i].timestamp);

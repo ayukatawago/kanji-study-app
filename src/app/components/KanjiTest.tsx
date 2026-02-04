@@ -5,7 +5,7 @@ import { Rating } from "ts-fsrs";
 import TestGrid from "./TestGrid";
 import Header from "./Header";
 import AnswerPopup from "./AnswerPopup";
-import { recordReview, mapCorrectnessToRating } from "@/lib/fsrsScheduler";
+import { recordReview } from "@/lib/fsrsScheduler";
 import { initializeStorage } from "@/lib/fsrsStorage";
 
 interface Question {
@@ -160,9 +160,6 @@ export default function KanjiTest({
       </div>
     );
   }
-
-  // Calculate total number of tests (20 questions / 10 per test = 2 tests)
-  const totalTests = testData ? Math.ceil(testData.questions.length / 10) : 0;
 
   // Get questions for the selected test (10 questions per test)
   const startIndex = (selectedTestId - 1) * 10;

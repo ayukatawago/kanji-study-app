@@ -156,7 +156,7 @@ export default function QuestionSelector({
       // Always update (removed comparison logic that might cause stale data)
       onSetQuestions(recommended);
     }
-  }, [currentGrade, mode, questions, excludedQuestions]);
+  }, [currentGrade, mode, questions, excludedQuestions, onSetQuestions]);
 
   // Calculate actual selected count (excluding excluded questions)
   const selectedArray = Array.from(selectedQuestions);

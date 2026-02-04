@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { Noto_Serif_JP } from "next/font/google";
 import "./globals.css";
+
+const notoSerifJP = Noto_Serif_JP({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Kanji Test App",
@@ -12,13 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="ja" className={notoSerifJP.className}>
       <body className="antialiased">{children}</body>
     </html>
   );
