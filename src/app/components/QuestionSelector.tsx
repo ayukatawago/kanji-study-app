@@ -268,6 +268,7 @@ export default function QuestionSelector({
               >
                 <option value={3}>3年生</option>
                 <option value={6}>6年生</option>
+                <option value={7}>中1</option>
               </select>
             </div>
           </div>

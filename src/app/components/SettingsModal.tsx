@@ -12,6 +12,7 @@ export default function SettingsModal({
   const dataSources = [
     { key: "kanji_grade3.json", label: "3年生漢字テスト" },
     { key: "kanji_grade6.json", label: "6年生漢字テスト" },
+    { key: "kanji_grade7.json", label: "中1漢字テスト" },
   ];
 
   return (
