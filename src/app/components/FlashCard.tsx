@@ -79,8 +79,8 @@ export default function FlashCard({
       {/* Card */}
       <div className="flex-1 flex flex-col min-h-0 mb-4">
         <div
-          className={`flex-1 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center gap-6 p-8 cursor-pointer transition-colors ${
-            !revealed ? "hover:bg-blue-50" : ""
+          className={`flex-1 bg-white rounded-2xl shadow-lg flex flex-col overflow-hidden transition-colors ${
+            !revealed ? "cursor-pointer hover:bg-blue-50" : ""
           } ${
             isCorrect === true
               ? "ring-4 ring-green-400"
@@ -90,33 +90,37 @@ export default function FlashCard({
           }`}
           onClick={() => !revealed && setRevealed(true)}
         >
-          {/* Question type badge */}
-          {questionType === "antonym" && (
-            <div className="text-sm font-medium text-orange-700 bg-orange-100 rounded px-2 py-1">
-              対義語
-            </div>
-          )}
+          {/* Top half — question (always in same position) */}
+          <div className="flex-1 flex flex-col items-center justify-center gap-3 p-8">
+            {questionType === "antonym" && (
+              <div className="text-sm font-medium text-orange-700 bg-orange-100 rounded px-2 py-1">
+                対義語
+              </div>
+            )}
+            <div
+              className="text-2xl leading-relaxed font-medium text-gray-900 text-center"
+              style={{
+                fontFamily:
+                  "'Noto Serif JP', 'Yu Mincho', 'YuMincho', 'Hiragino Mincho Pro', serif",
+              }}
+              dangerouslySetInnerHTML={{ __html: formatQuestion(question) }}
+            />
+          </div>
 
-          {/* Question text */}
-          <div
-            className="text-2xl leading-relaxed font-medium text-gray-900 text-center"
-            style={{
-              fontFamily:
-                "'Noto Serif JP', 'Yu Mincho', 'YuMincho', 'Hiragino Mincho Pro', serif",
-            }}
-            dangerouslySetInnerHTML={{ __html: formatQuestion(question) }}
-          />
+          {/* Divider */}
+          <div className="h-px bg-gray-200 mx-8" />
 
-          {/* Answer (revealed) */}
-          {revealed ? (
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-full h-px bg-gray-200" />
-              <p className="text-sm text-gray-500">答え</p>
-              <p className="text-4xl font-bold text-blue-700">{answer}</p>
-            </div>
-          ) : (
-            <p className="text-sm text-gray-400">タップして答えを見る</p>
-          )}
+          {/* Bottom half — answer or hint (same height always) */}
+          <div className="flex-1 flex flex-col items-center justify-center p-8">
+            {revealed ? (
+              <>
+                <p className="text-sm text-gray-500 mb-2">答え</p>
+                <p className="text-4xl font-bold text-blue-700">{answer}</p>
+              </>
+            ) : (
+              <p className="text-sm text-gray-400">タップして答えを見る</p>
+            )}
+          </div>
         </div>
       </div>
 
