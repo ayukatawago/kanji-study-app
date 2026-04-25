@@ -62,9 +62,7 @@ export default function FlashCard({
             ← 選択画面
           </button>
         )}
-        <h1 className="text-xl font-bold text-gray-900">
-          フラッシュカード
-        </h1>
+        <h1 className="text-xl font-bold text-gray-900">フラッシュカード</h1>
         <span className="text-sm font-medium text-gray-600">
           {currentIndex + 1} / {totalCount}
         </span>
@@ -101,13 +99,10 @@ export default function FlashCard({
 
           {/* Question text */}
           <div
-            className="text-2xl leading-relaxed font-medium text-gray-900"
+            className="text-2xl leading-relaxed font-medium text-gray-900 text-center"
             style={{
-              writingMode: "vertical-rl",
-              textOrientation: "upright",
               fontFamily:
                 "'Noto Serif JP', 'Yu Mincho', 'YuMincho', 'Hiragino Mincho Pro', serif",
-              maxHeight: "40vh",
             }}
             dangerouslySetInnerHTML={{ __html: formatQuestion(question) }}
           />
