@@ -28,7 +28,7 @@ interface KanjiTestProps {
 export default function KanjiTest({
   selectedQuestionIds,
   onBackToSelector,
-  currentGrade = 3,
+  currentGrade = 7,
 }: KanjiTestProps = {}) {
   const [testData, setTestData] = useState<TestData | null>(null);
   const [selectedTestId, setSelectedTestId] = useState<number>(1);

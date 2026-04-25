@@ -21,7 +21,7 @@ export default function Home() {
     new Set()
   );
   const [testData, setTestData] = useState<TestData | null>(null);
-  const [currentGrade, setCurrentGrade] = useState<number>(6);
+  const [currentGrade, setCurrentGrade] = useState<number>(7);
 
   useEffect(() => {
     const dataSource = `kanji_grade${currentGrade}.json`;
