@@ -4,6 +4,7 @@ import Question from "./Question";
 interface QuestionItemProps {
   questionNumber: number;
   questionText: string;
+  questionType?: string;
   answer: string;
   onAnswerChange: (value: string) => void;
   formatQuestion: (text: string) => string;
@@ -16,6 +17,7 @@ interface QuestionItemProps {
 export default function QuestionItem({
   questionNumber,
   questionText,
+  questionType,
   answer,
   onAnswerChange,
   formatQuestion,
@@ -30,6 +32,11 @@ export default function QuestionItem({
       <div className="text-md font-bold text-gray-800 bg-gray-100 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">
         {questionNumber}
       </div>
+      {questionType === "antonym" && (
+        <div className="text-xs font-medium text-orange-700 bg-orange-100 rounded px-1 py-0.5 flex-shrink-0 print:text-black print:bg-transparent">
+          対義語
+        </div>
+      )}
 
       <div className="flex items-start gap-4 flex-1 h-full min-h-0">
         <AnswerBox answer={answer} onAnswerChange={onAnswerChange} />

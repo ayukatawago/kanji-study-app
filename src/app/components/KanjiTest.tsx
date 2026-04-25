@@ -12,6 +12,7 @@ interface Question {
   id: number;
   question: string;
   answer: string;
+  type?: string;
 }
 
 interface TestData {
@@ -167,6 +168,9 @@ export default function KanjiTest({
   const questions = testData
     ? testData.questions.slice(startIndex, endIndex).map((q) => q.question)
     : [];
+  const questionTypes = testData
+    ? testData.questions.slice(startIndex, endIndex).map((q) => q.type)
+    : [];
 
   // Get displayed answers (either user's answers or correct answers if showAnswers is true)
   const displayedAnswers: { [key: number]: string } = {};
@@ -198,6 +202,7 @@ export default function KanjiTest({
       <div className="flex-1 bg-white rounded-lg shadow-lg mb-4 py-4 flex flex-col gap-4 min-h-0 print:shadow-none print:p-1 print:h-screen print:box-border">
         <TestGrid
           questions={questions}
+          questionTypes={questionTypes}
           answers={displayedAnswers}
           onAnswerChange={handleAnswerChange}
           formatQuestion={formatQuestion}

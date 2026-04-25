@@ -2,6 +2,7 @@ import QuestionItem from "./QuestionItem";
 
 interface TestGridProps {
   questions: string[];
+  questionTypes?: (string | undefined)[];
   answers: { [key: number]: string };
   onAnswerChange: (questionIndex: number, value: string) => void;
   formatQuestion: (text: string) => string;
@@ -13,6 +14,7 @@ interface TestGridProps {
 
 export default function TestGrid({
   questions,
+  questionTypes,
   answers,
   onAnswerChange,
   formatQuestion,
@@ -30,6 +32,7 @@ export default function TestGrid({
             <QuestionItem
               questionNumber={index + 1}
               questionText={question}
+              questionType={questionTypes?.[index]}
               answer={answers[index] || ""}
               onAnswerChange={(value) => onAnswerChange(index, value)}
               formatQuestion={formatQuestion}
@@ -53,6 +56,7 @@ export default function TestGrid({
             <QuestionItem
               questionNumber={index + 6}
               questionText={question}
+              questionType={questionTypes?.[index + 5]}
               answer={answers[index + 5] || ""}
               onAnswerChange={(value) => onAnswerChange(index + 5, value)}
               formatQuestion={formatQuestion}
