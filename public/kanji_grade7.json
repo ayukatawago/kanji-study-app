@@ -234,6 +234,12 @@
       "question": "苦言",
       "answer": "甘言",
       "type": "antonym"
+    },
+    {
+      "id": 47,
+      "question": "素人",
+      "answer": "玄人",
+      "type": "antonym"
     }
   ]
 }
