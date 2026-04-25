@@ -26,9 +26,9 @@ export default function TestGrid({
   return (
     <>
       {/* Top row - questions 1-5 (right to left) */}
-      <div className="flex-1 flex flex-row-reverse justify-center gap-6 min-h-0">
+      <div className="flex-1 flex flex-row-reverse justify-center items-stretch gap-3 sm:gap-6 min-h-0">
         {questions.slice(0, 5).map((question, index) => (
-          <div key={index} className="mx-1">
+          <div key={index}>
             <QuestionItem
               questionNumber={index + 1}
               questionText={question}
@@ -50,9 +50,9 @@ export default function TestGrid({
       </div>
 
       {/* Bottom row - questions 6-10 (right to left) */}
-      <div className="flex-1 flex flex-row-reverse justify-center gap-6 min-h-0">
+      <div className="flex-1 flex flex-row-reverse justify-center items-stretch gap-3 sm:gap-6 min-h-0">
         {questions.slice(5, 10).map((question, index) => (
-          <div key={index + 5} className="mx-1">
+          <div key={index + 5}>
             <QuestionItem
               questionNumber={index + 6}
               questionText={question}

@@ -236,17 +236,16 @@ export default function QuestionSelector({
       <ReviewStats currentGrade={currentGrade} />
 
       <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 gap-3">
-          <div className="flex-1">
+        <div className="mb-4 space-y-3">
+          <div>
             <h1 className="text-xl sm:text-3xl font-bold text-gray-800">
               漢字テスト - 問題選択
             </h1>
-            <p className="text-gray-600 mt-2">
-              テストする問題を選択してください（{actualSelectedCount}
-              問選択中）
+            <p className="text-gray-600 mt-1">
+              テストする問題を選択してください（{actualSelectedCount}問選択中）
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             {/* Mode Toggle */}
             <div className="flex items-center gap-2">
               <label className="text-sm font-medium text-gray-700">
@@ -335,26 +334,23 @@ export default function QuestionSelector({
           </div>
         )}
 
-        {/* Control buttons */}
-        <div className="flex gap-3 mb-4 flex-wrap justify-center">
+        {/* Action bar: select controls + test format + start */}
+        <div className="flex flex-wrap items-center gap-3 mb-6">
           <button
             onClick={onSelectAll}
             disabled={mode === "fsrs"}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
           >
             すべて選択
           </button>
           <button
             onClick={onDeselectAll}
             disabled={mode === "fsrs"}
-            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
           >
             すべて解除
           </button>
-        </div>
 
-        {/* Test mode toggle + start button */}
-        <div className="flex gap-3 mb-6 flex-wrap justify-center items-center">
           <div className="flex items-center gap-2">
             <label className="text-sm font-medium text-gray-700">
               テスト形式:
@@ -382,10 +378,11 @@ export default function QuestionSelector({
               </button>
             </div>
           </div>
+
           <button
             onClick={onStartTest}
             disabled={actualSelectedCount === 0}
-            className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-semibold"
+            className="ml-auto px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-semibold text-sm"
           >
             テスト開始 ({actualSelectedCount}問)
           </button>
@@ -404,7 +401,7 @@ export default function QuestionSelector({
               return (
                 <div
                   key={groupNumber}
-                  className="border border-gray-200 rounded-lg p-4"
+                  className="border border-gray-200 rounded-lg p-3 sm:p-4"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <h2 className="text-xl font-semibold text-gray-700">
@@ -425,13 +422,13 @@ export default function QuestionSelector({
                     </button>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
                     {groupQs.map((q) => {
                       const isExcluded = excludedQuestions.has(q.id);
                       return (
                         <div
                           key={q.id}
-                          className={`p-3 rounded-md border-2 ${
+                          className={`px-3 py-2 sm:p-3 rounded-md border-2 ${
                             isExcluded
                               ? "bg-red-50 border-red-300 opacity-60"
                               : mode === "fsrs"

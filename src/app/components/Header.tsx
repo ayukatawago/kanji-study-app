@@ -25,7 +25,7 @@ export default function Header({
   onToggleAnswers,
 }: HeaderProps) {
   return (
-    <div className="flex justify-between items-center my-4 flex-shrink-0">
+    <div className="flex justify-between items-center my-2 sm:my-4 flex-shrink-0">
       <div className="flex items-center gap-2">
         {onBackToSelector && (
           <button
@@ -58,7 +58,7 @@ export default function Header({
               ))}
         </select>
       </div>
-      <h1 className="text-xl font-bold text-center text-gray-900">
+      <h1 className="text-base sm:text-xl font-bold text-center text-gray-900 truncate px-2">
         漢字テスト
       </h1>
       <div className="flex items-center gap-2">

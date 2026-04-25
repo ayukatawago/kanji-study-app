@@ -256,7 +256,7 @@ export default function KanjiTest({
         />
       </div>
 
-      <div className="flex-1 bg-white rounded-lg shadow-lg mb-4 py-4 flex flex-col gap-4 min-h-0 print:shadow-none print:p-1 print:h-screen print:box-border">
+      <div className="flex-1 bg-white rounded-lg shadow-lg mb-2 sm:mb-4 py-2 sm:py-4 flex flex-col gap-2 sm:gap-4 min-h-0 print:shadow-none print:p-1 print:h-screen print:box-border">
         <TestGrid
           questions={questions}
           questionTypes={questionTypes}

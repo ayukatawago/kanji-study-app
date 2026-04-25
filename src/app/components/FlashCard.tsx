@@ -126,7 +126,7 @@ export default function FlashCard({
 
       {/* Correctness buttons — always rendered to hold space, hidden when not revealed */}
       <div
-        className="flex gap-4 justify-center mb-4 flex-shrink-0"
+        className="flex gap-4 justify-center mb-2 sm:mb-4 flex-shrink-0"
         style={{ visibility: revealed ? "visible" : "hidden" }}
       >
         <button
@@ -144,7 +144,7 @@ export default function FlashCard({
       </div>
 
       {/* Navigation — always rendered to hold space */}
-      <div className="flex gap-3 justify-center mb-6 flex-shrink-0">
+      <div className="flex gap-3 justify-center mb-3 sm:mb-6 flex-shrink-0">
         <button
           onClick={onPrev}
           disabled={currentIndex === 0}
