@@ -124,25 +124,26 @@ export default function FlashCard({
         </div>
       </div>
 
-      {/* Correctness buttons (shown after reveal) */}
-      {revealed && (
-        <div className="flex gap-4 justify-center mb-4 flex-shrink-0">
-          <button
-            onClick={handleMarkIncorrect}
-            className="flex-1 max-w-40 py-4 rounded-xl font-bold text-lg transition-colors bg-red-100 text-red-600 hover:bg-red-500 hover:text-white"
-          >
-            ✗ 不正解
-          </button>
-          <button
-            onClick={handleMarkCorrect}
-            className="flex-1 max-w-40 py-4 rounded-xl font-bold text-lg transition-colors bg-green-100 text-green-600 hover:bg-green-500 hover:text-white"
-          >
-            ✓ 正解
-          </button>
-        </div>
-      )}
+      {/* Correctness buttons — always rendered to hold space, hidden when not revealed */}
+      <div
+        className="flex gap-4 justify-center mb-4 flex-shrink-0"
+        style={{ visibility: revealed ? "visible" : "hidden" }}
+      >
+        <button
+          onClick={handleMarkIncorrect}
+          className="flex-1 max-w-40 py-4 rounded-xl font-bold text-lg transition-colors bg-red-100 text-red-600 hover:bg-red-500 hover:text-white"
+        >
+          ✗ 不正解
+        </button>
+        <button
+          onClick={handleMarkCorrect}
+          className="flex-1 max-w-40 py-4 rounded-xl font-bold text-lg transition-colors bg-green-100 text-green-600 hover:bg-green-500 hover:text-white"
+        >
+          ✓ 正解
+        </button>
+      </div>
 
-      {/* Navigation */}
+      {/* Navigation — always rendered to hold space */}
       <div className="flex gap-3 justify-center mb-6 flex-shrink-0">
         <button
           onClick={onPrev}
@@ -151,14 +152,13 @@ export default function FlashCard({
         >
           ← 前へ
         </button>
-        {!revealed && (
-          <button
-            onClick={() => setRevealed(true)}
-            className="px-6 py-2 rounded-lg font-medium text-sm transition-colors bg-blue-600 text-white hover:bg-blue-700"
-          >
-            答えを見る
-          </button>
-        )}
+        <button
+          onClick={() => setRevealed(true)}
+          className="px-6 py-2 rounded-lg font-medium text-sm transition-colors bg-blue-600 text-white hover:bg-blue-700"
+          style={{ visibility: revealed ? "hidden" : "visible" }}
+        >
+          答えを見る
+        </button>
         <button
           onClick={onNext}
           disabled={currentIndex === totalCount - 1}
