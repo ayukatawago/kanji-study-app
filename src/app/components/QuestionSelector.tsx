@@ -280,9 +280,9 @@ export default function QuestionSelector({
           </div>
         </div>
 
-        {/* Mode Description */}
+        {/* Mode Description — hidden on mobile */}
         {mode === "fsrs" && (
-          <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+          <div className="hidden sm:block mb-4 p-3 bg-purple-50 border border-purple-200 rounded-lg">
             <p className="text-sm text-purple-800">
               <span className="font-semibold">FSRSモード:</span>{" "}
               復習が必要な問題と新規問題を自動的に選択します。問題は学習状況に基づいて最適化されています。
@@ -417,7 +417,7 @@ export default function QuestionSelector({
                             <div className="text-lg font-bold text-gray-800 mb-1">
                               {q.answer}
                             </div>
-                            <div className="text-sm text-gray-600">
+                            <div className="hidden sm:block text-sm text-gray-600">
                               {q.question}
                             </div>
                           </button>
