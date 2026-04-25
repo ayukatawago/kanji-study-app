@@ -53,3 +53,7 @@ src/
 - Use Tailwind CSS v4 for styling
 - Format code with Prettier before committing
 - Port 3000 is preferred for development server
+
+## Playwright
+
+When using Playwright MCP to take screenshots, always save them inside `.playwright-mcp/` so they stay out of git (the directory is gitignored). Example path: `.playwright-mcp/my-screenshot.png`.
