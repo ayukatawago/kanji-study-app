@@ -5,6 +5,7 @@ import { Rating } from "ts-fsrs";
 import TestGrid from "./TestGrid";
 import Header from "./Header";
 import AnswerPopup from "./AnswerPopup";
+import FlashCard from "./FlashCard";
 import { recordReview } from "@/lib/fsrsScheduler";
 import { initializeStorage } from "@/lib/fsrsStorage";
 
@@ -34,6 +35,7 @@ export default function KanjiTest({
 }: KanjiTestProps = {}) {
   const [testData, setTestData] = useState<TestData | null>(null);
   const [selectedTestId, setSelectedTestId] = useState<number>(1);
+  const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [showAnswer, setShowAnswer] = useState<{
     questionIndex: number;
@@ -161,6 +163,21 @@ export default function KanjiTest({
     );
   };
 
+  // Flash card mode handlers — use global card index directly
+  const handleFlashCardMarkCorrect = () => {
+    const questionData = testData?.questions[currentCardIndex];
+    if (!questionData) return;
+    setCorrectness((prev) => ({ ...prev, [currentCardIndex]: true }));
+    recordReview(questionData.id, currentGrade, Rating.Good, true);
+  };
+
+  const handleFlashCardMarkIncorrect = () => {
+    const questionData = testData?.questions[currentCardIndex];
+    if (!questionData) return;
+    setCorrectness((prev) => ({ ...prev, [currentCardIndex]: false }));
+    recordReview(questionData.id, currentGrade, Rating.Again, false);
+  };
+
   if (!testData) {
     return (
       <div className="flex justify-center items-center min-h-64">
@@ -192,6 +209,32 @@ export default function KanjiTest({
     }
   }
 
+  // Flash card mode
+  if (testMode === "flashcard") {
+    const currentQuestion = testData.questions[currentCardIndex];
+    return (
+      <FlashCard
+        question={currentQuestion.question}
+        answer={currentQuestion.answer}
+        questionType={currentQuestion.type}
+        currentIndex={currentCardIndex}
+        totalCount={testData.questions.length}
+        isCorrect={correctness[currentCardIndex] ?? null}
+        onMarkCorrect={handleFlashCardMarkCorrect}
+        onMarkIncorrect={handleFlashCardMarkIncorrect}
+        onNext={() =>
+          setCurrentCardIndex((i) =>
+            Math.min(i + 1, testData.questions.length - 1)
+          )
+        }
+        onPrev={() => setCurrentCardIndex((i) => Math.max(i - 1, 0))}
+        onBackToSelector={onBackToSelector}
+        formatQuestion={formatQuestion}
+      />
+    );
+  }
+
+  // Grid mode (default)
   return (
     <div className="h-screen flex flex-col max-w-6xl mx-auto px-2 print:w-full print:max-w-full print:box-border">
       <div className="flex-0 print:hidden">
