@@ -15,6 +15,8 @@ interface TestData {
   questions: Question[];
 }
 
+type TestMode = "grid" | "flashcard";
+
 export default function Home() {
   const [showSelector, setShowSelector] = useState(true);
   const [selectedQuestions, setSelectedQuestions] = useState<Set<number>>(
@@ -22,6 +24,7 @@ export default function Home() {
   );
   const [testData, setTestData] = useState<TestData | null>(null);
   const [currentGrade, setCurrentGrade] = useState<number>(7);
+  const [testMode, setTestMode] = useState<TestMode>("grid");
 
   useEffect(() => {
     const dataSource = `kanji_grade${currentGrade}.json`;
@@ -99,6 +102,8 @@ export default function Home() {
           onStartTest={handleStartTest}
           currentGrade={currentGrade}
           onGradeChange={handleGradeChange}
+          testMode={testMode}
+          onTestModeChange={setTestMode}
         />
       </div>
     );
@@ -111,6 +116,7 @@ export default function Home() {
           selectedQuestionIds={selectedQuestions}
           onBackToSelector={handleBackToSelector}
           currentGrade={currentGrade}
+          testMode={testMode}
         />
       </main>
     </div>

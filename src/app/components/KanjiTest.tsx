@@ -23,12 +23,14 @@ interface KanjiTestProps {
   selectedQuestionIds?: Set<number>;
   onBackToSelector?: () => void;
   currentGrade?: number;
+  testMode?: "grid" | "flashcard";
 }
 
 export default function KanjiTest({
   selectedQuestionIds,
   onBackToSelector,
   currentGrade = 7,
+  testMode = "grid",
 }: KanjiTestProps = {}) {
   const [testData, setTestData] = useState<TestData | null>(null);
   const [selectedTestId, setSelectedTestId] = useState<number>(1);

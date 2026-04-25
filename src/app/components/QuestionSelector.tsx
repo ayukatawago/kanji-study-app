@@ -14,6 +14,8 @@ interface Question {
   answer: string;
 }
 
+type TestMode = "grid" | "flashcard";
+
 interface QuestionSelectorProps {
   questions: Question[];
   selectedQuestions: Set<number>;
@@ -24,6 +26,8 @@ interface QuestionSelectorProps {
   onStartTest: () => void;
   currentGrade: number;
   onGradeChange: (grade: number) => void;
+  testMode: TestMode;
+  onTestModeChange: (mode: TestMode) => void;
 }
 
 type SelectionMode = "manual" | "fsrs";
@@ -38,6 +42,8 @@ export default function QuestionSelector({
   onStartTest,
   currentGrade,
   onGradeChange,
+  testMode,
+  onTestModeChange,
 }: QuestionSelectorProps) {
   const [mode, setMode] = useState<SelectionMode>("fsrs");
   const [excludedQuestions, setExcludedQuestions] = useState<Set<number>>(
@@ -285,7 +291,7 @@ export default function QuestionSelector({
         )}
 
         {/* Control buttons */}
-        <div className="flex gap-3 mb-6 flex-wrap justify-center">
+        <div className="flex gap-3 mb-4 flex-wrap justify-center">
           <button
             onClick={onSelectAll}
             disabled={mode === "fsrs"}
@@ -300,6 +306,37 @@ export default function QuestionSelector({
           >
             すべて解除
           </button>
+        </div>
+
+        {/* Test mode toggle + start button */}
+        <div className="flex gap-3 mb-6 flex-wrap justify-center items-center">
+          <div className="flex items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">
+              テスト形式:
+            </label>
+            <div className="flex bg-gray-100 rounded-lg p-1">
+              <button
+                onClick={() => onTestModeChange("grid")}
+                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                  testMode === "grid"
+                    ? "bg-white text-blue-600 shadow-sm"
+                    : "text-gray-600 hover:text-gray-800"
+                }`}
+              >
+                一覧
+              </button>
+              <button
+                onClick={() => onTestModeChange("flashcard")}
+                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                  testMode === "flashcard"
+                    ? "bg-white text-green-600 shadow-sm"
+                    : "text-gray-600 hover:text-gray-800"
+                }`}
+              >
+                フラッシュカード
+              </button>
+            </div>
+          </div>
           <button
             onClick={onStartTest}
             disabled={actualSelectedCount === 0}
