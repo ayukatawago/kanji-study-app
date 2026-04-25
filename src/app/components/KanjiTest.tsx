@@ -53,14 +53,19 @@ export default function KanjiTest({
       .then((res) => res.json())
       .then((data: TestData) => {
         // Filter questions based on selectedQuestionIds if provided
-        if (selectedQuestionIds && selectedQuestionIds.size > 0) {
-          const filteredQuestions = data.questions.filter((q) =>
-            selectedQuestionIds.has(q.id)
-          );
-          setTestData({ questions: filteredQuestions });
-        } else {
-          setTestData(data);
+        const filtered =
+          selectedQuestionIds && selectedQuestionIds.size > 0
+            ? data.questions.filter((q) => selectedQuestionIds.has(q.id))
+            : data.questions;
+
+        // Shuffle using Fisher-Yates
+        const shuffled = [...filtered];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
+
+        setTestData({ questions: shuffled });
         setSelectedTestId(1); // Reset to first test when changing data source
       })
       .catch((error) => console.error("Error loading test data:", error));
