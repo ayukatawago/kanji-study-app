@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import KanjiTest from "./components/KanjiTest";
 import QuestionSelector from "./components/QuestionSelector";
 import { getExcludedQuestions } from "@/lib/fsrsStorage";
@@ -62,9 +62,9 @@ export default function Home() {
     setSelectedQuestions(new Set());
   };
 
-  const handleSetQuestions = (questionIds: number[]) => {
+  const handleSetQuestions = useCallback((questionIds: number[]) => {
     setSelectedQuestions(new Set(questionIds));
-  };
+  }, []);
 
   const handleStartTest = () => {
     setShowSelector(false);

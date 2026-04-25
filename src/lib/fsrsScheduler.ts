@@ -16,6 +16,16 @@ import {
 // Initialize FSRS with default parameters
 const fsrs = new FSRS({});
 
+/** Fisher-Yates shuffle (returns a new array) */
+function shuffleArray<T>(arr: T[]): T[] {
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
 /**
  * Record a review for a question
  * Returns the updated card and scheduling information
@@ -109,11 +119,21 @@ export function getDueQuestions(
     })
     .sort((a, b) => b.daysOverdue - a.daysOverdue); // Most overdue first
 
-  if (limit) {
-    return dueCards.slice(0, limit);
+  // Shuffle within each same-daysOverdue group so equal-priority items are random
+  const randomized: typeof dueCards = [];
+  let i = 0;
+  while (i < dueCards.length) {
+    let j = i + 1;
+    while (
+      j < dueCards.length &&
+      dueCards[j].daysOverdue === dueCards[i].daysOverdue
+    )
+      j++;
+    randomized.push(...shuffleArray(dueCards.slice(i, j)));
+    i = j;
   }
 
-  return dueCards;
+  return limit ? randomized.slice(0, limit) : randomized;
 }
 
 /**
@@ -132,11 +152,10 @@ export function getNewQuestions(
     return !cards[key] || cards[key].card.state === State.New;
   });
 
-  if (limit) {
-    return newQuestions.slice(0, limit);
-  }
+  // All new questions are at the same level — shuffle for variety
+  const shuffled = shuffleArray(newQuestions);
 
-  return newQuestions;
+  return limit ? shuffled.slice(0, limit) : shuffled;
 }
 
 /**
@@ -185,10 +204,10 @@ export function getRecommendedQuestions(
     const remainingNeeded = totalLimit - recommended.length;
     const alreadySelected = new Set(recommended);
 
-    // Get questions that haven't been selected yet
-    const additionalQuestions = allQuestionIds
-      .filter((qId) => !alreadySelected.has(qId))
-      .slice(0, remainingNeeded);
+    // Get questions that haven't been selected yet — shuffle since all equal priority
+    const additionalQuestions = shuffleArray(
+      allQuestionIds.filter((qId) => !alreadySelected.has(qId))
+    ).slice(0, remainingNeeded);
 
     recommended.push(...additionalQuestions);
   }
