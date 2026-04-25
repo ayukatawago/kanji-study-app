@@ -213,14 +213,14 @@ export default function QuestionSelector({
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="max-w-6xl mx-auto px-3 py-4 sm:px-4 sm:py-8">
       {/* Review Statistics */}
       <ReviewStats currentGrade={currentGrade} />
 
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <div className="flex justify-between items-start mb-4">
+      <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 gap-3">
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-800">
+            <h1 className="text-xl sm:text-3xl font-bold text-gray-800">
               漢字テスト - 問題選択
             </h1>
             <p className="text-gray-600 mt-2">
@@ -228,7 +228,7 @@ export default function QuestionSelector({
               問選択中）
             </p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
             {/* Mode Toggle */}
             <div className="flex items-center gap-2">
               <label className="text-sm font-medium text-gray-700">
