@@ -9,6 +9,7 @@ interface Question {
   id: number;
   question: string;
   answer: string;
+  group: number;
 }
 
 interface TestData {

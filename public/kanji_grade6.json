@@ -3,1637 +3,1964 @@
     {
       "id": 1,
       "question": "湖に紅葉した山が<うつる>",
-      "answer": "映る"
+      "answer": "映る",
+      "group": 1
     },
     {
       "id": 2,
       "question": "新しい土地を<たがやす>",
-      "answer": "耕す"
+      "answer": "耕す",
+      "group": 1
     },
     {
       "id": 3,
       "question": "とても<ショウチ>できない相談だ",
-      "answer": "承知"
+      "answer": "承知",
+      "group": 1
     },
     {
       "id": 4,
       "question": "明暗が<タイショウ>的である",
-      "answer": "対照"
+      "answer": "対照",
+      "group": 1
     },
     {
       "id": 5,
       "question": "公式を<テイギ>する",
-      "answer": "定義"
+      "answer": "定義",
+      "group": 1
     },
     {
       "id": 6,
       "question": "<エイセイ>放送を見る",
-      "answer": "衛星"
+      "answer": "衛星",
+      "group": 1
     },
     {
       "id": 7,
       "question": "<ザッシ>から記事を切りぬく",
-      "answer": "雑誌"
+      "answer": "雑誌",
+      "group": 1
     },
     {
       "id": 8,
       "question": "そんな気持ちは<モウトウ>ない",
-      "answer": "毛頭"
+      "answer": "毛頭",
+      "group": 1
     },
     {
       "id": 9,
       "question": "敵のたくらみを<カンパ>する",
-      "answer": "看破"
+      "answer": "看破",
+      "group": 1
     },
     {
       "id": 10,
       "question": "<ガクセイ>として名を残すベートーベン",
-      "answer": "楽聖"
+      "answer": "楽聖",
+      "group": 1
     },
     {
       "id": 11,
       "question": "この世の<ケンセイ>を誇る大企業",
-      "answer": "権勢"
+      "answer": "権勢",
+      "group": 1
     },
     {
       "id": 12,
       "question": "少年の<シャコウ>心をあおるゲーム",
-      "answer": "射幸"
+      "answer": "射幸",
+      "group": 1
     },
     {
       "id": 13,
       "question": "内閣の<シュハン>に指名される",
-      "answer": "首班"
+      "answer": "首班",
+      "group": 1
     },
     {
       "id": 14,
       "question": "これは<ヒルイ>なき作品だ",
-      "answer": "比類"
+      "answer": "比類",
+      "group": 1
     },
     {
       "id": 15,
       "question": "他のメンバーも<まじえ>て議論する",
-      "answer": "交え"
+      "answer": "交え",
+      "group": 1
     },
     {
       "id": 16,
       "question": "しばらくの間、お酒を<たつ>",
-      "answer": "断つ"
+      "answer": "断つ",
+      "group": 1
     },
     {
       "id": 17,
       "question": "この<チイキ>には学校が多い",
-      "answer": "地域"
+      "answer": "地域",
+      "group": 1
     },
     {
       "id": 18,
       "question": "<カクチョウ>高いホテルに泊まる",
-      "answer": "格調"
+      "answer": "格調",
+      "group": 1
     },
     {
       "id": 19,
       "question": "大臣が<インセキ>辞任する",
-      "answer": "引責"
+      "answer": "引責",
+      "group": 1
     },
     {
       "id": 20,
       "question": "スーパーで<ソウザイ>を買う",
-      "answer": "総菜"
+      "answer": "総菜",
+      "group": 1
     },
     {
       "id": 21,
       "question": "弟は<ブッチョウヅラ>をして部屋から出ていった",
-      "answer": "仏頂面"
+      "answer": "仏頂面",
+      "group": 1
     },
     {
       "id": 22,
       "question": "言うのは<やすし>、行うのは<かたし>",
-      "answer": "易し・難し"
+      "answer": "易し・難し",
+      "group": 1
     },
     {
       "id": 23,
       "question": "弟の<ソコウ>の悪さを注意する",
-      "answer": "素行"
+      "answer": "素行",
+      "group": 1
     },
     {
       "id": 24,
       "question": "ひどい症状が<おさまる>",
-      "answer": "治まる"
+      "answer": "治まる",
+      "group": 1
     },
     {
       "id": 25,
       "question": "いきな<はからい>に感激する",
-      "answer": "計らい"
+      "answer": "計らい",
+      "group": 1
     },
     {
       "id": 26,
       "question": "村祭りは<カンコウ>的な行事だ",
-      "answer": "慣行"
+      "answer": "慣行",
+      "group": 1
     },
     {
       "id": 27,
       "question": "<テイサイ>を気にする",
-      "answer": "体裁"
+      "answer": "体裁",
+      "group": 1
     },
     {
       "id": 28,
       "question": "なかなかコツが<エトク>できない",
-      "answer": "会得"
+      "answer": "会得",
+      "group": 1
     },
     {
       "id": 29,
       "question": "<モクソク>を誤って、海に落ちた",
-      "answer": "目測"
+      "answer": "目測",
+      "group": 1
     },
     {
       "id": 30,
       "question": "髪を<ゆう>",
-      "answer": "結う"
+      "answer": "結う",
+      "group": 1
     },
     {
       "id": 31,
       "question": "急な出来事に<ロウバイ>する",
-      "answer": "狼狽"
+      "answer": "狼狽",
+      "group": 2
     },
     {
       "id": 32,
       "question": "<アイマイ>な返事をする",
-      "answer": "曖昧"
+      "answer": "曖昧",
+      "group": 2
     },
     {
       "id": 33,
       "question": "ニホンウナギは<ゼツメツキグシュ>だ",
-      "answer": "絶滅危惧種"
+      "answer": "絶滅危惧種",
+      "group": 2
     },
     {
       "id": 34,
       "question": "宝のありかを<さぐっ>た",
-      "answer": "探っ"
+      "answer": "探っ",
+      "group": 2
     },
     {
       "id": 35,
       "question": "一筋の<コウミョウ>が差し込む",
-      "answer": "光明"
+      "answer": "光明",
+      "group": 2
     },
     {
       "id": 36,
       "question": "<ヤハン>に外に出ては危ない",
-      "answer": "夜半"
+      "answer": "夜半",
+      "group": 2
     },
     {
       "id": 37,
       "question": "受け入れ<タイセイ>を整える",
-      "answer": "態勢"
+      "answer": "態勢",
+      "group": 2
     },
     {
       "id": 38,
       "question": "王に対して<ハンキ>をひるがえす",
-      "answer": "反旗"
+      "answer": "反旗",
+      "group": 2
     },
     {
       "id": 39,
       "question": "その技術は彼女の<センバイ>特許だ",
-      "answer": "専売"
+      "answer": "専売",
+      "group": 2
     },
     {
       "id": 40,
       "question": "それでは皆様、お手を<ハイシャク>します",
-      "answer": "拝借"
+      "answer": "拝借",
+      "group": 2
     },
     {
       "id": 41,
       "question": "頬がうっすらと赤みを<おびる>",
-      "answer": "帯びる"
+      "answer": "帯びる",
+      "group": 2
     },
     {
       "id": 42,
       "question": "脳裏を<よぎる>",
-      "answer": "過る"
+      "answer": "過る",
+      "group": 2
     },
     {
       "id": 43,
       "question": "教師になって<セイケイ>を立てる",
-      "answer": "生計"
+      "answer": "生計",
+      "group": 2
     },
     {
       "id": 44,
       "question": "あの男は王の<フクシン>の部下だ",
-      "answer": "腹心"
+      "answer": "腹心",
+      "group": 2
     },
     {
       "id": 45,
       "question": "未開の地を<タンケン>する",
-      "answer": "探検"
+      "answer": "探検",
+      "group": 2
     },
     {
       "id": 46,
       "question": "くつ、バッグなどの<ヒカク>製品",
-      "answer": "皮革"
+      "answer": "皮革",
+      "group": 2
     },
     {
       "id": 47,
       "question": "祖父は天寿を<まっとう>した",
-      "answer": "全う"
+      "answer": "全う",
+      "group": 2
     },
     {
       "id": 48,
       "question": "学級新聞を<インサツ>する",
-      "answer": "印刷"
+      "answer": "印刷",
+      "group": 2
     },
     {
       "id": 49,
       "question": "倉庫に食物を<チョゾウ>する",
-      "answer": "貯蔵"
+      "answer": "貯蔵",
+      "group": 2
     },
     {
       "id": 50,
       "question": "<エイサイ>教育を施す",
-      "answer": "英才"
+      "answer": "英才",
+      "group": 2
     },
     {
       "id": 51,
       "question": "<エンジュクミ>のある演技",
-      "answer": "円熟味"
+      "answer": "円熟味",
+      "group": 2
     },
     {
       "id": 52,
       "question": "<コウシ>柄の着物を着る",
-      "answer": "格子"
+      "answer": "格子",
+      "group": 2
     },
     {
       "id": 53,
       "question": "<ゴコク>豊穣を願う祭り",
-      "answer": "五穀"
+      "answer": "五穀",
+      "group": 2
     },
     {
       "id": 54,
       "question": "判断するための<ショウサ>を求める",
-      "answer": "証左"
+      "answer": "証左",
+      "group": 2
     },
     {
       "id": 55,
       "question": "いざこざの原因は彼の<ソンダイ>な態度だ",
-      "answer": "尊大"
+      "answer": "尊大",
+      "group": 2
     },
     {
       "id": 56,
       "question": "アメリカに<ボウメイ>する",
-      "answer": "亡命"
+      "answer": "亡命",
+      "group": 2
     },
     {
       "id": 57,
       "question": "世界遺産の<コウザン>を見学する",
-      "answer": "鉱山"
+      "answer": "鉱山",
+      "group": 2
     },
     {
       "id": 58,
       "question": "欲しかったものを手に入れ<ウチョウテン>だ",
-      "answer": "有頂天"
+      "answer": "有頂天",
+      "group": 2
     },
     {
       "id": 59,
       "question": "行き詰まりを<ダカイ>する",
-      "answer": "打開"
+      "answer": "打開",
+      "group": 2
     },
     {
       "id": 60,
       "question": "時間<ゲンシュ>でお願いします",
-      "answer": "厳守"
+      "answer": "厳守",
+      "group": 2
     },
     {
       "id": 61,
       "question": "姉はいつも安定<シコウ>だ",
-      "answer": "志向"
+      "answer": "志向",
+      "group": 3
     },
     {
       "id": 62,
       "question": "それが<ケンゼン>な考え方だと思う",
-      "answer": "健全"
+      "answer": "健全",
+      "group": 3
     },
     {
       "id": 63,
       "question": "政府が方針を<ゼセイ>する",
-      "answer": "是正"
+      "answer": "是正",
+      "group": 3
     },
     {
       "id": 64,
       "question": "<おごそか>に卒業式を行う",
-      "answer": "厳か"
+      "answer": "厳か",
+      "group": 3
     },
     {
       "id": 65,
       "question": "空を<センカイ>する",
-      "answer": "旋回"
+      "answer": "旋回",
+      "group": 3
     },
     {
       "id": 66,
       "question": "<ジュヨウ>と供給の関係",
-      "answer": "需要"
+      "answer": "需要",
+      "group": 3
     },
     {
       "id": 67,
       "question": "<キカイ>体操の選手",
-      "answer": "器械"
+      "answer": "器械",
+      "group": 3
     },
     {
       "id": 68,
       "question": "北へ<シンロ>をとる",
-      "answer": "針路"
+      "answer": "針路",
+      "group": 3
     },
     {
       "id": 69,
       "question": "選挙で全国を<ユウゼイ>する",
-      "answer": "遊説"
+      "answer": "遊説",
+      "group": 3
     },
     {
       "id": 70,
       "question": "<キイッポン>な性格",
-      "answer": "生一本"
+      "answer": "生一本",
+      "group": 3
     },
     {
       "id": 71,
       "question": "<カンセイ>が湧き上がる会場",
-      "answer": "歓声"
+      "answer": "歓声",
+      "group": 3
     },
     {
       "id": 72,
       "question": "<タカイチサナエ>内閣総理大臣",
-      "answer": "高市早苗"
+      "answer": "高市早苗",
+      "group": 3
     },
     {
       "id": 73,
       "question": "念願が<ジョウジュ>する",
-      "answer": "成就"
+      "answer": "成就",
+      "group": 3
     },
     {
       "id": 74,
       "question": "寺の<ケイダイ>に進入する",
-      "answer": "境内"
+      "answer": "境内",
+      "group": 3
     },
     {
       "id": 75,
       "question": "<チョウリュウ>を調べる",
-      "answer": "潮流"
+      "answer": "潮流",
+      "group": 3
     },
     {
       "id": 76,
       "question": "日本は<ホウチコッカ>だ",
-      "answer": "法治国家"
+      "answer": "法治国家",
+      "group": 3
     },
     {
       "id": 77,
       "question": "<セイケツ>な部屋",
-      "answer": "清潔"
+      "answer": "清潔",
+      "group": 3
     },
     {
       "id": 78,
       "question": "多くの人から信頼を<はくした>",
-      "answer": "博した"
+      "answer": "博した",
+      "group": 3
     },
     {
       "id": 79,
       "question": "大事なポイントをノートに<とどめる>",
-      "answer": "留める"
+      "answer": "留める",
+      "group": 3
     },
     {
       "id": 80,
       "question": "事故のあと、先生たちは事態の<シュウシュウ>に追われた",
-      "answer": "収拾"
+      "answer": "収拾",
+      "group": 3
     },
     {
       "id": 81,
       "question": "全校生徒が校歌を<ショウワ>した",
-      "answer": "唱和"
+      "answer": "唱和",
+      "group": 3
     },
     {
       "id": 82,
       "question": "科学の発展に大きな<コウセキ>を残す",
-      "answer": "功績"
+      "answer": "功績",
+      "group": 3
     },
     {
       "id": 83,
       "question": "シャツにソースが<フチャク>した",
-      "answer": "付着"
+      "answer": "付着",
+      "group": 3
     },
     {
       "id": 84,
       "question": "政局は<コンメイ>を極めた",
-      "answer": "混迷"
+      "answer": "混迷",
+      "group": 3
     },
     {
       "id": 85,
       "question": "<カダン>な行動により、事なきを得た",
-      "answer": "果断"
+      "answer": "果断",
+      "group": 3
     },
     {
       "id": 86,
       "question": "技を<タイトク>する",
-      "answer": "体得"
+      "answer": "体得",
+      "group": 3
     },
     {
       "id": 87,
       "question": "巨大な<たれまく>が掛かっている",
-      "answer": "垂れ幕"
+      "answer": "垂れ幕",
+      "group": 3
     },
     {
       "id": 88,
       "question": "故郷が<ムショウ>に恋しくなる",
-      "answer": "無性"
+      "answer": "無性",
+      "group": 3
     },
     {
       "id": 89,
       "question": "<ブカッコウ>な作品",
-      "answer": "不格好"
+      "answer": "不格好",
+      "group": 3
     },
     {
       "id": 90,
       "question": "<フクザツ>な計算問題",
-      "answer": "複雑"
+      "answer": "複雑",
+      "group": 3
     },
     {
       "id": 91,
       "question": "親友を<カシン>して痛い目にあった",
-      "answer": "過信"
+      "answer": "過信",
+      "group": 4
     },
     {
       "id": 92,
       "question": "<セッセン>を制する",
-      "answer": "接戦"
+      "answer": "接戦",
+      "group": 4
     },
     {
       "id": 93,
       "question": "<センモン>家の意見を聞く",
-      "answer": "専門"
+      "answer": "専門",
+      "group": 4
     },
     {
       "id": 94,
       "question": "監督にキーパーとして<キヨウ>された",
-      "answer": "起用"
+      "answer": "起用",
+      "group": 4
     },
     {
       "id": 95,
       "question": "事態を<セイカン>して様子をうかがう",
-      "answer": "静観"
+      "answer": "静観",
+      "group": 4
     },
     {
       "id": 96,
       "question": "悪の<ゴンゲ>ともいうべき存在",
-      "answer": "権化"
+      "answer": "権化",
+      "group": 4
     },
     {
       "id": 97,
       "question": "幼児の<ジョウソウ>教育が大事だ",
-      "answer": "情操"
+      "answer": "情操",
+      "group": 4
     },
     {
       "id": 98,
       "question": "<ゼンダイミモン>の大雨や猛暑",
-      "answer": "前代未聞"
+      "answer": "前代未聞",
+      "group": 4
     },
     {
       "id": 99,
       "question": "実力を<ハッキ>する",
-      "answer": "発揮"
+      "answer": "発揮",
+      "group": 4
     },
     {
       "id": 100,
       "question": "親睦を深められた、<ユウイギ>な会合",
-      "answer": "有意義"
+      "answer": "有意義",
+      "group": 4
     },
     {
       "id": 101,
       "question": "スピードの出し過ぎで、トラックが<オウテン>した",
-      "answer": "横転"
+      "answer": "横転",
+      "group": 4
     },
     {
       "id": 102,
       "question": "まだ誰も知らない<ヒキョウ>を目指す",
-      "answer": "秘境"
+      "answer": "秘境",
+      "group": 4
     },
     {
       "id": 103,
       "question": "負けてから<ベンカイ>するのは見苦しい",
-      "answer": "弁解"
+      "answer": "弁解",
+      "group": 4
     },
     {
       "id": 104,
       "question": "<ホウフク>の応酬では戦争は終わらない",
-      "answer": "報復"
+      "answer": "報復",
+      "group": 4
     },
     {
       "id": 105,
       "question": "この作品の長所は<マイキョ>にいとまがない",
-      "answer": "枚挙"
+      "answer": "枚挙",
+      "group": 4
     },
     {
       "id": 106,
       "question": "日本の<コクソウ>地帯",
-      "answer": "穀倉"
+      "answer": "穀倉",
+      "group": 4
     },
     {
       "id": 107,
       "question": "<ケントウ>違いな返事をする",
-      "answer": "見当"
+      "answer": "見当",
+      "group": 4
     },
     {
       "id": 108,
       "question": "ノートの<ヨハク>に絵を描く",
-      "answer": "余白"
+      "answer": "余白",
+      "group": 4
     },
     {
       "id": 109,
       "question": "<ジュンジョ>立てて説明する",
-      "answer": "順序"
+      "answer": "順序",
+      "group": 4
     },
     {
       "id": 110,
       "question": "彼女の提案に多くの人が<サンドウ>した",
-      "answer": "賛同"
+      "answer": "賛同",
+      "group": 4
     },
     {
       "id": 111,
       "question": "テーブルの<スンポウ>を測る",
-      "answer": "寸法"
+      "answer": "寸法",
+      "group": 4
     },
     {
       "id": 112,
       "question": "<スイリ>小説を読む",
-      "answer": "推理"
+      "answer": "推理",
+      "group": 4
     },
     {
       "id": 113,
       "question": "木版画を<する>",
-      "answer": "刷る"
+      "answer": "刷る",
+      "group": 4
     },
     {
       "id": 114,
       "question": "プロジェクトの一翼を<になう>",
-      "answer": "担う"
+      "answer": "担う",
+      "group": 4
     },
     {
       "id": 115,
       "question": "クッキーの<キジ>を伸ばす",
-      "answer": "生地"
+      "answer": "生地",
+      "group": 4
     },
     {
       "id": 116,
       "question": "<コウガン>無恥な言動に呆れる",
-      "answer": "厚顔"
+      "answer": "厚顔",
+      "group": 4
     },
     {
       "id": 117,
       "question": "<シダイ>に空が明るくなってきた",
-      "answer": "次第"
+      "answer": "次第",
+      "group": 4
     },
     {
       "id": 118,
       "question": "暗くなってきたので<イエジ>を急いだ",
-      "answer": "家路"
+      "answer": "家路",
+      "group": 4
     },
     {
       "id": 119,
       "question": "初戦から<デバナ>をくじかれた",
-      "answer": "出鼻"
+      "answer": "出鼻",
+      "group": 4
     },
     {
       "id": 120,
       "question": "歌が上手いと<ジフ>する",
-      "answer": "自負"
+      "answer": "自負",
+      "group": 4
     },
     {
       "id": 121,
       "question": "各国の首脳が<イチドウ>に会した",
-      "answer": "一堂"
+      "answer": "一堂",
+      "group": 5
     },
     {
       "id": 122,
       "question": "留学先で素晴らしい<チキ>を得た",
-      "answer": "知己"
+      "answer": "知己",
+      "group": 5
     },
     {
       "id": 123,
       "question": "車に<ビンジョウ>させてもらった",
-      "answer": "便乗"
+      "answer": "便乗",
+      "group": 5
     },
     {
       "id": 124,
       "question": "回復の<きざし>がみられる",
-      "answer": "兆し"
+      "answer": "兆し",
+      "group": 5
     },
     {
       "id": 125,
       "question": "<ヒツゼツ>に尽くし難い痛み",
-      "answer": "筆舌"
+      "answer": "筆舌",
+      "group": 5
     },
     {
       "id": 126,
       "question": "彼の態度が怒りを<ジョチョウ>する",
-      "answer": "助長"
+      "answer": "助長",
+      "group": 5
     },
     {
       "id": 127,
       "question": "<セッカク>来たのに留守だった",
-      "answer": "折角"
+      "answer": "折角",
+      "group": 5
     },
     {
       "id": 128,
       "question": "山間の<カンソン>に生まれた",
-      "answer": "寒村"
+      "answer": "寒村",
+      "group": 5
     },
     {
       "id": 129,
       "question": "<つかのま>の休日",
-      "answer": "束の間"
+      "answer": "束の間",
+      "group": 5
     },
     {
       "id": 130,
       "question": "彼の言動は<カンシン>に絶えない",
-      "answer": "寒心"
+      "answer": "寒心",
+      "group": 5
     },
     {
       "id": 131,
       "question": "ある意見に<イギ>を唱える",
-      "answer": "異議"
+      "answer": "異議",
+      "group": 5
     },
     {
       "id": 132,
       "question": "費用を<ととのえる>",
-      "answer": "調える"
+      "answer": "調える",
+      "group": 5
     },
     {
       "id": 133,
       "question": "責任を<ツイキュウ>する",
-      "answer": "追及"
+      "answer": "追及",
+      "group": 5
     },
     {
       "id": 134,
       "question": "<ジュンスイ>な性格の先生",
-      "answer": "純粋"
+      "answer": "純粋",
+      "group": 5
     },
     {
       "id": 135,
       "question": "この漫画は<ケッサク>だ",
-      "answer": "傑作"
+      "answer": "傑作",
+      "group": 5
     },
     {
       "id": 136,
       "question": "<カタズ>をのんで見守る",
-      "answer": "固唾"
+      "answer": "固唾",
+      "group": 5
     },
     {
       "id": 137,
       "question": "<ショウコ>があり刑務所から釈放された",
-      "answer": "証拠"
+      "answer": "証拠",
+      "group": 5
     },
     {
       "id": 138,
       "question": "新年会で<ヨキョウ>を楽しむ",
-      "answer": "余興"
+      "answer": "余興",
+      "group": 5
     },
     {
       "id": 139,
       "question": "国が<おこる>",
-      "answer": "興る"
+      "answer": "興る",
+      "group": 5
     },
     {
       "id": 140,
       "question": "自分の行いを<かえりみる>",
-      "answer": "省みる"
+      "answer": "省みる",
+      "group": 5
     },
     {
       "id": 141,
       "question": "伝言を<うけたまわる>",
-      "answer": "承る"
+      "answer": "承る",
+      "group": 5
     },
     {
       "id": 142,
       "question": "政治家と詐欺師を<かねる>",
-      "answer": "兼ねる"
+      "answer": "兼ねる",
+      "group": 5
     },
     {
       "id": 143,
       "question": "雨が<ショウコウ>状態になる",
-      "answer": "小康"
+      "answer": "小康",
+      "group": 5
     },
     {
       "id": 144,
       "question": "繰り返し<シテキ>してあげる",
-      "answer": "指摘"
+      "answer": "指摘",
+      "group": 5
     },
     {
       "id": 145,
       "question": "パンデミックの<ヨハ>を受ける",
-      "answer": "余波"
+      "answer": "余波",
+      "group": 5
     },
     {
       "id": 146,
       "question": "彼に交渉を<イニン>した",
-      "answer": "委任"
+      "answer": "委任",
+      "group": 5
     },
     {
       "id": 147,
       "question": "<ビボウロク>に書いておこう",
-      "answer": "備忘録"
+      "answer": "備忘録",
+      "group": 5
     },
     {
       "id": 148,
       "question": "春の<イブキ>が感じられる",
-      "answer": "息吹"
+      "answer": "息吹",
+      "group": 5
     },
     {
       "id": 149,
       "question": "行動は十分に<ジチョウ>すること",
-      "answer": "自重"
+      "answer": "自重",
+      "group": 5
     },
     {
       "id": 150,
       "question": "<ヘイゼイ>からの努力が大事だ",
-      "answer": "平生"
+      "answer": "平生",
+      "group": 5
     },
     {
       "id": 151,
       "question": "<ジョウセキ>通りに打つ",
-      "answer": "定石"
+      "answer": "定石",
+      "group": 6
     },
     {
       "id": 152,
       "question": "遠くで<キテキ>が聞こえる",
-      "answer": "汽笛"
+      "answer": "汽笛",
+      "group": 6
     },
     {
       "id": 153,
       "question": "<ザユウ>の書を一冊は持ちたい",
-      "answer": "座右"
+      "answer": "座右",
+      "group": 6
     },
     {
       "id": 154,
       "question": "あの人は目が<きく>",
-      "answer": "利く"
+      "answer": "利く",
+      "group": 6
     },
     {
       "id": 155,
       "question": "ことの<ホッタン>から話す",
-      "answer": "発端"
+      "answer": "発端",
+      "group": 6
     },
     {
       "id": 156,
       "question": "あやうく死を<まぬがれた>",
-      "answer": "免れた"
+      "answer": "免れた",
+      "group": 6
     },
     {
       "id": 157,
       "question": "ネコは<ガンライ>野生的な動物です",
-      "answer": "元来"
+      "answer": "元来",
+      "group": 6
     },
     {
       "id": 158,
       "question": "うわさが世間に<ルフ>する",
-      "answer": "流布"
+      "answer": "流布",
+      "group": 6
     },
     {
       "id": 159,
       "question": "不注意に<ヨル>事故",
-      "answer": "因る"
+      "answer": "因る",
+      "group": 6
     },
     {
       "id": 160,
       "question": "あれこれと<カクサク>する",
-      "answer": "画策"
+      "answer": "画策",
+      "group": 6
     },
     {
       "id": 161,
       "question": "<シュウチ>を集める",
-      "answer": "周知"
+      "answer": "周知",
+      "group": 6
     },
     {
       "id": 162,
       "question": "真相を<バクロ>する",
-      "answer": "暴露"
+      "answer": "暴露",
+      "group": 6
     },
     {
       "id": 163,
       "question": "夏祭りに<ユカタ>を着る",
-      "answer": "浴衣"
+      "answer": "浴衣",
+      "group": 6
     },
     {
       "id": 164,
       "question": "急に<ヨウダイ>が悪化した",
-      "answer": "容体"
+      "answer": "容体",
+      "group": 6
     },
     {
       "id": 165,
       "question": "<タクミ>な嘘に騙された",
-      "answer": "巧み"
+      "answer": "巧み",
+      "group": 6
     },
     {
       "id": 166,
       "question": "<カイシン>の笑みを浮かべる",
-      "answer": "会心"
+      "answer": "会心",
+      "group": 6
     },
     {
       "id": 167,
       "question": "<シンク>の優勝旗を返還する",
-      "answer": "真紅"
+      "answer": "真紅",
+      "group": 6
     },
     {
       "id": 168,
       "question": "この街は<ユイショ>ある建物がある",
-      "answer": "由緒"
+      "answer": "由緒",
+      "group": 6
     },
     {
       "id": 169,
       "question": "病人を<カイホウ>する",
-      "answer": "介抱"
+      "answer": "介抱",
+      "group": 6
     },
     {
       "id": 170,
       "question": "そっくりテストで失敗して<ナヤム>",
-      "answer": "悩む"
+      "answer": "悩む",
+      "group": 6
     },
     {
       "id": 171,
       "question": "<ジョコウ>運転でお願いします",
-      "answer": "徐行"
+      "answer": "徐行",
+      "group": 6
     },
     {
       "id": 172,
       "question": "<レイギ>正しく振る舞う",
-      "answer": "礼儀"
+      "answer": "礼儀",
+      "group": 6
     },
     {
       "id": 173,
       "question": "<イッキョ>に人が押し寄せた",
-      "answer": "一挙"
+      "answer": "一挙",
+      "group": 6
     },
     {
       "id": 174,
       "question": "新造船が明日<シュウコウ>する",
-      "answer": "就航"
+      "answer": "就航",
+      "group": 6
     },
     {
       "id": 175,
       "question": "二人は意気投合し<メイユウ>となった",
-      "answer": "盟友"
+      "answer": "盟友",
+      "group": 6
     },
     {
       "id": 176,
       "question": "<セッショウ>を戒める",
-      "answer": "殺生"
+      "answer": "殺生",
+      "group": 6
     },
     {
       "id": 177,
       "question": "帽子を<マブカ>に被る",
-      "answer": "目深"
+      "answer": "目深",
+      "group": 6
     },
     {
       "id": 178,
       "question": "<コウラクチ>に行く",
-      "answer": "行楽地"
+      "answer": "行楽地",
+      "group": 6
     },
     {
       "id": 179,
       "question": "インスタント食品の<コウザイ>を考える",
-      "answer": "功罪"
+      "answer": "功罪",
+      "group": 6
     },
     {
       "id": 180,
       "question": "重い荷物を肩に<かつぐ>",
-      "answer": "担ぐ"
+      "answer": "担ぐ",
+      "group": 6
     },
     {
       "id": 181,
       "question": "<ハヤガテン>して失敗する",
-      "answer": "早合点"
+      "answer": "早合点",
+      "group": 7
     },
     {
       "id": 182,
       "question": "台風が<メイソウ>を続ける",
-      "answer": "迷走"
+      "answer": "迷走",
+      "group": 7
     },
     {
       "id": 183,
       "question": "マラソン大会で<サイカイ>になる",
-      "answer": "最下位"
+      "answer": "最下位",
+      "group": 7
     },
     {
       "id": 184,
       "question": "親に<コウヨウ>をつくす",
-      "answer": "孝養"
+      "answer": "孝養",
+      "group": 7
     },
     {
       "id": 185,
       "question": "身の<ケッパク>を明らかにする",
-      "answer": "潔白"
+      "answer": "潔白",
+      "group": 7
     },
     {
       "id": 186,
       "question": "<ユウシュウ>の美をかざる",
-      "answer": "有終"
+      "answer": "有終",
+      "group": 7
     },
     {
       "id": 187,
       "question": "支出の<ウチワケ>を確認する",
-      "answer": "内訳"
+      "answer": "内訳",
+      "group": 7
     },
     {
       "id": 188,
       "question": "出身学校の<エンカク>を調べる",
-      "answer": "沿革"
+      "answer": "沿革",
+      "group": 7
     },
     {
       "id": 189,
       "question": "人材を集めて<ソカク>する",
-      "answer": "組閣"
+      "answer": "組閣",
+      "group": 7
     },
     {
       "id": 190,
       "question": "<ノウコウ>なソースをかける",
-      "answer": "濃厚"
+      "answer": "濃厚",
+      "group": 7
     },
     {
       "id": 191,
       "question": "各地で演劇を<コウギョウ>する",
-      "answer": "興行"
+      "answer": "興行",
+      "group": 7
     },
     {
       "id": 192,
       "question": "国語の授業で<ヤクシ>を音読した",
-      "answer": "訳詩"
+      "answer": "訳詩",
+      "group": 7
     },
     {
       "id": 193,
       "question": "ここにはかつて<ケイベン>鉄道の路線があった",
-      "answer": "軽便"
+      "answer": "軽便",
+      "group": 7
     },
     {
       "id": 194,
       "question": "白砂<セイショウ>の美しい海岸",
-      "answer": "青松"
+      "answer": "青松",
+      "group": 7
     },
     {
       "id": 195,
       "question": "線を<スイチョク>に引く",
-      "answer": "垂直"
+      "answer": "垂直",
+      "group": 7
     },
     {
       "id": 196,
       "question": "<ヘイバン>な歌声",
-      "answer": "平板"
+      "answer": "平板",
+      "group": 7
     },
     {
       "id": 197,
       "question": "ひざの<カンセツ>が痛い",
-      "answer": "関節"
+      "answer": "関節",
+      "group": 7
     },
     {
       "id": 198,
       "question": "<ゼンゴ>策を考える",
-      "answer": "善後"
+      "answer": "善後",
+      "group": 7
     },
     {
       "id": 199,
       "question": "仕事に<シショウ>をきたす",
-      "answer": "支障"
+      "answer": "支障",
+      "group": 7
     },
     {
       "id": 200,
       "question": "<ハトヤマイチロウ>",
-      "answer": "鳩山一郎"
+      "answer": "鳩山一郎",
+      "group": 7
     },
     {
       "id": 201,
       "question": "インターネットに<カンシン>を持った",
-      "answer": "関心"
+      "answer": "関心",
+      "group": 7
     },
     {
       "id": 202,
       "question": "彼の態度には<カンシン>させられる",
-      "answer": "感心"
+      "answer": "感心",
+      "group": 7
     },
     {
       "id": 203,
       "question": "<カンシン>を買うために努力する",
-      "answer": "歓心"
+      "answer": "歓心",
+      "group": 7
     },
     {
       "id": 204,
       "question": "コストと品質の<アンバイ>がちょうど良い",
-      "answer": "塩梅"
+      "answer": "塩梅",
+      "group": 7
     },
     {
       "id": 205,
       "question": "新商品の発表は世間の<ジモク>を集めた",
-      "answer": "耳目"
+      "answer": "耳目",
+      "group": 7
     },
     {
       "id": 206,
       "question": "総理のご<イコウ>",
-      "answer": "意向"
+      "answer": "意向",
+      "group": 7
     },
     {
       "id": 207,
       "question": "<いしょく>の経歴",
-      "answer": "異色"
+      "answer": "異色",
+      "group": 7
     },
     {
       "id": 208,
       "question": "<イショク>手術",
-      "answer": "移植"
+      "answer": "移植",
+      "group": 7
     },
     {
       "id": 209,
       "question": "先生の人事<イドウ>",
-      "answer": "異動"
+      "answer": "異動",
+      "group": 7
     },
     {
       "id": 210,
       "question": "<エンゲイ>作物の特徴",
-      "answer": "園芸"
+      "answer": "園芸",
+      "group": 7
     },
     {
       "id": 211,
       "question": "有名な<エンゲイ>場",
-      "answer": "演芸"
+      "answer": "演芸",
+      "group": 8
     },
     {
       "id": 212,
       "question": "理想の<ツイキュウ>",
-      "answer": "追求"
+      "answer": "追求",
+      "group": 8
     },
     {
       "id": 213,
       "question": "<テキカク>な判断",
-      "answer": "的確"
+      "answer": "的確",
+      "group": 8
     },
     {
       "id": 214,
       "question": "<テキカク>な人物",
-      "answer": "適格"
+      "answer": "適格",
+      "group": 8
     },
     {
       "id": 215,
       "question": "運転の<テキセイ>試験",
-      "answer": "適性"
+      "answer": "適性",
+      "group": 8
     },
     {
       "id": 216,
       "question": "<テキセイ>な評価",
-      "answer": "適正"
+      "answer": "適正",
+      "group": 8
     },
     {
       "id": 217,
       "question": "車が<テンカイ>する場所",
-      "answer": "転回"
+      "answer": "転回",
+      "group": 8
     },
     {
       "id": 218,
       "question": "<ヒジョウ>な決断になる",
-      "answer": "非情"
+      "answer": "非情",
+      "group": 8
     },
     {
       "id": 219,
       "question": "台風の<シンロ>",
-      "answer": "進路"
+      "answer": "進路",
+      "group": 8
     },
     {
       "id": 220,
       "question": "車を<セイサン>する工場",
-      "answer": "生産"
+      "answer": "生産",
+      "group": 8
     },
     {
       "id": 221,
       "question": "運賃の<セイサン>をする",
-      "answer": "精算"
+      "answer": "精算",
+      "group": 8
     },
     {
       "id": 222,
       "question": "自分の<タイケイ>に合わせる",
-      "answer": "体型"
+      "answer": "体型",
+      "group": 8
     },
     {
       "id": 223,
       "question": "組織の<タイケイ>を知る",
-      "answer": "体系"
+      "answer": "体系",
+      "group": 8
     },
     {
       "id": 224,
       "question": "<タイショウ>した試合",
-      "answer": "大勝"
+      "answer": "大勝",
+      "group": 8
     },
     {
       "id": 225,
       "question": "体育館の<ショウメイ>",
-      "answer": "照明"
+      "answer": "照明",
+      "group": 8
     },
     {
       "id": 226,
       "question": "無実を<ショウメイ>する",
-      "answer": "証明"
+      "answer": "証明",
+      "group": 8
     },
     {
       "id": 227,
       "question": "村の<ジンコウ>が増える",
-      "answer": "人口"
+      "answer": "人口",
+      "group": 8
     },
     {
       "id": 228,
       "question": "<ジンコウ>の砂浜",
-      "answer": "人工"
+      "answer": "人工",
+      "group": 8
     },
     {
       "id": 229,
       "question": "<シンチョウ>した洋服",
-      "answer": "新調"
+      "answer": "新調",
+      "group": 8
     },
     {
       "id": 230,
       "question": "自然を学べる<コウエン>会",
-      "answer": "講演"
+      "answer": "講演",
+      "group": 8
     },
     {
       "id": 231,
       "question": "文章を<コウセイ>する",
-      "answer": "校正"
+      "answer": "校正",
+      "group": 8
     },
     {
       "id": 232,
       "question": "作品の<コウヒョウ>をする",
-      "answer": "講評"
+      "answer": "講評",
+      "group": 8
     },
     {
       "id": 233,
       "question": "車の<シカク>から子供が出てきた",
-      "answer": "死角"
+      "answer": "死角",
+      "group": 8
     },
     {
       "id": 234,
       "question": "新しい<シカク>を得る",
-      "answer": "資格"
+      "answer": "資格",
+      "group": 8
     },
     {
       "id": 235,
       "question": "ご<コウイ>に感謝する",
-      "answer": "厚意"
+      "answer": "厚意",
+      "group": 8
     },
     {
       "id": 236,
       "question": "<カネツ>するブーム",
-      "answer": "過熱"
+      "answer": "過熱",
+      "group": 8
     },
     {
       "id": 237,
       "question": "試合に<カンショウ>する",
-      "answer": "完勝"
+      "answer": "完勝",
+      "group": 8
     },
     {
       "id": 238,
       "question": "<カンショウ>的な気持ちになる",
-      "answer": "感傷"
+      "answer": "感傷",
+      "group": 8
     },
     {
       "id": 239,
       "question": "生物の<キゲン>を調べる",
-      "answer": "起源"
+      "answer": "起源",
+      "group": 8
     },
     {
       "id": 240,
       "question": "クルーズ線の<キコウ>予定",
-      "answer": "寄港"
+      "answer": "寄港",
+      "group": 8
     },
     {
       "id": 241,
       "question": "<カイソウ>にふける",
-      "answer": "回想"
+      "answer": "回想",
+      "group": 9
     },
     {
       "id": 242,
       "question": "スーパーの<カイソウ>工事",
-      "answer": "改装"
+      "answer": "改装",
+      "group": 9
     },
     {
       "id": 243,
       "question": "テストの<カイトウ>用紙",
-      "answer": "解答"
+      "answer": "解答",
+      "group": 9
     },
     {
       "id": 244,
       "question": "アンケートに<カイトウ>する",
-      "answer": "回答"
+      "answer": "回答",
+      "group": 9
     },
     {
       "id": 245,
       "question": "町内会の<カイホウ>",
-      "answer": "会報"
+      "answer": "会報",
+      "group": 9
     },
     {
       "id": 246,
       "question": "学習習慣を<カクリツ>する",
-      "answer": "確立"
+      "answer": "確立",
+      "group": 9
     },
     {
       "id": 247,
       "question": "受験に勝つための<シタタカサ>を身につける",
-      "answer": "強かさ"
+      "answer": "強かさ",
+      "group": 9
     },
     {
       "id": 248,
       "question": "歴史の年代を覚えただけでは<こころもとない>",
-      "answer": "心許ない"
+      "answer": "心許ない",
+      "group": 9
     },
     {
       "id": 249,
       "question": "彼女はなかなかの<タッピツ>だ",
-      "answer": "達筆"
+      "answer": "達筆",
+      "group": 9
     },
     {
       "id": 250,
       "question": "<シンキンカン>を持つ",
-      "answer": "親近感"
+      "answer": "親近感",
+      "group": 9
     },
     {
       "id": 251,
       "question": "借金を<セイサン>する",
-      "answer": "清算"
+      "answer": "清算",
+      "group": 9
     },
     {
       "id": 252,
       "question": "彼女は<ベンゼツ>の才にあふれている",
-      "answer": "弁舌"
+      "answer": "弁舌",
+      "group": 9
     },
     {
       "id": 253,
       "question": "高層ビルが<リンリツ>している",
-      "answer": "林立"
+      "answer": "林立",
+      "group": 9
     },
     {
       "id": 254,
       "question": "自己に<シュウチャク>する",
-      "answer": "執着"
+      "answer": "執着",
+      "group": 9
     },
     {
       "id": 255,
       "question": "古代文明の<ハッショウチ>を訪れる",
-      "answer": "発祥地"
+      "answer": "発祥地",
+      "group": 9
     },
     {
       "id": 256,
       "question": "<ボッカ>的な田園風景",
-      "answer": "牧歌"
+      "answer": "牧歌",
+      "group": 9
     },
     {
       "id": 257,
       "question": "貧しい<キョウグウ>の俺",
-      "answer": "境遇"
+      "answer": "境遇",
+      "group": 9
     },
     {
       "id": 258,
       "question": "裁判官が<コウヘイムシ>の姿勢を貫く",
-      "answer": "公平無私"
+      "answer": "公平無私",
+      "group": 9
     },
     {
       "id": 259,
       "question": "東京から<ソカイ>して田舎にすむ",
-      "answer": "疎開"
+      "answer": "疎開",
+      "group": 9
     },
     {
       "id": 260,
       "question": "小次郎とは<インネン>がある",
-      "answer": "因縁"
+      "answer": "因縁",
+      "group": 9
     },
     {
       "id": 261,
       "question": "人々の祈りは神を<シャダン>した",
-      "answer": "遮断"
+      "answer": "遮断",
+      "group": 9
     },
     {
       "id": 262,
       "question": "<シンボウ>強い子供",
-      "answer": "辛抱"
+      "answer": "辛抱",
+      "group": 9
     },
     {
       "id": 263,
       "question": "運動会がテロで<ジュンエン>になった",
-      "answer": "順延"
+      "answer": "順延",
+      "group": 9
     },
     {
       "id": 264,
       "question": "<イッシ>乱れずに行進する",
-      "answer": "一糸"
+      "answer": "一糸",
+      "group": 9
     },
     {
       "id": 265,
       "question": "不思議な光景を<カイマミタ>",
-      "answer": "垣間見た"
+      "answer": "垣間見た",
+      "group": 9
     },
     {
       "id": 266,
       "question": "司会役を<ツトメル>",
-      "answer": "務める"
+      "answer": "務める",
+      "group": 9
     },
     {
       "id": 267,
       "question": "旅行に行く日を一日<ノバス>",
-      "answer": "延ばす"
+      "answer": "延ばす",
+      "group": 9
     },
     {
       "id": 268,
       "question": "両国の<シンゼン>につとめる",
-      "answer": "親善"
+      "answer": "親善",
+      "group": 9
     },
     {
       "id": 269,
       "question": "<セイコン>を使い果たす",
-      "answer": "精根"
+      "answer": "精根",
+      "group": 9
     },
     {
       "id": 270,
       "question": "父の<イシ>を継ぐ",
-      "answer": "遺志"
+      "answer": "遺志",
+      "group": 9
     },
     {
       "id": 271,
       "question": "<グンブ>の開発が進む",
-      "answer": "郡部"
+      "answer": "郡部",
+      "group": 10
     },
     {
       "id": 272,
       "question": "<トウシンダイ>の絵を描く",
-      "answer": "等身大"
+      "answer": "等身大",
+      "group": 10
     },
     {
       "id": 273,
       "question": "<サンプク>で一休みする",
-      "answer": "山腹"
+      "answer": "山腹",
+      "group": 10
     },
     {
       "id": 274,
       "question": "会社の<センゾク>の弁護士",
-      "answer": "専属"
+      "answer": "専属",
+      "group": 10
     },
     {
       "id": 275,
       "question": "雪で車が立ち<オウジョウ>した",
-      "answer": "往生"
+      "answer": "往生",
+      "group": 10
     },
     {
       "id": 276,
       "question": "お守りのご<リヤク>を信じる",
-      "answer": "利益"
+      "answer": "利益",
+      "group": 10
     },
     {
       "id": 277,
       "question": "訪問客を<カンタイ>する",
-      "answer": "歓待"
+      "answer": "歓待",
+      "group": 10
     },
     {
       "id": 278,
       "question": "<アラテ>の商売",
-      "answer": "新手"
+      "answer": "新手",
+      "group": 10
     },
     {
       "id": 279,
       "question": "<ホウヨウリョク>のある人間",
-      "answer": "包容力"
+      "answer": "包容力",
+      "group": 10
     },
     {
       "id": 280,
       "question": "彼は<イクジ>のない人間だ",
-      "answer": "意気地"
+      "answer": "意気地",
+      "group": 10
     },
     {
       "id": 281,
       "question": "<ショキビドウケイゾクジカン>",
-      "answer": "初期微動継続時間"
+      "answer": "初期微動継続時間",
+      "group": 10
     },
     {
       "id": 282,
       "question": "<マンノウ>池",
-      "answer": "満濃"
+      "answer": "満濃",
+      "group": 10
     },
     {
       "id": 283,
       "question": "その提案には<ショウフク>しかねる",
-      "answer": "承服"
+      "answer": "承服",
+      "group": 10
     },
     {
       "id": 284,
       "question": "合格の<ロウホウ>を待つ",
-      "answer": "朗報"
+      "answer": "朗報",
+      "group": 10
     },
     {
       "id": 285,
       "question": "<音頭>",
-      "answer": "おんど"
+      "answer": "おんど",
+      "group": 10
     },
     {
       "id": 286,
       "question": "<合戦>",
-      "answer": "かっせん"
+      "answer": "かっせん",
+      "group": 10
     },
     {
       "id": 287,
       "question": "<口調>",
-      "answer": "くちょう"
+      "answer": "くちょう",
+      "group": 10
     },
     {
       "id": 288,
       "question": "<解毒>",
-      "answer": "げどく"
+      "answer": "げどく",
+      "group": 10
     },
     {
       "id": 289,
       "question": "<使役>",
-      "answer": "しえき"
+      "answer": "しえき",
+      "group": 10
     },
     {
       "id": 290,
       "question": "<世間体>",
-      "answer": "せけんてい"
+      "answer": "せけんてい",
+      "group": 10
     },
     {
       "id": 291,
       "question": "<反物>",
-      "answer": "たんもの"
+      "answer": "たんもの",
+      "group": 10
     },
     {
       "id": 292,
       "question": "<読点>",
-      "answer": "とうてん"
+      "answer": "とうてん",
+      "group": 10
     },
     {
       "id": 293,
       "question": "<非業>",
-      "answer": "ひごう"
+      "answer": "ひごう",
+      "group": 10
     },
     {
       "id": 294,
       "question": "<漁火>",
-      "answer": "いさりび"
+      "answer": "いさりび",
+      "group": 10
     },
     {
       "id": 295,
       "question": "<風体>",
-      "answer": "ふうてい"
+      "answer": "ふうてい",
+      "group": 10
     },
     {
       "id": 296,
       "question": "<因縁>",
-      "answer": "いんねん"
+      "answer": "いんねん",
+      "group": 10
     },
     {
       "id": 297,
       "question": "<呵責>",
-      "answer": "かしゃく"
+      "answer": "かしゃく",
+      "group": 10
     },
     {
       "id": 298,
       "question": "<久遠>",
-      "answer": "くおん"
+      "answer": "くおん",
+      "group": 10
     },
     {
       "id": 299,
       "question": "<功徳>",
-      "answer": "くどく"
+      "answer": "くどく",
+      "group": 10
     },
     {
       "id": 300,
       "question": "<供物>",
-      "answer": "くもつ"
+      "answer": "くもつ",
+      "group": 10
     },
     {
       "id": 301,
       "question": "<好事家>",
-      "answer": "こうずか"
+      "answer": "こうずか",
+      "group": 11
     },
     {
       "id": 302,
       "question": "<独楽>",
-      "answer": "こま"
+      "answer": "こま",
+      "group": 11
     },
     {
       "id": 303,
       "question": "<潮騒>",
-      "answer": "しおさい"
+      "answer": "しおさい",
+      "group": 11
     },
     {
       "id": 304,
       "question": "<赤銅色>",
-      "answer": "しゃくどういろ"
+      "answer": "しゃくどういろ",
+      "group": 11
     },
     {
       "id": 305,
       "question": "<祝儀>",
-      "answer": "しゅうぎ"
+      "answer": "しゅうぎ",
+      "group": 11
     },
     {
       "id": 306,
       "question": "<通夜>",
-      "answer": "つや"
+      "answer": "つや",
+      "group": 11
     },
     {
       "id": 307,
       "question": "<氷柱>",
-      "answer": "つらら"
+      "answer": "つらら",
+      "group": 11
     },
     {
       "id": 308,
       "question": "<吹聴>",
-      "answer": "ふいちょう"
+      "answer": "ふいちょう",
+      "group": 11
     },
     {
       "id": 309,
       "question": "<福音>",
-      "answer": "ふくいん"
+      "answer": "ふくいん",
+      "group": 11
     },
     {
       "id": 310,
       "question": "<亡者>",
-      "answer": "もうじゃ"
+      "answer": "もうじゃ",
+      "group": 11
     },
     {
       "id": 311,
       "question": "<山羊>",
-      "answer": "やぎ"
+      "answer": "やぎ",
+      "group": 11
     },
     {
       "id": 312,
       "question": "<海女>",
-      "answer": "あま"
+      "answer": "あま",
+      "group": 11
     },
     {
       "id": 313,
       "question": "<海原>",
-      "answer": "うなばら"
+      "answer": "うなばら",
+      "group": 11
     },
     {
       "id": 314,
       "question": "<乳母>",
-      "answer": "うば"
+      "answer": "うば",
+      "group": 11
     },
     {
       "id": 315,
       "question": "<神楽>",
-      "answer": "かぐら"
+      "answer": "かぐら",
+      "group": 11
     },
     {
       "id": 316,
       "question": "<清水>",
-      "answer": "しみず"
+      "answer": "しみず",
+      "group": 11
     },
     {
       "id": 317,
       "question": "<山車>",
-      "answer": "だし"
+      "answer": "だし",
+      "group": 11
     },
     {
       "id": 318,
       "question": "<梅雨>",
-      "answer": "つゆ"
+      "answer": "つゆ",
+      "group": 11
     },
     {
       "id": 319,
       "question": "<投網>",
-      "answer": "とあみ"
+      "answer": "とあみ",
+      "group": 11
     },
     {
       "id": 320,
       "question": "<読経>",
-      "answer": "どきょう"
+      "answer": "どきょう",
+      "group": 11
     },
     {
       "id": 321,
       "question": "<仲人>",
-      "answer": "なこうど"
+      "answer": "なこうど",
+      "group": 11
     },
     {
       "id": 322,
       "question": "<博士>",
-      "answer": "はかせ"
+      "answer": "はかせ",
+      "group": 11
     },
     {
       "id": 323,
       "question": "<波止場>",
-      "answer": "はとば"
+      "answer": "はとば",
+      "group": 11
     },
     {
       "id": 324,
       "question": "<猛者>",
-      "answer": "もさ"
+      "answer": "もさ",
+      "group": 11
     },
     {
       "id": 325,
       "question": "<紅葉>",
-      "answer": "もみじ"
+      "answer": "もみじ",
+      "group": 11
     },
     {
       "id": 326,
       "question": "<寄席>",
-      "answer": "よせ"
+      "answer": "よせ",
+      "group": 11
     },
     {
       "id": 327,
       "question": "<若人>",
-      "answer": "わこうど"
+      "answer": "わこうど",
+      "group": 11
     }
   ]
 }

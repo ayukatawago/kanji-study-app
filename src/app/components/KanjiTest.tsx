@@ -14,6 +14,7 @@ interface Question {
   question: string;
   answer: string;
   type?: string;
+  group: number;
 }
 
 interface TestData {
@@ -75,13 +76,15 @@ export default function KanjiTest({
       .catch((error) => console.error("Error loading test data:", error));
   }, [currentGrade, selectedQuestionIds]);
 
-  // Initialize answers and correctness when test data or selected test changes
+  // Initialize answers and correctness when test data or selected group changes
   useEffect(() => {
     if (testData) {
+      const groupQuestions = testData.questions.filter(
+        (q) => q.group === selectedTestId
+      );
       const initialAnswers: { [key: number]: string } = {};
       const initialCorrectness: { [key: number]: boolean | null } = {};
-      // Initialize 10 answers for each test (questions 0-9)
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < groupQuestions.length; i++) {
         initialAnswers[i] = "";
         initialCorrectness[i] = null;
       }
@@ -106,9 +109,10 @@ export default function KanjiTest({
   };
 
   const handleQuestionClick = (questionIndex: number) => {
-    // Get the answer for the clicked question
-    const startIndex = (selectedTestId - 1) * 10;
-    const questionData = testData?.questions[startIndex + questionIndex];
+    const groupQuestions = testData?.questions.filter(
+      (q) => q.group === selectedTestId
+    );
+    const questionData = groupQuestions?.[questionIndex];
     if (questionData) {
       setShowAnswer({
         questionIndex,
@@ -118,48 +122,46 @@ export default function KanjiTest({
   };
 
   const handleMarkCorrect = (questionIndex: number) => {
-    const startIndex = (selectedTestId - 1) * 10;
-    const questionData = testData?.questions[startIndex + questionIndex];
+    const groupQuestions = testData?.questions.filter(
+      (q) => q.group === selectedTestId
+    );
+    const questionData = groupQuestions?.[questionIndex];
 
     if (!questionData) return;
 
-    // Update local state
     setCorrectness((prev) => ({
       ...prev,
       [questionIndex]: true,
     }));
 
-    // Record review in FSRS
-    const rating = Rating.Good; // Correct answer = Good rating
     recordReview(
       questionData.id,
       currentGrade,
-      rating,
-      true, // isCorrect
-      answers[questionIndex] // user's answer
+      Rating.Good,
+      true,
+      answers[questionIndex]
     );
   };
 
   const handleMarkIncorrect = (questionIndex: number) => {
-    const startIndex = (selectedTestId - 1) * 10;
-    const questionData = testData?.questions[startIndex + questionIndex];
+    const groupQuestions = testData?.questions.filter(
+      (q) => q.group === selectedTestId
+    );
+    const questionData = groupQuestions?.[questionIndex];
 
     if (!questionData) return;
 
-    // Update local state
     setCorrectness((prev) => ({
       ...prev,
       [questionIndex]: false,
     }));
 
-    // Record review in FSRS
-    const rating = Rating.Again; // Incorrect answer = Again rating
     recordReview(
       questionData.id,
       currentGrade,
-      rating,
-      false, // isCorrect
-      answers[questionIndex] // user's answer
+      Rating.Again,
+      false,
+      answers[questionIndex]
     );
   };
 
@@ -186,27 +188,19 @@ export default function KanjiTest({
     );
   }
 
-  // Get questions for the selected test (10 questions per test)
-  const startIndex = (selectedTestId - 1) * 10;
-  const endIndex = startIndex + 10;
-  const questions = testData
-    ? testData.questions.slice(startIndex, endIndex).map((q) => q.question)
-    : [];
-  const questionTypes = testData
-    ? testData.questions.slice(startIndex, endIndex).map((q) => q.type)
-    : [];
+  // Get questions for the selected group
+  const groupQuestions = testData.questions.filter(
+    (q) => q.group === selectedTestId
+  );
+  const questions = groupQuestions.map((q) => q.question);
+  const questionTypes = groupQuestions.map((q) => q.type);
 
   // Get displayed answers (either user's answers or correct answers if showAnswers is true)
   const displayedAnswers: { [key: number]: string } = {};
-  if (testData) {
-    for (let i = 0; i < 10; i++) {
-      const questionData = testData.questions[startIndex + i];
-      if (questionData && showAnswers) {
-        displayedAnswers[i] = questionData.answer;
-      } else {
-        displayedAnswers[i] = answers[i] || "";
-      }
-    }
+  for (let i = 0; i < groupQuestions.length; i++) {
+    displayedAnswers[i] = showAnswers
+      ? groupQuestions[i].answer
+      : answers[i] || "";
   }
 
   // Flash card mode
