@@ -12,6 +12,11 @@ interface Question {
   group: number;
 }
 
+/** Raw JSON format from the data files */
+interface GradeFile {
+  groups: { groupId: number; questions: Omit<Question, "group">[] }[];
+}
+
 interface TestData {
   questions: Question[];
 }
@@ -31,9 +36,11 @@ export default function Home() {
     const dataSource = `kanji_grade${currentGrade}.json`;
     fetch(`/${dataSource}`)
       .then((res) => res.json())
-      .then((data: TestData) => {
-        setTestData(data);
-        // Don't auto-select questions - let FSRS mode handle selection
+      .then((data: GradeFile) => {
+        const questions: Question[] = data.groups.flatMap((g) =>
+          g.questions.map((q) => ({ ...q, group: g.groupId }))
+        );
+        setTestData({ questions });
       })
       .catch((error) => console.error("Error loading test data:", error));
   }, [currentGrade]);

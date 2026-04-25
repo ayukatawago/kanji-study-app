@@ -17,6 +17,14 @@ interface Question {
   group: number;
 }
 
+/** Raw JSON format from the data files */
+interface GradeFile {
+  groups: {
+    groupId: number;
+    questions: Omit<Question, "group">[];
+  }[];
+}
+
 interface TestData {
   questions: Question[];
 }
@@ -56,12 +64,17 @@ export default function KanjiTest({
     const dataSource = `kanji_grade${currentGrade}.json`;
     fetch(`/${dataSource}`)
       .then((res) => res.json())
-      .then((data: TestData) => {
+      .then((data: GradeFile) => {
+        // Flatten nested groups into a single question array
+        const allQuestions: Question[] = data.groups.flatMap((g) =>
+          g.questions.map((q) => ({ ...q, group: g.groupId }))
+        );
+
         // Filter questions based on selectedQuestionIds if provided
         const filtered =
           selectedQuestionIds && selectedQuestionIds.size > 0
-            ? data.questions.filter((q) => selectedQuestionIds.has(q.id))
-            : data.questions;
+            ? allQuestions.filter((q) => selectedQuestionIds.has(q.id))
+            : allQuestions;
 
         // Shuffle using Fisher-Yates
         const shuffled = [...filtered];

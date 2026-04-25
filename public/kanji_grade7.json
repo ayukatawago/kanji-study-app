@@ -1,292 +1,250 @@
 {
-  "questions": [
+  "groups": [
     {
-      "id": 1,
-      "question": "有給休暇を<フヨ>する",
-      "answer": "付与",
-      "group": 1
-    },
-    {
-      "id": 2,
-      "question": "株主が経営に<カンヨ>する",
-      "answer": "関与",
-      "group": 1
-    },
-    {
-      "id": 3,
-      "question": "国語辞典の<ハンレイ>を見る",
-      "answer": "凡例",
-      "group": 1
-    },
-    {
-      "id": 4,
-      "question": "<ヒボン>な才能の持ち主だ",
-      "answer": "非凡",
-      "group": 1
-    },
-    {
-      "id": 5,
-      "question": "地域経済への<ハキュウ>効果",
-      "answer": "波及",
-      "group": 1
-    },
-    {
-      "id": 6,
-      "question": "進退問題に<ゲンキュウ>する",
-      "answer": "言及",
-      "group": 1
-    },
-    {
-      "id": 7,
-      "question": "株式売買を<チュウカイ>する",
-      "answer": "仲介",
-      "group": 1
-    },
-    {
-      "id": 8,
-      "question": "<カイゴ>の仕事に就く",
-      "answer": "介護",
-      "group": 1
-    },
-    {
-      "id": 9,
-      "question": "超一流に<ヒッテキ>する腕前",
-      "answer": "匹敵",
-      "group": 1
-    },
-    {
-      "id": 10,
-      "question": "<ヒップ>も志を奪うべからず",
-      "answer": "匹夫",
-      "group": 1
-    },
-    {
-      "id": 11,
-      "question": "<タンチョウ>鶴の生息地",
-      "answer": "丹頂",
-      "group": 1
-    },
-    {
-      "id": 12,
-      "question": "<タンネン>に仕上げる",
-      "answer": "丹念",
-      "group": 1
-    },
-    {
-      "id": 13,
-      "question": "<ソウゴ>理解を深める",
-      "answer": "相互",
-      "group": 1
-    },
-    {
-      "id": 14,
-      "question": "両者<ゴカク>の勝負だ",
-      "answer": "互角",
-      "group": 1
-    },
-    {
-      "id": 15,
-      "question": "<ドレイ>解放に尽力した人物",
-      "answer": "奴隷",
-      "group": 1
-    },
-    {
-      "id": 16,
-      "question": "<シュセンド>",
-      "answer": "守銭奴",
-      "group": 1
-    },
-    {
-      "id": 17,
-      "question": "在庫が<フッテイ>している",
-      "answer": "払底",
-      "group": 1
-    },
-    {
-      "id": 18,
-      "question": "<フツギョウ>に出発する",
-      "answer": "払暁",
-      "group": 1
-    },
-    {
-      "id": 19,
-      "question": "<センセイ>術で予言する",
-      "answer": "占星",
-      "group": 1
-    },
-    {
-      "id": 20,
-      "question": "建物を不法に<センキョ>する",
-      "answer": "占拠",
-      "group": 1
-    },
-    {
-      "id": 21,
-      "question": "毎朝<ゲンマイ>を食べる",
-      "answer": "玄米",
-      "group": 1
-    },
-    {
-      "id": 22,
-      "question": "<ゲンミョウ>をきわめる",
-      "answer": "玄妙",
-      "group": 1
-    },
-    {
-      "id": 23,
-      "question": "<カンビ>な旋律に身を委ねる",
-      "answer": "甘美",
-      "group": 1
-    },
-    {
-      "id": 24,
-      "question": "厳しい運命を<カンジュ>する",
-      "answer": "甘受",
-      "group": 1
-    },
-    {
-      "id": 25,
-      "question": "言動に<ムジュン>がある",
-      "answer": "矛盾",
-      "group": 1
-    },
-    {
-      "id": 26,
-      "question": "話の<ホコサキ>を向ける",
-      "answer": "矛先",
-      "group": 1
-    },
-    {
-      "id": 27,
-      "question": "びっくり<ギョウテン>する",
-      "answer": "仰天",
-      "group": 1
-    },
-    {
-      "id": 28,
-      "question": "住民の<シンコウ>を集める",
-      "answer": "信仰",
-      "group": 1
-    },
-    {
-      "id": 29,
-      "question": "ほっと<トイキ>を漏らす",
-      "answer": "吐息",
-      "group": 1
-    },
-    {
-      "id": 30,
-      "question": "親友に心情を<トロ>する",
-      "answer": "吐露",
-      "group": 1
-    },
-    {
-      "id": 31,
-      "question": "取りに餌を<あたえる>",
-      "answer": "与える",
-      "group": 1
-    },
-    {
-      "id": 32,
-      "question": "影響が地上に<およぶ>",
-      "answer": "及ぶ",
-      "group": 1
-    },
-    {
-      "id": 33,
-      "question": "<たがい>が譲り合う",
-      "answer": "互い",
-      "group": 1
-    },
-    {
-      "id": 34,
-      "question": "ほこりを<はらう>",
-      "answer": "払う",
-      "group": 1
-    },
-    {
-      "id": 35,
-      "question": "商品を買い<しめる>",
-      "answer": "占める",
-      "group": 1
-    },
-    {
-      "id": 36,
-      "question": "相性を<うらなう>",
-      "answer": "占う",
-      "group": 1
-    },
-    {
-      "id": 37,
-      "question": "母親に<あまえる>",
-      "answer": "甘える",
-      "group": 1
-    },
-    {
-      "id": 38,
-      "question": "監督を師と<あおぐ>",
-      "answer": "仰ぐ",
-      "group": 1
-    },
-    {
-      "id": 39,
-      "question": "責任を<ツイキュウ>する",
-      "answer": "追及",
-      "group": 1
-    },
-    {
-      "id": 40,
-      "question": "利益を<ツイキュウ>する",
-      "answer": "追求",
-      "group": 1
-    },
-    {
-      "id": 41,
-      "question": "真理を<ツイキュウ>する",
-      "answer": "追究",
-      "group": 1
-    },
-    {
-      "id": 42,
-      "question": "借用",
-      "answer": "貸与",
-      "type": "antonym",
-      "group": 1
-    },
-    {
-      "id": 43,
-      "question": "偉人",
-      "answer": "凡人",
-      "type": "antonym",
-      "group": 1
-    },
-    {
-      "id": 44,
-      "question": "落第",
-      "answer": "及第",
-      "type": "antonym",
-      "group": 1
-    },
-    {
-      "id": 45,
-      "question": "撤退",
-      "answer": "占領",
-      "type": "antonym",
-      "group": 1
-    },
-    {
-      "id": 46,
-      "question": "苦言",
-      "answer": "甘言",
-      "type": "antonym",
-      "group": 1
-    },
-    {
-      "id": 47,
-      "question": "素人",
-      "answer": "玄人",
-      "type": "antonym",
-      "group": 1
+      "groupId": 1,
+      "questions": [
+        {
+          "id": 1,
+          "question": "有給休暇を<フヨ>する",
+          "answer": "付与"
+        },
+        {
+          "id": 2,
+          "question": "株主が経営に<カンヨ>する",
+          "answer": "関与"
+        },
+        {
+          "id": 3,
+          "question": "国語辞典の<ハンレイ>を見る",
+          "answer": "凡例"
+        },
+        {
+          "id": 4,
+          "question": "<ヒボン>な才能の持ち主だ",
+          "answer": "非凡"
+        },
+        {
+          "id": 5,
+          "question": "地域経済への<ハキュウ>効果",
+          "answer": "波及"
+        },
+        {
+          "id": 6,
+          "question": "進退問題に<ゲンキュウ>する",
+          "answer": "言及"
+        },
+        {
+          "id": 7,
+          "question": "株式売買を<チュウカイ>する",
+          "answer": "仲介"
+        },
+        {
+          "id": 8,
+          "question": "<カイゴ>の仕事に就く",
+          "answer": "介護"
+        },
+        {
+          "id": 9,
+          "question": "超一流に<ヒッテキ>する腕前",
+          "answer": "匹敵"
+        },
+        {
+          "id": 10,
+          "question": "<ヒップ>も志を奪うべからず",
+          "answer": "匹夫"
+        },
+        {
+          "id": 11,
+          "question": "<タンチョウ>鶴の生息地",
+          "answer": "丹頂"
+        },
+        {
+          "id": 12,
+          "question": "<タンネン>に仕上げる",
+          "answer": "丹念"
+        },
+        {
+          "id": 13,
+          "question": "<ソウゴ>理解を深める",
+          "answer": "相互"
+        },
+        {
+          "id": 14,
+          "question": "両者<ゴカク>の勝負だ",
+          "answer": "互角"
+        },
+        {
+          "id": 15,
+          "question": "<ドレイ>解放に尽力した人物",
+          "answer": "奴隷"
+        },
+        {
+          "id": 16,
+          "question": "<シュセンド>",
+          "answer": "守銭奴"
+        },
+        {
+          "id": 17,
+          "question": "在庫が<フッテイ>している",
+          "answer": "払底"
+        },
+        {
+          "id": 18,
+          "question": "<フツギョウ>に出発する",
+          "answer": "払暁"
+        },
+        {
+          "id": 19,
+          "question": "<センセイ>術で予言する",
+          "answer": "占星"
+        },
+        {
+          "id": 20,
+          "question": "建物を不法に<センキョ>する",
+          "answer": "占拠"
+        },
+        {
+          "id": 21,
+          "question": "毎朝<ゲンマイ>を食べる",
+          "answer": "玄米"
+        },
+        {
+          "id": 22,
+          "question": "<ゲンミョウ>をきわめる",
+          "answer": "玄妙"
+        },
+        {
+          "id": 23,
+          "question": "<カンビ>な旋律に身を委ねる",
+          "answer": "甘美"
+        },
+        {
+          "id": 24,
+          "question": "厳しい運命を<カンジュ>する",
+          "answer": "甘受"
+        },
+        {
+          "id": 25,
+          "question": "言動に<ムジュン>がある",
+          "answer": "矛盾"
+        },
+        {
+          "id": 26,
+          "question": "話の<ホコサキ>を向ける",
+          "answer": "矛先"
+        },
+        {
+          "id": 27,
+          "question": "びっくり<ギョウテン>する",
+          "answer": "仰天"
+        },
+        {
+          "id": 28,
+          "question": "住民の<シンコウ>を集める",
+          "answer": "信仰"
+        },
+        {
+          "id": 29,
+          "question": "ほっと<トイキ>を漏らす",
+          "answer": "吐息"
+        },
+        {
+          "id": 30,
+          "question": "親友に心情を<トロ>する",
+          "answer": "吐露"
+        },
+        {
+          "id": 31,
+          "question": "取りに餌を<あたえる>",
+          "answer": "与える"
+        },
+        {
+          "id": 32,
+          "question": "影響が地上に<およぶ>",
+          "answer": "及ぶ"
+        },
+        {
+          "id": 33,
+          "question": "<たがい>が譲り合う",
+          "answer": "互い"
+        },
+        {
+          "id": 34,
+          "question": "ほこりを<はらう>",
+          "answer": "払う"
+        },
+        {
+          "id": 35,
+          "question": "商品を買い<しめる>",
+          "answer": "占める"
+        },
+        {
+          "id": 36,
+          "question": "相性を<うらなう>",
+          "answer": "占う"
+        },
+        {
+          "id": 37,
+          "question": "母親に<あまえる>",
+          "answer": "甘える"
+        },
+        {
+          "id": 38,
+          "question": "監督を師と<あおぐ>",
+          "answer": "仰ぐ"
+        },
+        {
+          "id": 39,
+          "question": "責任を<ツイキュウ>する",
+          "answer": "追及"
+        },
+        {
+          "id": 40,
+          "question": "利益を<ツイキュウ>する",
+          "answer": "追求"
+        },
+        {
+          "id": 41,
+          "question": "真理を<ツイキュウ>する",
+          "answer": "追究"
+        },
+        {
+          "id": 42,
+          "question": "借用",
+          "answer": "貸与",
+          "type": "antonym"
+        },
+        {
+          "id": 43,
+          "question": "偉人",
+          "answer": "凡人",
+          "type": "antonym"
+        },
+        {
+          "id": 44,
+          "question": "落第",
+          "answer": "及第",
+          "type": "antonym"
+        },
+        {
+          "id": 45,
+          "question": "撤退",
+          "answer": "占領",
+          "type": "antonym"
+        },
+        {
+          "id": 46,
+          "question": "苦言",
+          "answer": "甘言",
+          "type": "antonym"
+        },
+        {
+          "id": 47,
+          "question": "素人",
+          "answer": "玄人",
+          "type": "antonym"
+        }
+      ]
     }
   ]
 }
