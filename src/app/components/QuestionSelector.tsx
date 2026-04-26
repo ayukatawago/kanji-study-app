@@ -54,12 +54,17 @@ export default function QuestionSelector({
 
   // Load mode preference and excluded questions from localStorage
   useEffect(() => {
-    const savedMode = localStorage.getItem("selectionMode") as SelectionMode;
-    if (savedMode === "fsrs" || savedMode === "manual") {
-      setMode(savedMode);
+    // Mobile always uses FSRS mode
+    if (window.innerWidth < 640) {
+      setMode("fsrs");
     } else {
-      // If no saved mode, set default to FSRS
-      localStorage.setItem("selectionMode", "fsrs");
+      const savedMode = localStorage.getItem("selectionMode") as SelectionMode;
+      if (savedMode === "fsrs" || savedMode === "manual") {
+        setMode(savedMode);
+      } else {
+        // If no saved mode, set default to FSRS
+        localStorage.setItem("selectionMode", "fsrs");
+      }
     }
 
     // Load excluded questions for current grade
@@ -247,7 +252,8 @@ export default function QuestionSelector({
           </div>
           <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             {/* Mode Toggle */}
-            <div className="flex items-center gap-2">
+            {/* 選択モード toggle — desktop only; mobile always uses FSRS */}
+            <div className="hidden sm:flex items-center gap-2">
               <label className="text-sm font-medium text-gray-700">
                 選択モード:
               </label>
