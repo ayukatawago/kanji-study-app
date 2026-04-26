@@ -32,6 +32,13 @@ export default function Home() {
   const [currentGrade, setCurrentGrade] = useState<number>(7);
   const [testMode, setTestMode] = useState<TestMode>("grid");
 
+  // Force flashcard mode on mobile screens
+  useEffect(() => {
+    if (window.innerWidth < 640) {
+      setTestMode("flashcard");
+    }
+  }, []);
+
   useEffect(() => {
     const dataSource = `kanji_grade${currentGrade}.json`;
     fetch(`/${dataSource}`)

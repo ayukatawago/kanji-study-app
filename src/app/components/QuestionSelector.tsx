@@ -351,7 +351,8 @@ export default function QuestionSelector({
             すべて解除
           </button>
 
-          <div className="flex items-center gap-2">
+          {/* テスト形式 toggle — desktop only; mobile always uses flashcard */}
+          <div className="hidden sm:flex items-center gap-2">
             <label className="text-sm font-medium text-gray-700">
               テスト形式:
             </label>
