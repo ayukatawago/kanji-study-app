@@ -345,14 +345,14 @@ export default function QuestionSelector({
           <button
             onClick={onSelectAll}
             disabled={mode === "fsrs"}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
+            className="hidden sm:block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
           >
             すべて選択
           </button>
           <button
             onClick={onDeselectAll}
             disabled={mode === "fsrs"}
-            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
+            className="hidden sm:block px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
           >
             すべて解除
           </button>
