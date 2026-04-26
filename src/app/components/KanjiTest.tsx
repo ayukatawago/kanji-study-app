@@ -36,6 +36,8 @@ interface KanjiTestProps {
   testMode?: "grid" | "flashcard";
 }
 
+const PAGE_SIZE = 10;
+
 export default function KanjiTest({
   selectedQuestionIds,
   onBackToSelector,
@@ -89,15 +91,14 @@ export default function KanjiTest({
       .catch((error) => console.error("Error loading test data:", error));
   }, [currentGrade, selectedQuestionIds]);
 
-  // Initialize answers and correctness when test data or selected group changes
+  // Initialize answers and correctness when test data or selected page changes
   useEffect(() => {
     if (testData) {
-      const groupQuestions = testData.questions.filter(
-        (q) => q.group === selectedTestId
-      );
+      const start = (selectedTestId - 1) * PAGE_SIZE;
+      const pageQuestions = testData.questions.slice(start, start + PAGE_SIZE);
       const initialAnswers: { [key: number]: string } = {};
       const initialCorrectness: { [key: number]: boolean | null } = {};
-      for (let i = 0; i < groupQuestions.length; i++) {
+      for (let i = 0; i < pageQuestions.length; i++) {
         initialAnswers[i] = "";
         initialCorrectness[i] = null;
       }
@@ -121,11 +122,15 @@ export default function KanjiTest({
     );
   };
 
+  const getPageQuestions = () => {
+    if (!testData) return [];
+    const start = (selectedTestId - 1) * PAGE_SIZE;
+    return testData.questions.slice(start, start + PAGE_SIZE);
+  };
+
   const handleQuestionClick = (questionIndex: number) => {
-    const groupQuestions = testData?.questions.filter(
-      (q) => q.group === selectedTestId
-    );
-    const questionData = groupQuestions?.[questionIndex];
+    const pageQuestions = getPageQuestions();
+    const questionData = pageQuestions[questionIndex];
     if (questionData) {
       setShowAnswer({
         questionIndex,
@@ -135,10 +140,8 @@ export default function KanjiTest({
   };
 
   const handleMarkCorrect = (questionIndex: number) => {
-    const groupQuestions = testData?.questions.filter(
-      (q) => q.group === selectedTestId
-    );
-    const questionData = groupQuestions?.[questionIndex];
+    const pageQuestions = getPageQuestions();
+    const questionData = pageQuestions[questionIndex];
 
     if (!questionData) return;
 
@@ -157,10 +160,8 @@ export default function KanjiTest({
   };
 
   const handleMarkIncorrect = (questionIndex: number) => {
-    const groupQuestions = testData?.questions.filter(
-      (q) => q.group === selectedTestId
-    );
-    const questionData = groupQuestions?.[questionIndex];
+    const pageQuestions = getPageQuestions();
+    const questionData = pageQuestions[questionIndex];
 
     if (!questionData) return;
 
@@ -201,18 +202,16 @@ export default function KanjiTest({
     );
   }
 
-  // Get questions for the selected group
-  const groupQuestions = testData.questions.filter(
-    (q) => q.group === selectedTestId
-  );
-  const questions = groupQuestions.map((q) => q.question);
-  const questionTypes = groupQuestions.map((q) => q.type);
+  // Get questions for the selected page
+  const pageQuestions = getPageQuestions();
+  const questions = pageQuestions.map((q) => q.question);
+  const questionTypes = pageQuestions.map((q) => q.type);
 
   // Get displayed answers (either user's answers or correct answers if showAnswers is true)
   const displayedAnswers: { [key: number]: string } = {};
-  for (let i = 0; i < groupQuestions.length; i++) {
+  for (let i = 0; i < pageQuestions.length; i++) {
     displayedAnswers[i] = showAnswers
-      ? groupQuestions[i].answer
+      ? pageQuestions[i].answer
       : answers[i] || "";
   }
 
