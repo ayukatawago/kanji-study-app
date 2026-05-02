@@ -1,3 +1,5 @@
+import { XMarkIcon } from "@heroicons/react/24/solid";
+
 interface AnswerPopupProps {
   questionIndex: number;
   answer: string;
@@ -24,9 +26,9 @@ export default function AnswerPopup({
           </h3>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-xl font-bold"
+            className="text-gray-500 hover:text-gray-700"
           >
-            ×
+            <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
         <div className="text-center">

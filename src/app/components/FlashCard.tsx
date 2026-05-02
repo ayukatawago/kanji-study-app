@@ -1,6 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import {
+  XCircleIcon,
+  CheckCircleIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  EyeIcon,
+} from "@heroicons/react/24/solid";
 
 interface FlashCardProps {
   question: string;
@@ -131,15 +138,17 @@ export default function FlashCard({
       >
         <button
           onClick={handleMarkIncorrect}
-          className="flex-1 max-w-40 py-4 rounded-xl font-bold text-lg transition-colors bg-red-100 text-red-600 hover:bg-red-500 hover:text-white"
+          className="flex-1 max-w-40 flex items-center justify-center gap-2 py-4 rounded-xl font-bold text-lg transition-colors bg-red-100 text-red-600 hover:bg-red-500 hover:text-white"
         >
-          ✗ 不正解
+          <XCircleIcon className="w-6 h-6" />
+          不正解
         </button>
         <button
           onClick={handleMarkCorrect}
-          className="flex-1 max-w-40 py-4 rounded-xl font-bold text-lg transition-colors bg-green-100 text-green-600 hover:bg-green-500 hover:text-white"
+          className="flex-1 max-w-40 flex items-center justify-center gap-2 py-4 rounded-xl font-bold text-lg transition-colors bg-green-100 text-green-600 hover:bg-green-500 hover:text-white"
         >
-          ✓ 正解
+          <CheckCircleIcon className="w-6 h-6" />
+          正解
         </button>
       </div>
 
@@ -148,23 +157,26 @@ export default function FlashCard({
         <button
           onClick={onPrev}
           disabled={currentIndex === 0}
-          className="px-6 py-2 rounded-lg font-medium text-sm transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed"
+          className="flex items-center gap-1 px-6 py-2 rounded-lg font-medium text-sm transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          ← 前へ
+          <ArrowLeftIcon className="w-4 h-4" />
+          前へ
         </button>
         <button
           onClick={() => setRevealed(true)}
-          className="px-6 py-2 rounded-lg font-medium text-sm transition-colors bg-blue-600 text-white hover:bg-blue-700"
+          className="flex items-center gap-1 px-6 py-2 rounded-lg font-medium text-sm transition-colors bg-blue-600 text-white hover:bg-blue-700"
           style={{ visibility: revealed ? "hidden" : "visible" }}
         >
+          <EyeIcon className="w-4 h-4" />
           答えを見る
         </button>
         <button
           onClick={onNext}
           disabled={currentIndex === totalCount - 1}
-          className="px-6 py-2 rounded-lg font-medium text-sm transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed"
+          className="flex items-center gap-1 px-6 py-2 rounded-lg font-medium text-sm transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          次へ →
+          次へ
+          <ArrowRightIcon className="w-4 h-4" />
         </button>
       </div>
     </div>

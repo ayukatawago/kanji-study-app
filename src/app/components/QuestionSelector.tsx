@@ -8,6 +8,16 @@ import {
   toggleExcludedQuestion,
 } from "@/lib/fsrsStorage";
 import { Rating } from "ts-fsrs";
+import {
+  CheckCircleIcon,
+  XCircleIcon,
+  PlayIcon,
+  CheckIcon,
+  XMarkIcon,
+  NoSymbolIcon,
+  TableCellsIcon,
+  RectangleStackIcon,
+} from "@heroicons/react/24/solid";
 
 interface Question {
   id: number;
@@ -369,15 +379,17 @@ export default function QuestionSelector({
           <button
             onClick={onSelectAll}
             disabled={mode === "fsrs"}
-            className="hidden sm:block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
+            className="hidden sm:flex items-center gap-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
           >
+            <CheckIcon className="w-4 h-4" />
             すべて選択
           </button>
           <button
             onClick={onDeselectAll}
             disabled={mode === "fsrs"}
-            className="hidden sm:block px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
+            className="hidden sm:flex items-center gap-1 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
           >
+            <XMarkIcon className="w-4 h-4" />
             すべて解除
           </button>
 
@@ -389,22 +401,24 @@ export default function QuestionSelector({
             <div className="flex bg-gray-100 rounded-lg p-1">
               <button
                 onClick={() => onTestModeChange("grid")}
-                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                className={`flex items-center gap-1 px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                   testMode === "grid"
                     ? "bg-white text-blue-600 shadow-sm"
                     : "text-gray-600 hover:text-gray-800"
                 }`}
               >
+                <TableCellsIcon className="w-4 h-4" />
                 一覧
               </button>
               <button
                 onClick={() => onTestModeChange("flashcard")}
-                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                className={`flex items-center gap-1 px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                   testMode === "flashcard"
                     ? "bg-white text-green-600 shadow-sm"
                     : "text-gray-600 hover:text-gray-800"
                 }`}
               >
+                <RectangleStackIcon className="w-4 h-4" />
                 フラッシュカード
               </button>
             </div>
@@ -413,8 +427,9 @@ export default function QuestionSelector({
           <button
             onClick={onStartTest}
             disabled={actualSelectedCount === 0}
-            className="ml-auto px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-semibold text-sm"
+            className="ml-auto flex items-center gap-2 px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-semibold text-sm"
           >
+            <PlayIcon className="w-4 h-4" />
             テスト開始 ({actualSelectedCount}問)
           </button>
         </div>
@@ -441,7 +456,7 @@ export default function QuestionSelector({
                     <button
                       onClick={() => toggleGroup(groupNumber)}
                       disabled={mode === "fsrs"}
-                      className={`px-3 py-1 rounded-md text-sm transition-colors ${
+                      className={`flex items-center gap-1 px-3 py-1 rounded-md text-sm transition-colors ${
                         mode === "fsrs"
                           ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                           : isGroupFullySelected(groupNumber)
@@ -449,7 +464,17 @@ export default function QuestionSelector({
                             : "bg-blue-500 text-white hover:bg-blue-600"
                       }`}
                     >
-                      {isGroupFullySelected(groupNumber) ? "解除" : "選択"}
+                      {isGroupFullySelected(groupNumber) ? (
+                        <>
+                          <XMarkIcon className="w-4 h-4" />
+                          解除
+                        </>
+                      ) : (
+                        <>
+                          <CheckIcon className="w-4 h-4" />
+                          選択
+                        </>
+                      )}
                     </button>
                   </div>
 
@@ -505,11 +530,11 @@ export default function QuestionSelector({
                                   handleRecordReview(q.id, true);
                                 }}
                                 disabled={isExcluded}
-                                className="w-7 h-7 rounded-full text-sm font-bold bg-green-100 text-green-700 hover:bg-green-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                                className="w-7 h-7 rounded-full flex items-center justify-center bg-green-100 text-green-600 hover:bg-green-200 disabled:opacity-40 disabled:cursor-not-allowed"
                                 aria-label="正解として記録"
                                 title="正解として記録"
                               >
-                                ○
+                                <CheckCircleIcon className="w-5 h-5" />
                               </button>
                               <button
                                 type="button"
@@ -518,23 +543,26 @@ export default function QuestionSelector({
                                   handleRecordReview(q.id, false);
                                 }}
                                 disabled={isExcluded}
-                                className="w-7 h-7 rounded-full text-sm font-bold bg-red-100 text-red-700 hover:bg-red-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                                className="w-7 h-7 rounded-full flex items-center justify-center bg-red-100 text-red-600 hover:bg-red-200 disabled:opacity-40 disabled:cursor-not-allowed"
                                 aria-label="不正解として記録"
                                 title="不正解として記録"
                               >
-                                ×
+                                <XCircleIcon className="w-5 h-5" />
                               </button>
                             </div>
-                            <label className="flex items-center gap-1 cursor-pointer">
+                            <label
+                              className="flex items-center gap-1 cursor-pointer"
+                              title="除外"
+                            >
                               <input
                                 type="checkbox"
                                 checked={isExcluded}
                                 onChange={() => handleToggleExclude(q.id)}
-                                className="w-4 h-4 text-red-600 rounded focus:ring-2 focus:ring-red-500"
+                                className="sr-only"
                               />
-                              <span className="text-xs text-gray-600">
-                                除外
-                              </span>
+                              <NoSymbolIcon
+                                className={`w-5 h-5 transition-colors ${isExcluded ? "text-red-500" : "text-gray-300 hover:text-red-400"}`}
+                              />
                             </label>
                           </div>
                         </div>
