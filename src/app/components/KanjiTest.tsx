@@ -45,7 +45,6 @@ export default function KanjiTest({
   testMode = "grid",
 }: KanjiTestProps = {}) {
   const [testData, setTestData] = useState<TestData | null>(null);
-  const [selectedTestId, setSelectedTestId] = useState<number>(1);
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [showAnswer, setShowAnswer] = useState<{
@@ -86,26 +85,23 @@ export default function KanjiTest({
         }
 
         setTestData({ questions: shuffled });
-        setSelectedTestId(1); // Reset to first test when changing data source
       })
       .catch((error) => console.error("Error loading test data:", error));
   }, [currentGrade, selectedQuestionIds]);
 
-  // Initialize answers and correctness when test data or selected page changes
+  // Initialize answers and correctness when test data changes
   useEffect(() => {
     if (testData) {
-      const start = (selectedTestId - 1) * PAGE_SIZE;
-      const pageQuestions = testData.questions.slice(start, start + PAGE_SIZE);
       const initialAnswers: { [key: number]: string } = {};
       const initialCorrectness: { [key: number]: boolean | null } = {};
-      for (let i = 0; i < pageQuestions.length; i++) {
+      for (let i = 0; i < testData.questions.length; i++) {
         initialAnswers[i] = "";
         initialCorrectness[i] = null;
       }
       setAnswers(initialAnswers);
       setCorrectness(initialCorrectness);
     }
-  }, [testData, selectedTestId]);
+  }, [testData]);
 
   const handleAnswerChange = (questionIndex: number, value: string) => {
     setAnswers((prev) => ({
@@ -115,22 +111,14 @@ export default function KanjiTest({
   };
 
   const formatQuestion = (text: string) => {
-    // Replace <text> with emphasized formatting
     return text.replace(
       /<([^>]+)>/g,
       '<span style="font-weight: bold; color: #dc2626; text-decoration: underline;">$1</span>'
     );
   };
 
-  const getPageQuestions = () => {
-    if (!testData) return [];
-    const start = (selectedTestId - 1) * PAGE_SIZE;
-    return testData.questions.slice(start, start + PAGE_SIZE);
-  };
-
   const handleQuestionClick = (questionIndex: number) => {
-    const pageQuestions = getPageQuestions();
-    const questionData = pageQuestions[questionIndex];
+    const questionData = testData?.questions[questionIndex];
     if (questionData) {
       setShowAnswer({
         questionIndex,
@@ -140,16 +128,9 @@ export default function KanjiTest({
   };
 
   const handleMarkCorrect = (questionIndex: number) => {
-    const pageQuestions = getPageQuestions();
-    const questionData = pageQuestions[questionIndex];
-
+    const questionData = testData?.questions[questionIndex];
     if (!questionData) return;
-
-    setCorrectness((prev) => ({
-      ...prev,
-      [questionIndex]: true,
-    }));
-
+    setCorrectness((prev) => ({ ...prev, [questionIndex]: true }));
     recordReview(
       questionData.id,
       currentGrade,
@@ -160,16 +141,9 @@ export default function KanjiTest({
   };
 
   const handleMarkIncorrect = (questionIndex: number) => {
-    const pageQuestions = getPageQuestions();
-    const questionData = pageQuestions[questionIndex];
-
+    const questionData = testData?.questions[questionIndex];
     if (!questionData) return;
-
-    setCorrectness((prev) => ({
-      ...prev,
-      [questionIndex]: false,
-    }));
-
+    setCorrectness((prev) => ({ ...prev, [questionIndex]: false }));
     recordReview(
       questionData.id,
       currentGrade,
@@ -202,19 +176,6 @@ export default function KanjiTest({
     );
   }
 
-  // Get questions for the selected page
-  const pageQuestions = getPageQuestions();
-  const questions = pageQuestions.map((q) => q.question);
-  const questionTypes = pageQuestions.map((q) => q.type);
-
-  // Get displayed answers (either user's answers or correct answers if showAnswers is true)
-  const displayedAnswers: { [key: number]: string } = {};
-  for (let i = 0; i < pageQuestions.length; i++) {
-    displayedAnswers[i] = showAnswers
-      ? pageQuestions[i].answer
-      : answers[i] || "";
-  }
-
   // Flash card mode
   if (testMode === "flashcard") {
     const currentQuestion = testData.questions[currentCardIndex];
@@ -240,14 +201,13 @@ export default function KanjiTest({
     );
   }
 
-  // Grid mode (default)
+  // Grid mode — all questions split into pages of PAGE_SIZE
+  const pageCount = Math.ceil(testData.questions.length / PAGE_SIZE);
+
   return (
-    <div className="h-screen flex flex-col max-w-6xl mx-auto px-2 print:w-full print:max-w-full print:box-border">
-      <div className="flex-0 print:hidden">
+    <div className="flex flex-col max-w-6xl mx-auto px-2 print:block print:w-full print:max-w-full print:px-0 print:box-border">
+      <div className="sticky top-0 z-10 bg-blue-50/95 backdrop-blur-sm print:hidden">
         <Header
-          testData={testData}
-          selectedTestId={selectedTestId}
-          onTestChange={setSelectedTestId}
           onPrint={() => window.print()}
           onBackToSelector={onBackToSelector}
           showAnswers={showAnswers}
@@ -255,21 +215,54 @@ export default function KanjiTest({
         />
       </div>
 
-      <div className="flex-1 bg-white rounded-lg shadow-lg mb-2 sm:mb-4 py-2 sm:py-4 flex flex-col gap-2 sm:gap-4 min-h-0 print:shadow-none print:p-1 print:h-screen print:box-border">
-        <TestGrid
-          questions={questions}
-          questionTypes={questionTypes}
-          answers={displayedAnswers}
-          onAnswerChange={handleAnswerChange}
-          formatQuestion={formatQuestion}
-          onQuestionClick={handleQuestionClick}
-          correctness={correctness}
-          onMarkCorrect={handleMarkCorrect}
-          onMarkIncorrect={handleMarkIncorrect}
-        />
-      </div>
+      {Array.from({ length: pageCount }, (_, pageIdx) => {
+        const start = pageIdx * PAGE_SIZE;
+        const pageQs = testData.questions.slice(start, start + PAGE_SIZE);
+        const pageAnswers: { [key: number]: string } = {};
+        const pageCorrectness: { [key: number]: boolean | null } = {};
+        for (let i = 0; i < pageQs.length; i++) {
+          const gi = start + i;
+          pageAnswers[i] = showAnswers ? pageQs[i].answer : answers[gi] || "";
+          pageCorrectness[i] = correctness[gi] ?? null;
+        }
 
-      {/* Answer Popup */}
+        return (
+          <div
+            key={pageIdx}
+            className="h-screen flex flex-col bg-white rounded-lg shadow-lg mb-2 sm:mb-4 print:block print:h-[198mm] print:w-full print:overflow-hidden print:shadow-none print:mb-0 print:rounded-none"
+            style={{
+              breakInside: "avoid",
+              pageBreakInside: "avoid",
+              ...(pageIdx < pageCount - 1
+                ? { pageBreakAfter: "always", breakAfter: "page" }
+                : {}),
+            }}
+          >
+            <div className="flex-1 flex flex-col gap-2 sm:gap-4 py-2 sm:py-4 min-h-0 print:flex print:flex-col print:h-full print:gap-4 print:py-2 print:min-h-0">
+              <TestGrid
+                questions={pageQs.map((q) => q.question)}
+                questionTypes={pageQs.map((q) => q.type)}
+                answers={pageAnswers}
+                onAnswerChange={(localIdx, value) =>
+                  handleAnswerChange(start + localIdx, value)
+                }
+                formatQuestion={formatQuestion}
+                onQuestionClick={(localIdx) =>
+                  handleQuestionClick(start + localIdx)
+                }
+                correctness={pageCorrectness}
+                onMarkCorrect={(localIdx) =>
+                  handleMarkCorrect(start + localIdx)
+                }
+                onMarkIncorrect={(localIdx) =>
+                  handleMarkIncorrect(start + localIdx)
+                }
+              />
+            </div>
+          </div>
+        );
+      })}
+
       {showAnswer && (
         <AnswerPopup
           questionIndex={showAnswer.questionIndex}

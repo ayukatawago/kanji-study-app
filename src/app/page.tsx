@@ -125,8 +125,10 @@ export default function Home() {
   }
 
   return (
-    <div className="h-screen bg-gradient-to-b from-blue-50 to-white overflow-hidden print:from-white">
-      <main className="h-full">
+    <div
+      className={`bg-gradient-to-b from-blue-50 to-white print:from-white ${testMode === "grid" ? "min-h-screen" : "h-screen overflow-hidden"}`}
+    >
+      <main className={testMode === "grid" ? undefined : "h-full"}>
         <KanjiTest
           selectedQuestionIds={selectedQuestions}
           onBackToSelector={handleBackToSelector}
