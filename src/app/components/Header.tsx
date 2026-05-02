@@ -5,16 +5,7 @@ import {
   EyeSlashIcon,
 } from "@heroicons/react/24/solid";
 
-interface Question {
-  id: number;
-  question: string;
-  answer: string;
-}
-
 interface HeaderProps {
-  testData: { questions: Question[] } | null;
-  selectedTestId: number;
-  onTestChange: (testId: number) => void;
   onPrint: () => void;
   onBackToSelector?: () => void;
   showAnswers?: boolean;
@@ -22,9 +13,6 @@ interface HeaderProps {
 }
 
 export default function Header({
-  testData,
-  selectedTestId,
-  onTestChange,
   onPrint,
   onBackToSelector,
   showAnswers,
@@ -43,28 +31,6 @@ export default function Header({
             選択画面
           </button>
         )}
-        <label
-          htmlFor="test-select"
-          className="text-sm font-medium text-gray-700"
-        >
-          テスト:
-        </label>
-        <select
-          id="test-select"
-          value={selectedTestId}
-          onChange={(e) => onTestChange(Number(e.target.value))}
-          className="border-2 border-blue-400 rounded-md px-3 py-1 text-sm font-semibold bg-blue-50 text-blue-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 shadow-sm"
-        >
-          {testData &&
-            Array.from(
-              { length: Math.ceil(testData.questions.length / 10) },
-              (_, i) => (
-                <option key={i + 1} value={i + 1}>
-                  テスト {i + 1}
-                </option>
-              )
-            )}
-        </select>
       </div>
       <h1 className="text-base sm:text-xl font-bold text-center text-gray-900 truncate px-2">
         漢字テスト
