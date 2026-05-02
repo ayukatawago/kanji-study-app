@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from "react";
 import ReviewStats from "./ReviewStats";
-import { getRecommendedQuestions } from "@/lib/fsrsScheduler";
+import { recordReview, getRecommendedQuestions } from "@/lib/fsrsScheduler";
 import {
   getExcludedQuestions,
   toggleExcludedQuestion,
 } from "@/lib/fsrsStorage";
+import { Rating } from "ts-fsrs";
 
 interface Question {
   id: number;
@@ -112,6 +113,29 @@ export default function QuestionSelector({
     if (mode === "fsrs") {
       const allQuestionIds = questions
         .filter((q) => !excluded.has(q.id))
+        .map((q) => q.id);
+      const recommended = getRecommendedQuestions(
+        allQuestionIds,
+        currentGrade,
+        {
+          maxReviews: 15,
+          maxNew: 30,
+          totalLimit: 30,
+        }
+      );
+      onSetQuestions(recommended);
+    }
+  };
+
+  const handleRecordReview = (questionId: number, isCorrect: boolean) => {
+    const rating = isCorrect ? Rating.Good : Rating.Again;
+    recordReview(questionId, currentGrade, rating, isCorrect);
+
+    if (mode === "fsrs") {
+      const currentExcluded = getExcludedQuestions(currentGrade);
+      const allQuestionIds = questions
+        .filter((q) => !currentExcluded.has(q.id))
+        .filter((q) => selectedGroup === null || q.group === selectedGroup)
         .map((q) => q.id);
       const recommended = getRecommendedQuestions(
         allQuestionIds,
@@ -473,6 +497,34 @@ export default function QuestionSelector({
                                 {q.question}
                               </div>
                             </button>
+                            <div className="hidden sm:flex items-center gap-1">
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleRecordReview(q.id, true);
+                                }}
+                                disabled={isExcluded}
+                                className="w-7 h-7 rounded-full text-sm font-bold bg-green-100 text-green-700 hover:bg-green-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                                aria-label="正解として記録"
+                                title="正解として記録"
+                              >
+                                ○
+                              </button>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleRecordReview(q.id, false);
+                                }}
+                                disabled={isExcluded}
+                                className="w-7 h-7 rounded-full text-sm font-bold bg-red-100 text-red-700 hover:bg-red-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                                aria-label="不正解として記録"
+                                title="不正解として記録"
+                              >
+                                ×
+                              </button>
+                            </div>
                             <label className="flex items-center gap-1 cursor-pointer">
                               <input
                                 type="checkbox"
