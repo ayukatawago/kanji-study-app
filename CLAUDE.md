@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-- **Framework**: Next.js 15
+- **Framework**: Next.js 16
 - **Package Manager**: pnpm
 - **Styling**: Tailwind CSS v4
 - **Code Formatting**: Prettier
@@ -40,10 +40,30 @@ pnpm run format:check     # Check code formatting
 
 ```
 src/
-├── app/                  # App Router directory
-│   ├── layout.tsx        # Root layout
-│   ├── page.tsx          # Home page
-│   └── globals.css       # Global styles
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx                     # Root page — grade selection and test launch
+│   ├── globals.css
+│   └── components/
+│       ├── KanjiTest.tsx            # Test runner (grid + flashcard modes)
+│       ├── QuestionSelector.tsx     # Question selection with FSRS / manual toggle
+│       ├── FlashCard.tsx            # Flashcard with flip animation
+│       ├── TestGrid.tsx             # Grid layout for multi-question view
+│       ├── ReviewStats.tsx          # Stats dashboard
+│       ├── AnswerPopup.tsx
+│       ├── Header.tsx
+│       ├── QuestionItem.tsx
+│       ├── Question.tsx
+│       ├── AnswerBox.tsx
+│       └── SettingsModal.tsx
+└── lib/
+    ├── fsrsScheduler.ts             # FSRS scheduling logic
+    └── fsrsStorage.ts               # localStorage adapter for cards and reviews
+
+public/
+├── kanji_grade3.json
+├── kanji_grade6.json
+└── kanji_grade7.json
 ```
 
 ## Development Notes
@@ -53,6 +73,8 @@ src/
 - Use Tailwind CSS v4 for styling
 - Format code with Prettier before committing
 - Port 3000 is preferred for development server
+- All learning state is persisted in localStorage (no backend)
+- FSRS scheduling via `ts-fsrs` — see `src/lib/fsrsScheduler.ts`
 
 ## Playwright
 
