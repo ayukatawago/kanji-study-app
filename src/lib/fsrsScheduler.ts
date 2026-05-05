@@ -195,24 +195,7 @@ export function getRecommendedQuestions(
     newQuestionsLimit
   );
 
-  // Combine what we have so far
-  const recommended = [...dueQuestionIds, ...newQuestions];
-
-  // If we still don't have enough questions to reach totalLimit,
-  // add any remaining available questions (even if not due)
-  if (recommended.length < totalLimit) {
-    const remainingNeeded = totalLimit - recommended.length;
-    const alreadySelected = new Set(recommended);
-
-    // Get questions that haven't been selected yet — shuffle since all equal priority
-    const additionalQuestions = shuffleArray(
-      allQuestionIds.filter((qId) => !alreadySelected.has(qId))
-    ).slice(0, remainingNeeded);
-
-    recommended.push(...additionalQuestions);
-  }
-
-  return recommended;
+  return [...dueQuestionIds, ...newQuestions];
 }
 
 /**
