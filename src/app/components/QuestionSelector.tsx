@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import ReviewStats from "./ReviewStats";
 import { recordReview, getRecommendedQuestions } from "@/lib/fsrsScheduler";
 import {
@@ -18,6 +18,9 @@ import {
   TableCellsIcon,
   RectangleStackIcon,
 } from "@heroicons/react/24/solid";
+
+const FSRS_OPTIONS = { maxReviews: 30, maxNew: 30, totalLimit: 30 } as const;
+const STORAGE_KEY_SELECTION_MODE = "selectionMode";
 
 interface Question {
   id: number;
@@ -63,77 +66,48 @@ export default function QuestionSelector({
   );
   const [selectedGroup, setSelectedGroup] = useState<number | null>(null);
 
-  // Load mode preference and excluded questions from localStorage
   useEffect(() => {
-    // Mobile always uses FSRS mode
     if (window.innerWidth < 640) {
       setMode("fsrs");
     } else {
-      const savedMode = localStorage.getItem("selectionMode") as SelectionMode;
+      const savedMode = localStorage.getItem(
+        STORAGE_KEY_SELECTION_MODE
+      ) as SelectionMode;
       if (savedMode === "fsrs" || savedMode === "manual") {
         setMode(savedMode);
       } else {
-        // If no saved mode, set default to FSRS
-        localStorage.setItem("selectionMode", "fsrs");
+        localStorage.setItem(STORAGE_KEY_SELECTION_MODE, "fsrs");
       }
     }
 
-    // Load excluded questions for current grade
     const excluded = getExcludedQuestions(currentGrade);
     setExcludedQuestions(excluded);
   }, [currentGrade]);
 
-  // Handle mode change
-  const handleModeChange = (newMode: SelectionMode) => {
-    setMode(newMode);
-    localStorage.setItem("selectionMode", newMode);
-
-    if (newMode === "fsrs") {
-      // Auto-select FSRS recommended questions (excluding excluded ones)
-      const allQuestionIds = questions
-        .filter((q) => !excludedQuestions.has(q.id))
-        .map((q) => q.id);
-      const recommended = getRecommendedQuestions(
-        allQuestionIds,
-        currentGrade,
-        {
-          maxReviews: 15,
-          maxNew: 30,
-          totalLimit: 30,
-        }
-      );
-
-      // Directly set the recommended questions
-      onSetQuestions(recommended);
-    }
+  const refreshFsrsSelection = (excluded: Set<number>) => {
+    const ids = questions
+      .filter((q) => !excluded.has(q.id))
+      .filter((q) => selectedGroup === null || q.group === selectedGroup)
+      .map((q) => q.id);
+    onSetQuestions(getRecommendedQuestions(ids, currentGrade, FSRS_OPTIONS));
   };
 
-  // Handle exclude toggle
+  const handleModeChange = (newMode: SelectionMode) => {
+    setMode(newMode);
+    localStorage.setItem(STORAGE_KEY_SELECTION_MODE, newMode);
+  };
+
   const handleToggleExclude = (questionId: number) => {
     toggleExcludedQuestion(questionId, currentGrade);
     const excluded = getExcludedQuestions(currentGrade);
     setExcludedQuestions(excluded);
 
-    // If question is now excluded, remove it from selection
     if (excluded.has(questionId) && selectedQuestions.has(questionId)) {
       onToggleQuestion(questionId);
     }
 
-    // If in FSRS mode, recalculate recommendations
     if (mode === "fsrs") {
-      const allQuestionIds = questions
-        .filter((q) => !excluded.has(q.id))
-        .map((q) => q.id);
-      const recommended = getRecommendedQuestions(
-        allQuestionIds,
-        currentGrade,
-        {
-          maxReviews: 15,
-          maxNew: 30,
-          totalLimit: 30,
-        }
-      );
-      onSetQuestions(recommended);
+      refreshFsrsSelection(excluded);
     }
   };
 
@@ -142,106 +116,33 @@ export default function QuestionSelector({
     recordReview(questionId, currentGrade, rating, isCorrect);
 
     if (mode === "fsrs") {
-      const currentExcluded = getExcludedQuestions(currentGrade);
-      const allQuestionIds = questions
-        .filter((q) => !currentExcluded.has(q.id))
-        .filter((q) => selectedGroup === null || q.group === selectedGroup)
-        .map((q) => q.id);
-      const recommended = getRecommendedQuestions(
-        allQuestionIds,
-        currentGrade,
-        {
-          maxReviews: 15,
-          maxNew: 30,
-          totalLimit: 30,
-        }
-      );
-      onSetQuestions(recommended);
+      refreshFsrsSelection(getExcludedQuestions(currentGrade));
     }
   };
 
-  // Reset group filter when grade changes
   useEffect(() => {
     setSelectedGroup(null);
   }, [currentGrade]);
 
-  // Re-select FSRS questions when grade changes in FSRS mode or when questions load
   useEffect(() => {
     if (mode === "fsrs" && questions.length > 0) {
-      // Read excluded questions directly from localStorage to avoid state timing issues
-      const currentExcluded = getExcludedQuestions(currentGrade);
-
-      const allQuestionIds = questions
-        .filter((q) => !currentExcluded.has(q.id))
+      const excluded = getExcludedQuestions(currentGrade);
+      const ids = questions
+        .filter((q) => !excluded.has(q.id))
         .filter((q) => selectedGroup === null || q.group === selectedGroup)
         .map((q) => q.id);
-
-      console.log(
-        "useEffect: Filtering out",
-        currentExcluded.size,
-        "excluded questions"
-      );
-      console.log("useEffect: Available questions:", allQuestionIds.length);
-
-      const recommended = getRecommendedQuestions(
-        allQuestionIds,
-        currentGrade,
-        {
-          maxReviews: 15,
-          maxNew: 30,
-          totalLimit: 30,
-        }
-      );
-
-      console.log("useEffect: Got", recommended.length, "recommendations");
-
-      // Verify none of the recommended questions are excluded
-      const problematicQuestions = recommended.filter((id) =>
-        currentExcluded.has(id)
-      );
-      if (problematicQuestions.length > 0) {
-        console.error(
-          "BUG: Recommended questions contain excluded items:",
-          problematicQuestions
-        );
-      }
-
-      // Always update (removed comparison logic that might cause stale data)
-      onSetQuestions(recommended);
+      onSetQuestions(getRecommendedQuestions(ids, currentGrade, FSRS_OPTIONS));
     }
-  }, [
-    currentGrade,
-    mode,
-    questions,
-    excludedQuestions,
-    selectedGroup,
-    onSetQuestions,
-  ]);
+  }, [currentGrade, mode, questions, selectedGroup, onSetQuestions]);
 
-  // Calculate actual selected count (excluding excluded questions)
   const selectedArray = Array.from(selectedQuestions);
-  const filteredSelected = selectedArray.filter(
+  const actualSelectedCount = selectedArray.filter(
     (id) => !excludedQuestions.has(id)
-  );
+  ).length;
 
-  // Debug: Check if any excluded questions are in selection
-  const excludedInSelection = selectedArray.filter((id) =>
-    excludedQuestions.has(id)
-  );
-  if (excludedInSelection.length > 0) {
-    console.log(
-      "WARNING: Excluded questions in selection:",
-      excludedInSelection
-    );
-    console.log("Total selected:", selectedArray.length);
-    console.log("After filtering excluded:", filteredSelected.length);
-  }
-
-  const actualSelectedCount = filteredSelected.length;
-
-  // Derive groups from data and apply group filter
-  const allGroups = [...new Set(questions.map((q) => q.group))].sort(
-    (a, b) => a - b
+  const allGroups = useMemo(
+    () => [...new Set(questions.map((q) => q.group))].sort((a, b) => a - b),
+    [questions]
   );
   const visibleQuestions =
     selectedGroup === null
@@ -285,7 +186,6 @@ export default function QuestionSelector({
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-            {/* Mode Toggle */}
             {/* 選択モード toggle — desktop only; mobile always uses FSRS */}
             <div className="hidden sm:flex items-center gap-2">
               <label className="text-sm font-medium text-gray-700">
