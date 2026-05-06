@@ -286,76 +286,79 @@ export default function QuestionSelector({
                                 : "bg-gray-50 border-gray-200 opacity-50"
                           }`}
                         >
-                          <div className="flex items-start gap-2">
-                            <span
-                              className={`text-sm font-bold min-w-[2rem] ${
-                                selectedQuestions.has(q.id) && !isExcluded
-                                  ? "text-blue-600"
-                                  : "text-gray-500"
-                              }`}
-                            >
-                              {q.id}.
-                            </span>
-                            <div className="flex-1 text-left">
-                              <div className="text-lg font-bold text-gray-800 mb-1">
+                          <div className="flex flex-col gap-1">
+                            {/* Row 1: id | kanji | buttons */}
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={`text-sm font-bold min-w-[2rem] ${
+                                  selectedQuestions.has(q.id) && !isExcluded
+                                    ? "text-blue-600"
+                                    : "text-gray-500"
+                                }`}
+                              >
+                                {q.id}.
+                              </span>
+                              <div className="text-lg font-bold text-gray-800 flex-1">
                                 {q.answer}
                               </div>
-                              <div className="hidden sm:block text-sm text-gray-600">
-                                {q.question}
+                              <div className="hidden sm:flex items-center gap-1">
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleRecordReview(q.id, true);
+                                  }}
+                                  disabled={isExcluded}
+                                  className="w-7 h-7 rounded-full flex items-center justify-center bg-green-100 text-green-600 hover:bg-green-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                                  aria-label="正解として記録"
+                                  title="正解として記録"
+                                >
+                                  <CheckCircleIcon className="w-5 h-5" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleRecordReview(q.id, false);
+                                  }}
+                                  disabled={isExcluded}
+                                  className="w-7 h-7 rounded-full flex items-center justify-center bg-red-100 text-red-600 hover:bg-red-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                                  aria-label="不正解として記録"
+                                  title="不正解として記録"
+                                >
+                                  <XCircleIcon className="w-5 h-5" />
+                                </button>
                               </div>
-                              {(() => {
-                                const label = getFsrsLabel(q.id);
-                                return (
-                                  <span
-                                    className={`inline-block mt-1 px-1.5 py-0.5 rounded text-xs font-medium ${label.className}`}
-                                  >
-                                    {label.text}
-                                  </span>
-                                );
-                              })()}
-                            </div>
-                            <div className="hidden sm:flex items-center gap-1">
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleRecordReview(q.id, true);
-                                }}
-                                disabled={isExcluded}
-                                className="w-7 h-7 rounded-full flex items-center justify-center bg-green-100 text-green-600 hover:bg-green-200 disabled:opacity-40 disabled:cursor-not-allowed"
-                                aria-label="正解として記録"
-                                title="正解として記録"
+                              <label
+                                className="flex items-center gap-1 cursor-pointer"
+                                title="除外"
                               >
-                                <CheckCircleIcon className="w-5 h-5" />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleRecordReview(q.id, false);
-                                }}
-                                disabled={isExcluded}
-                                className="w-7 h-7 rounded-full flex items-center justify-center bg-red-100 text-red-600 hover:bg-red-200 disabled:opacity-40 disabled:cursor-not-allowed"
-                                aria-label="不正解として記録"
-                                title="不正解として記録"
-                              >
-                                <XCircleIcon className="w-5 h-5" />
-                              </button>
+                                <input
+                                  type="checkbox"
+                                  checked={isExcluded}
+                                  onChange={() => handleToggleExclude(q.id)}
+                                  className="sr-only"
+                                />
+                                <NoSymbolIcon
+                                  className={`w-5 h-5 transition-colors ${isExcluded ? "text-red-500" : "text-gray-300 hover:text-red-400"}`}
+                                />
+                              </label>
                             </div>
-                            <label
-                              className="flex items-center gap-1 cursor-pointer"
-                              title="除外"
-                            >
-                              <input
-                                type="checkbox"
-                                checked={isExcluded}
-                                onChange={() => handleToggleExclude(q.id)}
-                                className="sr-only"
-                              />
-                              <NoSymbolIcon
-                                className={`w-5 h-5 transition-colors ${isExcluded ? "text-red-500" : "text-gray-300 hover:text-red-400"}`}
-                              />
-                            </label>
+                            {/* Row 2: sentence */}
+                            <div className="hidden sm:block text-sm text-gray-600">
+                              {q.question}
+                            </div>
+                            {/* Row 3: FSRS label */}
+                            {(() => {
+                              const label = getFsrsLabel(q.id);
+                              return (
+                                <span
+                                  className={`inline-block self-start px-1.5 py-0.5 rounded text-xs font-medium ${label.className}`}
+                                >
+                                  {label.text}
+                                </span>
+                              );
+                            })()}
                           </div>
                         </div>
                       );
