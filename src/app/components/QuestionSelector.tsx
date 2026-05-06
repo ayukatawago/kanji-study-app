@@ -6,8 +6,10 @@ import { recordReview, getRecommendedQuestions } from "@/lib/fsrsScheduler";
 import {
   getExcludedQuestions,
   toggleExcludedQuestion,
+  getAllCards,
+  KanjiCard,
 } from "@/lib/fsrsStorage";
-import { Rating } from "ts-fsrs";
+import { Rating, State } from "ts-fsrs";
 import {
   CheckCircleIcon,
   XCircleIcon,
@@ -53,6 +55,9 @@ export default function QuestionSelector({
     new Set()
   );
   const [selectedGroup, setSelectedGroup] = useState<number | null>(null);
+  const [allCards, setAllCards] = useState<Record<string, KanjiCard>>(() =>
+    getAllCards()
+  );
 
   useEffect(() => {
     const excluded = getExcludedQuestions(currentGrade);
@@ -79,7 +84,34 @@ export default function QuestionSelector({
     const rating = isCorrect ? Rating.Good : Rating.Again;
     recordReview(questionId, currentGrade, rating, isCorrect);
 
+    setAllCards(getAllCards());
     refreshFsrsSelection(getExcludedQuestions(currentGrade));
+  };
+
+  const getFsrsLabel = (
+    questionId: number
+  ): { text: string; className: string } => {
+    const key = `${currentGrade}-${questionId}`;
+    const kanjiCard = allCards[key];
+
+    if (!kanjiCard || kanjiCard.card.state === State.New) {
+      return { text: "NEW", className: "bg-blue-100 text-blue-600" };
+    }
+
+    const now = new Date();
+    const dueDate = new Date(kanjiCard.card.due);
+
+    if (dueDate <= now) {
+      return { text: "要復習", className: "bg-orange-100 text-orange-600" };
+    }
+
+    const daysUntil = Math.ceil(
+      (dueDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    return {
+      text: `${daysUntil}日後`,
+      className: "bg-green-100 text-green-600",
+    };
   };
 
   useEffect(() => {
@@ -271,6 +303,16 @@ export default function QuestionSelector({
                               <div className="hidden sm:block text-sm text-gray-600">
                                 {q.question}
                               </div>
+                              {(() => {
+                                const label = getFsrsLabel(q.id);
+                                return (
+                                  <span
+                                    className={`inline-block mt-1 px-1.5 py-0.5 rounded text-xs font-medium ${label.className}`}
+                                  >
+                                    {label.text}
+                                  </span>
+                                );
+                              })()}
                             </div>
                             <div className="hidden sm:flex items-center gap-1">
                               <button
