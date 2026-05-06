@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from "react";
 import KanjiTest from "./components/KanjiTest";
 import QuestionSelector from "./components/QuestionSelector";
-import { getExcludedQuestions } from "@/lib/fsrsStorage";
 
 interface Question {
   id: number;
@@ -52,34 +51,6 @@ export default function Home() {
       .catch((error) => console.error("Error loading test data:", error));
   }, [currentGrade]);
 
-  const handleToggleQuestion = (questionId: number) => {
-    setSelectedQuestions((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(questionId)) {
-        newSet.delete(questionId);
-      } else {
-        newSet.add(questionId);
-      }
-      return newSet;
-    });
-  };
-
-  const handleSelectAll = () => {
-    if (testData) {
-      const excludedQuestions = getExcludedQuestions(currentGrade);
-      const allQuestionIds = new Set(
-        testData.questions
-          .filter((q) => !excludedQuestions.has(q.id))
-          .map((q) => q.id)
-      );
-      setSelectedQuestions(allQuestionIds);
-    }
-  };
-
-  const handleDeselectAll = () => {
-    setSelectedQuestions(new Set());
-  };
-
   const handleSetQuestions = useCallback((questionIds: number[]) => {
     setSelectedQuestions(new Set(questionIds));
   }, []);
@@ -110,9 +81,6 @@ export default function Home() {
         <QuestionSelector
           questions={testData.questions}
           selectedQuestions={selectedQuestions}
-          onToggleQuestion={handleToggleQuestion}
-          onSelectAll={handleSelectAll}
-          onDeselectAll={handleDeselectAll}
           onSetQuestions={handleSetQuestions}
           onStartTest={handleStartTest}
           currentGrade={currentGrade}

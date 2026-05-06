@@ -12,15 +12,12 @@ import {
   CheckCircleIcon,
   XCircleIcon,
   PlayIcon,
-  CheckIcon,
-  XMarkIcon,
   NoSymbolIcon,
   TableCellsIcon,
   RectangleStackIcon,
 } from "@heroicons/react/24/solid";
 
 const FSRS_OPTIONS = { maxReviews: 30, maxNew: 30, totalLimit: 30 } as const;
-const STORAGE_KEY_SELECTION_MODE = "selectionMode";
 
 interface Question {
   id: number;
@@ -34,9 +31,6 @@ type TestMode = "grid" | "flashcard";
 interface QuestionSelectorProps {
   questions: Question[];
   selectedQuestions: Set<number>;
-  onToggleQuestion: (questionId: number) => void;
-  onSelectAll: () => void;
-  onDeselectAll: () => void;
   onSetQuestions: (questionIds: number[]) => void;
   onStartTest: () => void;
   currentGrade: number;
@@ -45,14 +39,9 @@ interface QuestionSelectorProps {
   onTestModeChange: (mode: TestMode) => void;
 }
 
-type SelectionMode = "manual" | "fsrs";
-
 export default function QuestionSelector({
   questions,
   selectedQuestions,
-  onToggleQuestion,
-  onSelectAll,
-  onDeselectAll,
   onSetQuestions,
   onStartTest,
   currentGrade,
@@ -60,26 +49,12 @@ export default function QuestionSelector({
   testMode,
   onTestModeChange,
 }: QuestionSelectorProps) {
-  const [mode, setMode] = useState<SelectionMode>("fsrs");
   const [excludedQuestions, setExcludedQuestions] = useState<Set<number>>(
     new Set()
   );
   const [selectedGroup, setSelectedGroup] = useState<number | null>(null);
 
   useEffect(() => {
-    if (window.innerWidth < 640) {
-      setMode("fsrs");
-    } else {
-      const savedMode = localStorage.getItem(
-        STORAGE_KEY_SELECTION_MODE
-      ) as SelectionMode;
-      if (savedMode === "fsrs" || savedMode === "manual") {
-        setMode(savedMode);
-      } else {
-        localStorage.setItem(STORAGE_KEY_SELECTION_MODE, "fsrs");
-      }
-    }
-
     const excluded = getExcludedQuestions(currentGrade);
     setExcludedQuestions(excluded);
   }, [currentGrade]);
@@ -92,32 +67,19 @@ export default function QuestionSelector({
     onSetQuestions(getRecommendedQuestions(ids, currentGrade, FSRS_OPTIONS));
   };
 
-  const handleModeChange = (newMode: SelectionMode) => {
-    setMode(newMode);
-    localStorage.setItem(STORAGE_KEY_SELECTION_MODE, newMode);
-  };
-
   const handleToggleExclude = (questionId: number) => {
     toggleExcludedQuestion(questionId, currentGrade);
     const excluded = getExcludedQuestions(currentGrade);
     setExcludedQuestions(excluded);
 
-    if (excluded.has(questionId) && selectedQuestions.has(questionId)) {
-      onToggleQuestion(questionId);
-    }
-
-    if (mode === "fsrs") {
-      refreshFsrsSelection(excluded);
-    }
+    refreshFsrsSelection(excluded);
   };
 
   const handleRecordReview = (questionId: number, isCorrect: boolean) => {
     const rating = isCorrect ? Rating.Good : Rating.Again;
     recordReview(questionId, currentGrade, rating, isCorrect);
 
-    if (mode === "fsrs") {
-      refreshFsrsSelection(getExcludedQuestions(currentGrade));
-    }
+    refreshFsrsSelection(getExcludedQuestions(currentGrade));
   };
 
   useEffect(() => {
@@ -125,7 +87,7 @@ export default function QuestionSelector({
   }, [currentGrade]);
 
   useEffect(() => {
-    if (mode === "fsrs" && questions.length > 0) {
+    if (questions.length > 0) {
       const excluded = getExcludedQuestions(currentGrade);
       const ids = questions
         .filter((q) => !excluded.has(q.id))
@@ -133,7 +95,7 @@ export default function QuestionSelector({
         .map((q) => q.id);
       onSetQuestions(getRecommendedQuestions(ids, currentGrade, FSRS_OPTIONS));
     }
-  }, [currentGrade, mode, questions, selectedGroup, onSetQuestions]);
+  }, [currentGrade, questions, selectedGroup, onSetQuestions]);
 
   const selectedArray = Array.from(selectedQuestions);
   const actualSelectedCount = selectedArray.filter(
@@ -148,27 +110,6 @@ export default function QuestionSelector({
     selectedGroup === null
       ? questions
       : questions.filter((q) => q.group === selectedGroup);
-
-  const isGroupFullySelected = (groupNumber: number) => {
-    const groupIds = questions
-      .filter((q) => q.group === groupNumber)
-      .map((q) => q.id);
-    return groupIds.every((id) => selectedQuestions.has(id));
-  };
-
-  const toggleGroup = (groupNumber: number) => {
-    const groupIds = questions
-      .filter((q) => q.group === groupNumber)
-      .map((q) => q.id);
-    const isFullySelected = isGroupFullySelected(groupNumber);
-    for (const id of groupIds) {
-      if (isFullySelected && selectedQuestions.has(id)) {
-        onToggleQuestion(id);
-      } else if (!isFullySelected && !selectedQuestions.has(id)) {
-        onToggleQuestion(id);
-      }
-    }
-  };
 
   return (
     <div className="max-w-6xl mx-auto px-3 py-4 sm:px-4 sm:py-8">
@@ -186,35 +127,6 @@ export default function QuestionSelector({
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-            {/* 選択モード toggle — desktop only; mobile always uses FSRS */}
-            <div className="hidden sm:flex items-center gap-2">
-              <label className="text-sm font-medium text-gray-700">
-                選択モード:
-              </label>
-              <div className="flex bg-gray-100 rounded-lg p-1">
-                <button
-                  onClick={() => handleModeChange("manual")}
-                  className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                    mode === "manual"
-                      ? "bg-white text-blue-600 shadow-sm"
-                      : "text-gray-600 hover:text-gray-800"
-                  }`}
-                >
-                  手動選択
-                </button>
-                <button
-                  onClick={() => handleModeChange("fsrs")}
-                  className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                    mode === "fsrs"
-                      ? "bg-white text-purple-600 shadow-sm"
-                      : "text-gray-600 hover:text-gray-800"
-                  }`}
-                >
-                  FSRS自動
-                </button>
-              </div>
-            </div>
-
             {/* Grade Select */}
             <div className="flex items-center gap-2">
               <label
@@ -264,35 +176,8 @@ export default function QuestionSelector({
           </div>
         </div>
 
-        {/* Mode Description — hidden on mobile */}
-        {mode === "fsrs" && (
-          <div className="hidden sm:block mb-4 p-3 bg-purple-50 border border-purple-200 rounded-lg">
-            <p className="text-sm text-purple-800">
-              <span className="font-semibold">FSRSモード:</span>{" "}
-              復習が必要な問題と新規問題を自動的に選択します。問題は学習状況に基づいて最適化されています。
-            </p>
-          </div>
-        )}
-
         {/* Action bar: select controls + test format + start */}
         <div className="flex flex-wrap items-center gap-3 mb-6">
-          <button
-            onClick={onSelectAll}
-            disabled={mode === "fsrs"}
-            className="hidden sm:flex items-center gap-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
-          >
-            <CheckIcon className="w-4 h-4" />
-            すべて選択
-          </button>
-          <button
-            onClick={onDeselectAll}
-            disabled={mode === "fsrs"}
-            className="hidden sm:flex items-center gap-1 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm"
-          >
-            <XMarkIcon className="w-4 h-4" />
-            すべて解除
-          </button>
-
           {/* テスト形式 toggle — desktop only; mobile always uses flashcard */}
           <div className="hidden sm:flex items-center gap-2">
             <label className="text-sm font-medium text-gray-700">
@@ -349,33 +234,10 @@ export default function QuestionSelector({
                   key={groupNumber}
                   className="border border-gray-200 rounded-lg p-3 sm:p-4"
                 >
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="mb-3">
                     <h2 className="text-xl font-semibold text-gray-700">
                       グループ {groupNumber}
                     </h2>
-                    <button
-                      onClick={() => toggleGroup(groupNumber)}
-                      disabled={mode === "fsrs"}
-                      className={`flex items-center gap-1 px-3 py-1 rounded-md text-sm transition-colors ${
-                        mode === "fsrs"
-                          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                          : isGroupFullySelected(groupNumber)
-                            ? "bg-red-500 text-white hover:bg-red-600"
-                            : "bg-blue-500 text-white hover:bg-blue-600"
-                      }`}
-                    >
-                      {isGroupFullySelected(groupNumber) ? (
-                        <>
-                          <XMarkIcon className="w-4 h-4" />
-                          解除
-                        </>
-                      ) : (
-                        <>
-                          <CheckIcon className="w-4 h-4" />
-                          選択
-                        </>
-                      )}
-                    </button>
                   </div>
 
                   <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
@@ -387,13 +249,9 @@ export default function QuestionSelector({
                           className={`px-3 py-2 sm:p-3 rounded-md border-2 ${
                             isExcluded
                               ? "bg-red-50 border-red-300 opacity-60"
-                              : mode === "fsrs"
-                                ? selectedQuestions.has(q.id)
-                                  ? "bg-purple-50 border-purple-400"
-                                  : "bg-gray-50 border-gray-200 opacity-50"
-                                : selectedQuestions.has(q.id)
-                                  ? "bg-blue-50 border-blue-500"
-                                  : "bg-gray-50 border-gray-200"
+                              : selectedQuestions.has(q.id)
+                                ? "bg-purple-50 border-purple-400"
+                                : "bg-gray-50 border-gray-200 opacity-50"
                           }`}
                         >
                           <div className="flex items-start gap-2">
@@ -406,22 +264,14 @@ export default function QuestionSelector({
                             >
                               {q.id}.
                             </span>
-                            <button
-                              onClick={() =>
-                                mode === "manual" &&
-                                !isExcluded &&
-                                onToggleQuestion(q.id)
-                              }
-                              disabled={mode === "fsrs" || isExcluded}
-                              className="flex-1 text-left"
-                            >
+                            <div className="flex-1 text-left">
                               <div className="text-lg font-bold text-gray-800 mb-1">
                                 {q.answer}
                               </div>
                               <div className="hidden sm:block text-sm text-gray-600">
                                 {q.question}
                               </div>
-                            </button>
+                            </div>
                             <div className="hidden sm:flex items-center gap-1">
                               <button
                                 type="button"
